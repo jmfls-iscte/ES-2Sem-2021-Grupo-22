@@ -38,4 +38,9 @@ public class Rule {
 		{
 			return rule_info;
 		}
+		
+		public String getName()
+		{
+			return name;
+		}
 }
