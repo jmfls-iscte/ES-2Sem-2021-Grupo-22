@@ -33,4 +33,9 @@ public class Rule {
 			return tipo;
 			
 		}
+		
+		public ArrayList<RuleObject> getRegra()
+		{
+			return rule_info;
+		}
 }
