@@ -6,7 +6,7 @@ public class RuleObject {
 	
 	public RuleObject(String info, String label){ 
 		this.info = info;
-		this.label = label; 
+		this.label = label;
 	}
 	
 	public String get_info() {

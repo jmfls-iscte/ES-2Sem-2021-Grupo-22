@@ -34,6 +34,7 @@ public class Rule {
 	}
 				
 	//Assumimos em discussão de grupo prévia que a única coisa editável são os limites (thresholds) 
+	
 	public void editThreshold(RuleObject new_info, RuleObject old_info) {
 		
 		//recebe da GUI o novo limite e o limite antigo (ou seja, gera dois objectos: 
