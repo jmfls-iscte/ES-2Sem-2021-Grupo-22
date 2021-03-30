@@ -7,12 +7,12 @@ public class Rule {
 	//os thresholds têm que ser passados de string para ints
 	
 		private String name;
-		private String tipo;
+		private String type;
 		private ArrayList<RuleObject> rule_info = new ArrayList<RuleObject>();
 		
 		public Rule(String name, String tipo) { //Rules é criada na GUI antes de ser pedida informação ao user, vai sendo adicionada por partes
 			this.name = name;
-			this.tipo = tipo;
+			this.type = tipo;
 			this.rule_info = new ArrayList<RuleObject>();
 		} 
 		
@@ -28,13 +28,13 @@ public class Rule {
 		}
 		
 		
-		public String getTipo()
+		public String getType()
 		{
-			return tipo;
+			return type;
 			
 		}
 		
-		public ArrayList<RuleObject> getRegra()
+		public ArrayList<RuleObject> getRule()
 		{
 			return rule_info;
 		}
