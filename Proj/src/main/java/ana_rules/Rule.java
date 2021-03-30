@@ -15,13 +15,8 @@ public class Rule {
 	//quando o código recebe a action para criar uma regra nova, faz-se no 
 	//codigo respectivo "Rule rule = new Rule(Arraylist RuleObject)". 
 	
-	public Rule(ArrayList<RuleObject> new_rule) {	
+	public Rule(String name, String type, ArrayList<RuleObject> new_rule) {	
 		for (int x = 0; x < new_rule.size(); x++) {
-			if (x == 0)
-				this.name = new_rule.get(x).get_info();
-			if (x == 1)
-				this.type = new_rule.get(x).get_info();
-			
 			if (new_rule.get(x).get_label().equals("thresholds")) {
 				try { 
 					int i = Integer.parseInt(new_rule.get(x).get_info()); //confirma se o limite colocado é um inteiro
@@ -36,17 +31,7 @@ public class Rule {
 	//Assumimos em discussão de grupo prévia que a única coisa editável são os limites (thresholds) 
 	
 	public void editThreshold(RuleObject new_info, RuleObject old_info) {
-=======
-		private String name;
-		private String type;
-		private ArrayList<RuleObject> rule_info = new ArrayList<RuleObject>();
-		
-		public Rule(String name, String tipo) { //Rules é criada na GUI antes de ser pedida informação ao user, vai sendo adicionada por partes
-			this.name = name;
-			this.type = tipo;
-			this.rule_info = new ArrayList<RuleObject>();
-		} 
-		
+
 		//recebe da GUI o novo limite e o limite antigo (ou seja, gera dois objectos: 
 		//1 com a info antiga (que o utilizador tem que ter acesso) e 1 com a informacao nova que o utilizador dá)
 		
@@ -81,9 +66,6 @@ public class Rule {
 			return rule_info;
 		}
 		
-		public String getName()
-		{
-			return name;
-		}
+
 }
 //verificar se a regra nao existe -> guardar regra
