@@ -1,13 +1,25 @@
 package ana_rules;
 
 public class RuleObject {
-
-	String info;
-	String label;
+	public String info;
+	public String label; //Tipos de labels: name, metric, comparator, threshold, logic_operator 
 	
-	public RuleObject(String info, String label){ //id criado na interface comum a todos os objectos
+	//criar enumerado com os tipos de label na interface, para ser acessivel a todas as classes e 
+	//nao existir repetiçao de codigo
+	
+	
+	public RuleObject(String info, String label){ 
 		this.info = info;
 		this.label = label; 
 	}
+	
+	public String get_info() {
+		return info;
+	}
+	
+	public String get_label() {
+		return label;
+	}
 }
+
 
