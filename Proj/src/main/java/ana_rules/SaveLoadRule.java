@@ -37,15 +37,15 @@ public class SaveLoadRule {
 			
 
 			for (Rule r : rules) {
-				String rule_info_String = RuleToString(r.getRegra());
+				String rule_info_String = RuleToString(r.getRule());
 				
-				if (r.getTipo().equals("Class")) 
+				if (r.getType().equals("Class")) 
 				{
-					fileRulesClass.append(r.getName()+":"+r.getTipo()+":"+rule_info_String);
+					fileRulesClass.append(r.getName()+":"+r.getType()+":"+rule_info_String);
 					fileRulesClass.append("\n");
 					System.out.println("Escriton\n");
-				} else if (r.getTipo().equals("Method")) {
-					fileMethodClass.write(r.getName()+":"+r.getTipo()+":"+rule_info_String);
+				} else if (r.getType().equals("Method")) {
+					fileMethodClass.write(r.getName()+":"+r.getType()+":"+rule_info_String);
 					fileMethodClass.write("\n");
 					System.out.println("Escrito\n");
 				} else 
