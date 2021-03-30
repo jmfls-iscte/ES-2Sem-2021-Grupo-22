@@ -58,6 +58,4 @@ public class Rule {
 		return this.rule_info;
 	}
 }
-
-
 //verificar se a regra nao existe -> guardar regra
