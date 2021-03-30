@@ -36,6 +36,16 @@ public class Rule {
 	//Assumimos em discussão de grupo prévia que a única coisa editável são os limites (thresholds) 
 	
 	public void editThreshold(RuleObject new_info, RuleObject old_info) {
+=======
+		private String name;
+		private String type;
+		private ArrayList<RuleObject> rule_info = new ArrayList<RuleObject>();
+		
+		public Rule(String name, String tipo) { //Rules é criada na GUI antes de ser pedida informação ao user, vai sendo adicionada por partes
+			this.name = name;
+			this.type = tipo;
+			this.rule_info = new ArrayList<RuleObject>();
+		} 
 		
 		//recebe da GUI o novo limite e o limite antigo (ou seja, gera dois objectos: 
 		//1 com a info antiga (que o utilizador tem que ter acesso) e 1 com a informacao nova que o utilizador dá)
@@ -57,5 +67,23 @@ public class Rule {
 	public ArrayList<RuleObject> getInfo() {
 		return this.rule_info;
 	}
+
+		
+		
+		public String getType()
+		{
+			return type;
+			
+		}
+		
+		public ArrayList<RuleObject> getRule()
+		{
+			return rule_info;
+		}
+		
+		public String getName()
+		{
+			return name;
+		}
 }
 //verificar se a regra nao existe -> guardar regra
