@@ -41,11 +41,11 @@ public class SaveLoadRule {
 				
 				if (r.getType().equals("Class")) 
 				{
-					fileRulesClass.append(r.getName()+":"+r.getType()+":"+rule_info_String);
+					fileRulesClass.append(r.getName()+";"+r.getType()+rule_info_String);
 					fileRulesClass.append("\n");
-					System.out.println("Escriton\n");
+					System.out.println("Escrito\n");
 				} else if (r.getType().equals("Method")) {
-					fileMethodClass.write(r.getName()+":"+r.getType()+":"+rule_info_String);
+					fileMethodClass.write(r.getName()+";"+r.getType()+rule_info_String);
 					fileMethodClass.write("\n");
 					System.out.println("Escrito\n");
 				} else 
@@ -68,8 +68,15 @@ public class SaveLoadRule {
 	
 	public String RuleToString(ArrayList<RuleObject> rule_info)
 	{
+		String aux ="";
+		String rule_info_String=null;
 		
-		return "tentativa";
+		for(RuleObject ro : rule_info)
+		{
+			rule_info_String = aux.concat(";").concat(ro.get_label()).concat(":").concat(ro.get_info());
+			aux = rule_info_String;
+		}
+		return rule_info_String;
 		
 	}
 
