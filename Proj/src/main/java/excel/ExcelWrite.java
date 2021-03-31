@@ -1,6 +1,10 @@
-package com.poortoys.examples;
+package excel;
 
 import java.io.File;
+import com.poortoys.examples.*;
+import com.poortoys.examples.Class;
+import com.poortoys.examples.Package;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
