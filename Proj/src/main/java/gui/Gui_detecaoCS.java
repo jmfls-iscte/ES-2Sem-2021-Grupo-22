@@ -1,13 +1,12 @@
-package com.poortoys.examples;
+package gui;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.SWT;
 
-public class Gui_DadosImportantes {
+public class Gui_detecaoCS {
 
 	protected Shell shell;
 
@@ -17,7 +16,7 @@ public class Gui_DadosImportantes {
 	 */
 	public static void main(String[] args) {
 		try {
-			Gui_DadosImportantes window = new Gui_DadosImportantes();
+			Gui_detecaoCS window = new Gui_detecaoCS();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,9 +47,9 @@ public class Gui_DadosImportantes {
 		shell.setText("SWT Application");
 		shell.setLayout(new GridLayout(1, false));
 		
-		Label DadosImportantes_lbl = new Label(shell, SWT.NONE);
-		DadosImportantes_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		DadosImportantes_lbl.setText("Dados Importantes");
+		Label lblDeteoDeCode = new Label(shell, SWT.NONE);
+		lblDeteoDeCode.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		lblDeteoDeCode.setText("Dete\u00E7ao de Code Smells");
 
 	}
 

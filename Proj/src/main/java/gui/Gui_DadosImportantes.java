@@ -1,13 +1,12 @@
-package com.poortoys.examples;
+package gui;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
-import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 
-public class Gui_qualidadeCS {
+public class Gui_DadosImportantes {
 
 	protected Shell shell;
 
@@ -17,7 +16,7 @@ public class Gui_qualidadeCS {
 	 */
 	public static void main(String[] args) {
 		try {
-			Gui_qualidadeCS window = new Gui_qualidadeCS();
+			Gui_DadosImportantes window = new Gui_DadosImportantes();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,9 +47,9 @@ public class Gui_qualidadeCS {
 		shell.setText("SWT Application");
 		shell.setLayout(new GridLayout(1, false));
 		
-		Label QualidadeDeCode_lbl = new Label(shell, SWT.NONE);
-		QualidadeDeCode_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		QualidadeDeCode_lbl.setText("Qualidade de Code Smells");
+		Label DadosImportantes_lbl = new Label(shell, SWT.NONE);
+		DadosImportantes_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		DadosImportantes_lbl.setText("Dados Importantes");
 
 	}
 

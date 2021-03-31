@@ -1,4 +1,4 @@
-package com.poortoys.examples;
+package metrics;
 
 import java.util.ArrayList;
 import java.util.HashMap;

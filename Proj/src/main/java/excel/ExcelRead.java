@@ -1,9 +1,11 @@
 package excel;
 
 import java.io.File;
-import com.poortoys.examples.*;
-import com.poortoys.examples.Class;
-import com.poortoys.examples.Package;
+import metrics.*;
+
+import metrics.Class;
+import metrics.Method;
+import metrics.Package;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

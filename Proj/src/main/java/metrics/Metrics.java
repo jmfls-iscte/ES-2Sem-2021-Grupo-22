@@ -1,4 +1,4 @@
-package com.poortoys.examples;
+package metrics;
 //
 public class Metrics {
 

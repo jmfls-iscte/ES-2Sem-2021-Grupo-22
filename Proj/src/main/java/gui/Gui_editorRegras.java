@@ -1,13 +1,12 @@
-package com.poortoys.examples;
+package gui;
 
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
-import org.eclipse.wb.swt.SWTResourceManager;
 
-public class Gui_ExtracaoMetricas {
+public class Gui_editorRegras {
 
 	protected Shell shell;
 
@@ -17,7 +16,7 @@ public class Gui_ExtracaoMetricas {
 	 */
 	public static void main(String[] args) {
 		try {
-			Gui_ExtracaoMetricas window = new Gui_ExtracaoMetricas();
+			Gui_editorRegras window = new Gui_editorRegras();
 			window.open();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,9 +47,9 @@ public class Gui_ExtracaoMetricas {
 		shell.setText("SWT Application");
 		shell.setLayout(new GridLayout(1, false));
 		
-		Label ExtraoDeMetricas_lbl = new Label(shell, SWT.NONE);
-		ExtraoDeMetricas_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		ExtraoDeMetricas_lbl.setText("Extra\u00E7\u00E3o de Metricas");
+		Label EditorDeRegras_lbl = new Label(shell, SWT.NONE);
+		EditorDeRegras_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		EditorDeRegras_lbl.setText("Editor de Regras");
 
 	}
 
