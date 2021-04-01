@@ -49,7 +49,7 @@ public class Gui_DadosImportantes {
 		
 		Label DadosImportantes_lbl = new Label(shell, SWT.NONE);
 		DadosImportantes_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		DadosImportantes_lbl.setText("Dados Importantes");
+		DadosImportantes_lbl.setText("Dados Importados");
 
 	}
 

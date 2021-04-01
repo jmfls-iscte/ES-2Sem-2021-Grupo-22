@@ -9,6 +9,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class MainGui {
 
@@ -79,10 +81,15 @@ public class MainGui {
 		new Label(shell, SWT.NONE);
 		
 		Button dadosI_btn = new Button(shell, SWT.NONE);
+		dadosI_btn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+			}
+		});
 		
 		dadosI_btn.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		dadosI_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		dadosI_btn.setText("Dados Importantes");
+		dadosI_btn.setText("Dados Importados");
 		new Label(shell, SWT.NONE);
 		
 		Button DeteoDeCode_btn = new Button(shell, SWT.NONE);
