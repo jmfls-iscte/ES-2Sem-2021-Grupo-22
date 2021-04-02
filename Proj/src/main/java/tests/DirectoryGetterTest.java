@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import metrics.DirectoryGetter;
 
-
 class DirectoryGetterTest {
 
 	static String teste ;

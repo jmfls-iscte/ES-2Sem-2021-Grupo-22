@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import metrics.Method;
 
 class MethodTest {
-
 	static Method m1;
 	static Method m2;
 	
