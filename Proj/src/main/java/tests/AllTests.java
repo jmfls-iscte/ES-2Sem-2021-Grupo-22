@@ -8,3 +8,5 @@ import org.junit.platform.suite.api.SelectClasses;
 @SelectClasses({PackageTest.class, RuleObjectTest.class, RuleTest.class, MethodTest.class, ClassTest.class})
 public class AllTests {
 }
+
+

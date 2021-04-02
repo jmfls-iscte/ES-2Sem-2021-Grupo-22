@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import metrics.Method;
 import metrics.Class;
 
+
 class ClassTest {
 		static Class c1;
 		static Class c2;

@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import metrics.Package;
 import metrics.Class;
 
-
 class PackageTest {
 	
 	static Package pg1;
