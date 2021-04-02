@@ -22,7 +22,7 @@ public class SaveLoadRule {
 
 	
 	
-	
+
 	/*
 	 * Regras no ficheiro serão guardadas com o segunte layout
 	 * Nome:Tipo:Atributi1:Atributo2:....
@@ -37,7 +37,7 @@ public class SaveLoadRule {
 			
 
 			for (Rule r : rules) {
-				String rule_info_String = RuleToString(r.getRule());
+				String rule_info_String = RuleToString(r.getInfo());
 				
 				if (r.getType().equals("Class")) 
 				{
@@ -73,7 +73,7 @@ public class SaveLoadRule {
 		
 		for(RuleObject ro : rule_info)
 		{
-			rule_info_String = aux.concat(";").concat(ro.get_label()).concat(":").concat(ro.get_info());
+			rule_info_String = aux.concat(";").concat(ro.getLabel()).concat(":").concat(ro.getInfo());
 			aux = rule_info_String;
 		}
 		return rule_info_String;
