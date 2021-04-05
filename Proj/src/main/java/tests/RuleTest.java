@@ -16,6 +16,8 @@ class RuleTest {
 	
 	static Rule r1;
 	static Rule r2; //testa o threshold com erros 
+	static Rule r3; //testa o threshold sem erros 
+
 
 	static ArrayList<RuleObject> rule_info = new ArrayList<>();
 	static ArrayList<RuleObject> rule_info_2 = new ArrayList<>();
@@ -45,6 +47,10 @@ class RuleTest {
 		rule_info_2.add(threshold3);
 		
 		logic_operator = new RuleObject("and", "logic_operator");
+		
+		
+		//set r3
+		
 	}
 	
 	@Test
@@ -56,13 +62,13 @@ class RuleTest {
 	
 	@Test
 	void exceptionTestingFail() {	
-	    Throwable exception = assertThrows(NumberFormatException.class, () -> r2 = new Rule("name_test_2", "type_test_2", rule_info_2));
-	    assertEquals("O limite inserido não é um número", exception.getMessage());
+	    assertThrows(NumberFormatException.class, () -> r2 = new Rule("name_test_2", "type_test_2", rule_info_2));
 	}
 	
 	@Test
 	void exceptionTestingPass() {	
-		//quando nao lança excepcao 
+		r3 = new Rule("name_test_3", "type_test_3", rule_info);
+		assertNotNull(r3);
 	}
 
 	@Test
