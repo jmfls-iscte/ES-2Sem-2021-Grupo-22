@@ -269,6 +269,7 @@ public class Gui_editorRegras {
 		CriarArrayIinicial_btn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
+				//verificar se existem espaços em branco necessários para criar o array de rule objects inicial
 				if (metrica_cmb.getText().isBlank() || comparador_cmb.getText().isBlank()
 						|| Limite_txt.getText().isBlank()) {
 					
@@ -285,12 +286,12 @@ public class Gui_editorRegras {
 				ruleObjects.add(ruleObject2);
 				
 				
-				System.out.println("Array Criado");
 				}
 			}
 		});
 		
 		// Adicionar metricas ao array de metricas criado
+		// Ter a capacidade de adicionar metricas com AND e OR no comparador lógico
 		AdicionarMetricas_btn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
@@ -323,8 +324,8 @@ public class Gui_editorRegras {
 				Rule rule = new Rule(regraName_txt.getText(),metricaType_cmb.getText(),ruleObjects);
 				System.out.println("Regra Criada");
 				System.out.println(ruleObjects);
-				rules.add(rule);
-				ruleObjects.clear();
+				rules.add(rule); // adiciona a regra a um array de regras
+				ruleObjects.clear(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
 				}
 				else {
 					throw new IllegalArgumentException("Array de RuleObjects vazio");

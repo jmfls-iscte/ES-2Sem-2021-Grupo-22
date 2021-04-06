@@ -43,8 +43,8 @@ public class Gui_DadosImportantes {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(450, 300);
-		shell.setText("SWT Application");
+		shell.setSize(935, 553);
+		shell.setText("Dados Importados");
 		shell.setLayout(new GridLayout(1, false));
 		
 		Label DadosImportantes_lbl = new Label(shell, SWT.NONE);
