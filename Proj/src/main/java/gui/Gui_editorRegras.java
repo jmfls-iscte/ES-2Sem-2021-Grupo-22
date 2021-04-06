@@ -31,6 +31,7 @@ public class Gui_editorRegras {
 	private Text regraName_txt;
 	
 	public ArrayList<RuleObject> ruleObjects = new ArrayList<RuleObject>();
+	public ArrayList<Rule> rules = new ArrayList<Rule>();
 
 	/**
 	 * Launch the application.
@@ -273,7 +274,7 @@ public class Gui_editorRegras {
 					
 					throw new IllegalArgumentException("Espaços em branco");
 				}
-				else {
+				else {	
 				RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "metric");
 				ruleObjects.add(ruleObject);
 				
@@ -322,6 +323,8 @@ public class Gui_editorRegras {
 				Rule rule = new Rule(regraName_txt.getText(),metricaType_cmb.getText(),ruleObjects);
 				System.out.println("Regra Criada");
 				System.out.println(ruleObjects);
+				rules.add(rule);
+				ruleObjects.clear();
 				}
 				else {
 					throw new IllegalArgumentException("Array de RuleObjects vazio");
