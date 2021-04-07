@@ -1,6 +1,5 @@
 package metrics;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +12,8 @@ public class Class {
 	private int LOC_class;
 	private int WMC_class;
 	HashMap<String, Boolean> code_Smells;
+	private int begin;
+	private int end;
 	
 	
 	public Class()
@@ -108,7 +109,26 @@ public class Class {
 		}
 		return false;
 	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
+	public int getBegin() {
+		return begin;
+	}
+
+	public void setBegin(int begin) {
+		this.begin = begin;
+	}
 	
+	public ArrayList<Method> getMethods() {
+		return arrayMethods;
+	}
 
 	
 	

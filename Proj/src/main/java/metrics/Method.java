@@ -5,12 +5,12 @@ import java.util.HashMap;
 
 public class Method {
 	
-	
-	
 	private String name;
 	private HashMap<String, Boolean> code_Smells;
 	private int LOC_method;
 	private int CYCLO_method;
+	private int begin;
+	private int end;
 	
 	
 	public Method() {
@@ -59,6 +59,22 @@ public class Method {
 
 	public void setCYCLO_method(int CYCLO_method) {
 		this.CYCLO_method = CYCLO_method;
+	}
+
+	public int getBegin() {
+		return begin;
+	}
+
+	public void setBegin(int begin) {
+		this.begin = begin;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
 	}
 
 }
