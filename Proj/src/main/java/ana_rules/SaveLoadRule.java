@@ -18,30 +18,27 @@ public class SaveLoadRule {
 	private String pathFile ;
 	
 	
-	public static void main(String[] args) {
-		try {
-			SaveLoadRule SLR = new SaveLoadRule();
-			ArrayList<Rule> rules3 = SLR.LoadRules();
-			
-			System.out.println("So para ler");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	
 
 	public SaveLoadRule() throws IOException {
 		rules = new ArrayList<Rule>();
-		pathFile = "C:\\Users\\Tiago\\Desktop\\ES_PROJECT\\RuleClass.txt";
+		pathFile = "RuleClass.txt";
 		
+	}
+	public SaveLoadRule(String path) {
+		this.rules = rules;
+		pathFile = path;
 	}
 
 	public SaveLoadRule(ArrayList<Rule> rules) {
 		this.rules = rules;
-		pathFile = "C:\\Users\\Tiago\\Desktop\\ES_PROJECT\\RuleClass.txt";
+		pathFile = "RuleClass.txt";
 	}
+	
+	public SaveLoadRule(String path , ArrayList<Rule> rules) {
+		this.rules = rules;
+		pathFile = path;
+	}
+	
 
 	
 	
@@ -49,7 +46,7 @@ public class SaveLoadRule {
 	/*
 	 * Regras no ficheiro serão guardadas com o segunte layout
 	 * Nome:Tipo:Atributi1:Atributo2:....
-	 * EX: GodClass:Class:WMC_Class:>:50:OR:NOM_Class:>:10
+	 * EX: GodClass;Class;metric:WMC_Class;comparator:>;threshold:50;...
 	 * 
 	 */
 	public void SaveRules() {
@@ -93,6 +90,20 @@ public class SaveLoadRule {
 	}
 	
 	
+	/*
+	 * Regras no ficheiro serão guardadas com o segunte layout
+	 * Nome:Tipo:Atributi1:Atributo2:....
+	 * EX: GodClass;Class;metric:WMC_Class;comparator:>;threshold:50;...
+	 * 
+	 * 
+	 * São lidas linha a linha e depois faz-se o split para ir buscar passo a passo o que se quer
+	 * Constroi-se o array a medida que se vai lendo e fazendo o split
+	 * Primeiro split por ";"
+	 *    - Com isto temos o nome, o tipo e as partes da regra
+	 *    - Para cada parte da regra faz-se o split por ":"
+	 * 
+	 */
+	
 	public ArrayList<Rule> LoadRules() {
 		ArrayList<Rule> rules2 = new ArrayList<Rule>();
 		
@@ -128,6 +139,7 @@ public class SaveLoadRule {
 		}
 		
 		return rules2;
+	
 		
 	}
 	
