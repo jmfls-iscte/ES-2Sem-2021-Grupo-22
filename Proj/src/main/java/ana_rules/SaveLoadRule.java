@@ -21,14 +21,24 @@ public class SaveLoadRule {
 
 	public SaveLoadRule() throws IOException {
 		rules = new ArrayList<Rule>();
-		pathFile = "C:\\Users\\Tiago\\Desktop\\ES_PROJECT\\RuleClass.txt";
+		pathFile = "RuleClass.txt";
 		
+	}
+	public SaveLoadRule(String path) {
+		this.rules = rules;
+		pathFile = path;
 	}
 
 	public SaveLoadRule(ArrayList<Rule> rules) {
 		this.rules = rules;
-		pathFile = "C:\\Users\\Tiago\\Desktop\\ES_PROJECT\\RuleClass.txt";
+		pathFile = "RuleClass.txt";
 	}
+	
+	public SaveLoadRule(String path , ArrayList<Rule> rules) {
+		this.rules = rules;
+		pathFile = path;
+	}
+	
 
 	
 	
