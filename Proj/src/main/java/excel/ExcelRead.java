@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import ana_rules.*;
 
 public class ExcelRead {
 
@@ -31,9 +32,8 @@ public class ExcelRead {
 	private Package currentPackage;
 	private Class currentClass;
 	private Method currentMethod;
-
-	private ArrayList<String> codeSmells_Class;
-	private ArrayList<String> codeSmells_Method;
+	
+	private ArrayList<Rule> rules;
 
 	private int currentCellInt;
 
@@ -44,23 +44,22 @@ public class ExcelRead {
 		currentCellInt = 0;
 		cells = new ArrayList<String>();
 		packages = new ArrayList<Package>();
+		rules = new ArrayList<Rule>();
 
-		codeSmells_Class = new Class().get_name_code_Smells();
-		codeSmells_Method = new Method().get_name_code_Smells();
 
 		System.out.println("Insira o caminho do ficheiro: ");
 		path = scanner.nextLine();
 
 	}
 
-	public ExcelRead(String path) {
+	public ExcelRead(String path, ArrayList<Rule> rules) {
 		this.path = path;
 		n_reads = 0;
 		currentCellInt = 0;
 		cells = new ArrayList<String>();
 		packages = new ArrayList<Package>();
-		codeSmells_Class = new Class().get_name_code_Smells();
-		codeSmells_Method = new Method().get_name_code_Smells();
+		this.rules = rules;
+		
 	}
 
 	public void ClearVars() {
@@ -188,8 +187,11 @@ public class ExcelRead {
 				currentClass.addMethod(currentMethod);
 			}
 			break;
-
-		default:
+		case 4:
+		case 5:
+		case 6:
+		case 8:
+		case 9:
 			/*
 			 * verificar em que metrica estou com ajuda do array String metricaAtual =
 			 * cells.get(currentCell);
@@ -200,7 +202,39 @@ public class ExcelRead {
 			String var = cells.get(currentCellInt);
 			ChooseMetric(var, currentCell);
 			break;
+			
+		default:
+			String rule_name = cells.get(currentCellInt);
+			if(VerifyExistsCodeSmell (rule_name))
+			{
+				//Inserir resultado codesmel em algum lado
+				//processing.......
+			}
+			else
+			{
+				//Significa que esse code_smell não existe por isso não faz sentido lê-lo do excel
+			}
+			
+			break;
 		} // Fim switch
+	}
+	
+	
+
+	
+	public boolean VerifyExistsCodeSmell (String name)
+	{
+		
+		/*
+		 * Verifica se existe alguma regra com o nome daquele code_smell
+		 * Se não existir não lê do excel
+		 */
+		for (Rule r : rules)
+		{
+			if (r.getName() == name)
+				return true;
+		}
+		return false;
 	}
 
 }
