@@ -12,6 +12,8 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
+import excel.ExcelRead;
+
 public class Gui_DadosImportantes {
 
 	protected Shell shell;
@@ -91,8 +93,11 @@ public class Gui_DadosImportantes {
 		mostrarDadosImp_btn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
+				//ExcelRead.ExcelRead(excelPath_txt.getText());
+				ExcelRead excel = new ExcelRead(excelPath_txt.getText());
+				excel.ReadFile();
+				
 			}
-			
 		});
 
 	}
