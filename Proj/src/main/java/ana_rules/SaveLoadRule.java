@@ -152,7 +152,7 @@ public class SaveLoadRule {
 		
 		for(RuleObject ro : rule_info)
 		{
-			rule_info_String = aux.concat(";").concat(ro.getLabel()).concat(":").concat(ro.getInfo());
+			rule_info_String = aux.concat(";").concat(ro.getLabel().toString()).concat(":").concat(ro.getInfo());
 			aux = rule_info_String;
 		}
 		return rule_info_String;
