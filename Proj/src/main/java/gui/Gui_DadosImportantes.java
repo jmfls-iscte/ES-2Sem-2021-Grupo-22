@@ -9,6 +9,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 
 public class Gui_DadosImportantes {
 
@@ -80,9 +82,18 @@ public class Gui_DadosImportantes {
 		new Label(shell, SWT.NONE);
 		
 		Button mostrarDadosImp_btn = new Button(shell, SWT.NONE);
+		
 		mostrarDadosImp_btn.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		mostrarDadosImp_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		mostrarDadosImp_btn.setText("Mostrar Dados Importados");
+		
+		
+		mostrarDadosImp_btn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+			}
+			
+		});
 
 	}
 
