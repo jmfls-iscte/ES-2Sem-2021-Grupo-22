@@ -2,11 +2,12 @@ package metrics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Method {
 	
 	private String name;
-	private HashMap<String, Boolean> code_Smells;
+	private Map<String, Boolean> code_Smells= new HashMap<String, Boolean>();
 	private int LOC_method;
 	private int CYCLO_method;
 	private int begin;
@@ -77,4 +78,7 @@ public class Method {
 		this.end = end;
 	}
 
+	public void addSmell(String smell, boolean value) {
+		code_Smells.put(smell, value);
+	}
 }
