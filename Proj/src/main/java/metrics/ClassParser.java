@@ -11,10 +11,12 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 
 	private CompilationUnit cu;
 	private ArrayList<Class> classes = new ArrayList<Class>();
+	private String p;
 
 	@Override
 	public void visit(ClassOrInterfaceDeclaration n, Void arg) {
 		super.visit(n, arg);
+		this.setP(cu.getPackageDeclaration().get().getNameAsString());
 		VoidVisitor<Void> methodvisitor = new MethodParser();
 		((MethodParser) methodvisitor).setCu(getCu());
 		methodvisitor.visit(cu, null);
@@ -22,8 +24,10 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 		class1.setBegin(n.getBegin().get().line);
 		class1.setEnd(n.getEnd().get().line);
 		class1.setLOC_class(n.getRange().get().getLineCount());
+		class1.setPacage(this.getP());
 		classmethod(class1,(MethodParser)methodvisitor);
 		System.out.println("");
+		System.out.println("Package " + class1.getPacage());
 		System.out.println("LOC_class " + class1.getLOC_class());
 		System.out.println("NOM_class " + class1.getNOM_class());
 		System.out.println("WMC_class " + class1.getWMC_class());
@@ -54,5 +58,13 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 
 	public void setCu(CompilationUnit cu) {
 		this.cu = cu;
+	}
+
+	public String getP() {
+		return p;
+	}
+
+	public void setP(String p) {
+		this.p = p;
 	}
 }

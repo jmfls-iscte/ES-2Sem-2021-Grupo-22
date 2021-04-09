@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Class {
 	
+	private String pacage;
 	private String name;
 	private ArrayList<Method> arrayMethods;
 	private int NOM_class;
@@ -128,6 +129,14 @@ public class Class {
 	
 	public ArrayList<Method> getMethods() {
 		return arrayMethods;
+	}
+
+	public String getPacage() {
+		return pacage;
+	}
+
+	public void setPacage(String pacage) {
+		this.pacage = pacage;
 	}
 
 	
