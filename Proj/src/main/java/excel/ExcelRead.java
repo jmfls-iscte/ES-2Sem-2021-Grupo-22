@@ -18,9 +18,11 @@ import java.util.Scanner;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ana_rules.*;
+import gui.MainGui;
 
 public class ExcelRead {
 
@@ -36,6 +38,17 @@ public class ExcelRead {
 	private ArrayList<Rule> rules;
 
 	private int currentCellInt;
+	
+	
+	
+	
+	public static void main(String[] args) {
+		String path2 = "C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx";
+		ExcelRead er = new ExcelRead(path2);
+		ArrayList<String> c = er.ReadFile();
+		for(String s:c)
+			System.out.println(s);
+	}
 
 	public ExcelRead() {
 		// Scanner vai ser alterado quando GUI enviar path
@@ -61,6 +74,16 @@ public class ExcelRead {
 		this.rules = rules;
 		
 	}
+	
+	public ExcelRead(String path) {
+		this.path = path;
+		n_reads = 0;
+		currentCellInt = 0;
+		cells = new ArrayList<String>();
+		packages = new ArrayList<Package>();
+		this.rules = new ArrayList<Rule>();
+		
+	}
 
 	public void ClearVars() {
 		currentCellInt = 0;
@@ -69,12 +92,12 @@ public class ExcelRead {
 		currentMethod = null;
 	}
 
-	public void ReadFile() {
+	public ArrayList<String> ReadFile() {
 
 		try {
 			FileInputStream excelFile = new FileInputStream(new File(path));
 			Workbook workbook = new XSSFWorkbook(excelFile);
-			org.apache.poi.ss.usermodel.Sheet datatypeSheet = workbook.getSheetAt(0);
+			Sheet datatypeSheet = workbook.getSheetAt(0);
 			Iterator<Row> iterator = datatypeSheet.iterator();
 
 			while (iterator.hasNext()) {
@@ -113,6 +136,7 @@ public class ExcelRead {
 		}
 
 		System.out.print("So para parar");
+		return cells;
 
 	}
 
