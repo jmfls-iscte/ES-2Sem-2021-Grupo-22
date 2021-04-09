@@ -14,30 +14,20 @@ import gui.MainGui;
 
 public class SaveLoadRule {
 
-	private ArrayList<Rule> rules;
+	
 	private String pathFile ;
 	
 	
 
 	public SaveLoadRule() throws IOException {
-		rules = new ArrayList<Rule>();
 		pathFile = "RuleClass.txt";
 		
 	}
 	public SaveLoadRule(String path) {
-		this.rules = rules;
 		pathFile = path;
 	}
 
-	public SaveLoadRule(ArrayList<Rule> rules) {
-		this.rules = rules;
-		pathFile = "RuleClass.txt";
-	}
 	
-	public SaveLoadRule(String path , ArrayList<Rule> rules) {
-		this.rules = rules;
-		pathFile = path;
-	}
 	
 
 	
@@ -49,7 +39,9 @@ public class SaveLoadRule {
 	 * EX: GodClass;Class;metric:WMC_Class;comparator:>;threshold:50;...
 	 * 
 	 */
-	public void SaveRules() {
+	public void SaveRules(ArrayList<Rule> rules) {
+		
+		
 		try {
 			
 			FileWriter fileRules = new FileWriter(pathFile);
@@ -105,7 +97,7 @@ public class SaveLoadRule {
 	 */
 	
 	public ArrayList<Rule> LoadRules() {
-		ArrayList<Rule> rules2 = new ArrayList<Rule>();
+		ArrayList<Rule> rules = new ArrayList<Rule>();
 		
 		try {
 			File fileRules = new File(pathFile);
@@ -129,7 +121,7 @@ public class SaveLoadRule {
 				}
 				
 				Rule rule = new Rule(name, type, rule_info);
-				rules2.add(rule);
+				rules.add(rule);
 				
 			}
 				
@@ -138,9 +130,8 @@ public class SaveLoadRule {
 			e.printStackTrace();
 		}
 		
-		return rules2;
+		return rules;
 	
-		
 	}
 	
 	

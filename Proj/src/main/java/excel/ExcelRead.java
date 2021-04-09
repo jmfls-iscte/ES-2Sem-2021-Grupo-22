@@ -18,8 +18,11 @@ import java.util.Scanner;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import ana_rules.*;
+import gui.MainGui;
 
 public class ExcelRead {
 
@@ -31,11 +34,21 @@ public class ExcelRead {
 	private Package currentPackage;
 	private Class currentClass;
 	private Method currentMethod;
-
-	private ArrayList<String> codeSmells_Class;
-	private ArrayList<String> codeSmells_Method;
+	
+	private ArrayList<Rule> rules;
 
 	private int currentCellInt;
+	
+	
+	
+	
+	public static void main(String[] args) {
+		String path2 = "C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx";
+		ExcelRead er = new ExcelRead(path2);
+		ArrayList<String> c = er.ReadFile();
+		for(String s:c)
+			System.out.println(s);
+	}
 
 	public ExcelRead() {
 		// Scanner vai ser alterado quando GUI enviar path
@@ -44,23 +57,32 @@ public class ExcelRead {
 		currentCellInt = 0;
 		cells = new ArrayList<String>();
 		packages = new ArrayList<Package>();
+		rules = new ArrayList<Rule>();
 
-		codeSmells_Class = new Class().get_name_code_Smells();
-		codeSmells_Method = new Method().get_name_code_Smells();
 
 		System.out.println("Insira o caminho do ficheiro: ");
 		path = scanner.nextLine();
 
 	}
 
+	public ExcelRead(String path, ArrayList<Rule> rules) {
+		this.path = path;
+		n_reads = 0;
+		currentCellInt = 0;
+		cells = new ArrayList<String>();
+		packages = new ArrayList<Package>();
+		this.rules = rules;
+		
+	}
+	
 	public ExcelRead(String path) {
 		this.path = path;
 		n_reads = 0;
 		currentCellInt = 0;
 		cells = new ArrayList<String>();
 		packages = new ArrayList<Package>();
-		codeSmells_Class = new Class().get_name_code_Smells();
-		codeSmells_Method = new Method().get_name_code_Smells();
+		this.rules = new ArrayList<Rule>();
+		
 	}
 
 	public void ClearVars() {
@@ -70,12 +92,12 @@ public class ExcelRead {
 		currentMethod = null;
 	}
 
-	public void ReadFile() {
+	public ArrayList<String> ReadFile() {
 
 		try {
 			FileInputStream excelFile = new FileInputStream(new File(path));
 			Workbook workbook = new XSSFWorkbook(excelFile);
-			org.apache.poi.ss.usermodel.Sheet datatypeSheet = workbook.getSheetAt(0);
+			Sheet datatypeSheet = workbook.getSheetAt(0);
 			Iterator<Row> iterator = datatypeSheet.iterator();
 
 			while (iterator.hasNext()) {
@@ -114,6 +136,7 @@ public class ExcelRead {
 		}
 
 		System.out.print("So para parar");
+		return cells;
 
 	}
 
@@ -188,8 +211,11 @@ public class ExcelRead {
 				currentClass.addMethod(currentMethod);
 			}
 			break;
-
-		default:
+		case 4:
+		case 5:
+		case 6:
+		case 8:
+		case 9:
 			/*
 			 * verificar em que metrica estou com ajuda do array String metricaAtual =
 			 * cells.get(currentCell);
@@ -200,7 +226,39 @@ public class ExcelRead {
 			String var = cells.get(currentCellInt);
 			ChooseMetric(var, currentCell);
 			break;
+			
+		default:
+			String rule_name = cells.get(currentCellInt);
+			if(VerifyExistsCodeSmell (rule_name))
+			{
+				//Inserir resultado codesmel em algum lado
+				//processing.......
+			}
+			else
+			{
+				//Significa que esse code_smell não existe por isso não faz sentido lê-lo do excel
+			}
+			
+			break;
 		} // Fim switch
+	}
+	
+	
+
+	
+	public boolean VerifyExistsCodeSmell (String name)
+	{
+		
+		/*
+		 * Verifica se existe alguma regra com o nome daquele code_smell
+		 * Se não existir não lê do excel
+		 */
+		for (Rule r : rules)
+		{
+			if (r.getName() == name)
+				return true;
+		}
+		return false;
 	}
 
 }
