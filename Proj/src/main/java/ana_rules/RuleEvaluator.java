@@ -42,16 +42,16 @@ public class RuleEvaluator {
 
 	private static boolean auxMethod(List<RuleObject> rules, Method method) {
 		if(rules.size()==3) {
-			int metric=MethodMetric.getMetric(MethodMetric.valueOf(rules.get(0).getInfo()), method);
-			Comparator_Operator operator=Comparator_Operator.valueOf(rules.get(1).getInfo());
-			int threshold=Integer.parseInt(rules.get(2).getInfo());
+			int metric=MethodMetric.getMetric(MethodMetric.valueOf(rules.get(rules.size()-3).getInfo()), method);
+			Comparator_Operator operator=Comparator_Operator.valueOf(rules.get(rules.size()-2).getInfo());
+			int threshold=Integer.parseInt(rules.get(rules.size()-1).getInfo());
 			return Comparator_Operator.compare(metric,operator ,threshold );
 		}else {
-			int metric=MethodMetric.getMetric(MethodMetric.valueOf(rules.get(0).getInfo()), method);
-			Comparator_Operator operator=Comparator_Operator.valueOf(rules.get(1).getInfo());
-			int threshold=Integer.parseInt(rules.get(2).getInfo());
-			List<RuleObject> newRules= rules.subList(4, rules.size());
-			Logical_Operator Loperator=Logical_Operator.valueOf(rules.get(3).getInfo());
+			int metric=MethodMetric.getMetric(MethodMetric.valueOf(rules.get(rules.size()-3).getInfo()), method);
+			Comparator_Operator operator=Comparator_Operator.valueOf(rules.get(rules.size()-2).getInfo());
+			int threshold=Integer.parseInt(rules.get(rules.size()-1).getInfo());
+			List<RuleObject> newRules= rules.subList(0, rules.size()-4);
+			Logical_Operator Loperator=Logical_Operator.valueOf(rules.get(rules.size()-4).getInfo());
 			return Logical_Operator.logicOperation(Comparator_Operator.compare(metric,operator ,threshold), Loperator, auxMethod(newRules, method));
 		}
 	}
