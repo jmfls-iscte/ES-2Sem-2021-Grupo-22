@@ -28,14 +28,13 @@ public class ExcelRead {
 
 	private String path;
 	private Scanner scanner; // Create a Scanner object
-	private int n_reads;
 	private ArrayList<String> cells;
-	private ArrayList<Package> packages;
 	private Package currentPackage;
 	private Class currentClass;
 	private Method currentMethod;
 	
 	private ArrayList<Rule> rules;
+	ArrayList<Package> packages;
 
 	private int currentCellInt;
 	
@@ -45,18 +44,15 @@ public class ExcelRead {
 	public static void main(String[] args) {
 		String path2 = "C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx";
 		ExcelRead er = new ExcelRead(path2);
-		ArrayList<String> c = er.ReadFile();
-		for(String s:c)
-			System.out.println(s);
+		ArrayList<Package> p = er.ReadFile();
+		for(Package pa:p)
+			System.out.println(pa.toString());
 	}
 
 	public ExcelRead() {
 		// Scanner vai ser alterado quando GUI enviar path
 		scanner = new Scanner(System.in);
-		n_reads = 0;
 		currentCellInt = 0;
-		cells = new ArrayList<String>();
-		packages = new ArrayList<Package>();
 		rules = new ArrayList<Rule>();
 
 
@@ -67,20 +63,15 @@ public class ExcelRead {
 
 	public ExcelRead(String path, ArrayList<Rule> rules) {
 		this.path = path;
-		n_reads = 0;
 		currentCellInt = 0;
-		cells = new ArrayList<String>();
-		packages = new ArrayList<Package>();
 		this.rules = rules;
 		
 	}
 	
 	public ExcelRead(String path) {
 		this.path = path;
-		n_reads = 0;
 		currentCellInt = 0;
 		cells = new ArrayList<String>();
-		packages = new ArrayList<Package>();
 		this.rules = new ArrayList<Rule>();
 		
 	}
@@ -92,41 +83,36 @@ public class ExcelRead {
 		currentMethod = null;
 	}
 
-	public ArrayList<String> ReadFile() {
-
+	public ArrayList<Package> ReadFile() {
+		
+		packages = new ArrayList<Package>();
+		
 		try {
 			FileInputStream excelFile = new FileInputStream(new File(path));
 			Workbook workbook = new XSSFWorkbook(excelFile);
 			Sheet datatypeSheet = workbook.getSheetAt(0);
-			Iterator<Row> iterator = datatypeSheet.iterator();
+			Iterator<Row> rowIterator = datatypeSheet.iterator();
+			
+			getCellsTypes(rowIterator);
+			
+			
 
-			while (iterator.hasNext()) {
+			while (rowIterator.hasNext()) {
 
-				Row currentRow = iterator.next();
-				Iterator<Cell> cellIterator = currentRow.iterator();
+				Row currentRow = rowIterator.next();
+				//Iterator<Cell> cellIterator = currentRow.iterator();
+				int cellInterator = 0;
 
 				ClearVars();
 
-				while (cellIterator.hasNext()) {
-
-					Cell currentCell = cellIterator.next();
-					if (n_reads == 0) {
-						/*
-						 * Se n_reads = 0 significa que estou na linha do cabeçalho e extraio os nomes
-						 * das colunas todas (MethodID--package--class--method--NOM_class--LOC_class...)
-						 * E adiciono num array para posteriormente saber qual a métrica onde me
-						 * encontro
-						 */
-						cells.add(currentCell.getStringCellValue());
-					} else {
-						
-						ChooseCell(currentCell);
-						currentCellInt++;
-					} // Fim do else
-					
+				while (cellInterator < cells.size()) {
+					Cell currentCell = currentRow.getCell(cellInterator);	
+					ChooseCell(currentCell);
+					currentCellInt++;
+					cellInterator++;
 				} // Fim do while das celulas
 				
-				n_reads++;
+				
 
 			}//Fim do while das linhas
 		} catch (FileNotFoundException e) {
@@ -136,9 +122,29 @@ public class ExcelRead {
 		}
 
 		System.out.print("So para parar");
-		return cells;
+		
+		return packages;
 
 	}
+	
+	
+	
+	public void getCellsTypes(Iterator<Row> rowIterator)
+	{
+		cells = new ArrayList<String>();
+		Row currentRow = rowIterator.next();
+		Iterator<Cell> cellIterator = currentRow.iterator();
+		
+		while (cellIterator.hasNext()) {
+			Cell currentCell = cellIterator.next();
+			String a = currentCell.getStringCellValue();
+			cells.add(a);
+		}
+			
+		
+	}
+	
+	
 
 	public void ChooseMetric(String var, Cell currentCell) {
 		switch (var) {
@@ -173,6 +179,8 @@ public class ExcelRead {
 	
 	public void ChooseCell(Cell currentCell)
 	{
+		try {
+		
 		switch (currentCellInt) {
 		case 0:
 			// Method id é para ignorar?
@@ -241,6 +249,12 @@ public class ExcelRead {
 			
 			break;
 		} // Fim switch
+		
+		
+		}catch (Exception e) {
+			//System.out.println("Apanha a exception");
+		}
+		
 	}
 	
 	
