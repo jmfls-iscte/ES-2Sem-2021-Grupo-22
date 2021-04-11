@@ -43,21 +43,23 @@ public class ExcelRead {
 	
 	public static void main(String[] args) {
 		String path2 = "C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx";
-		ExcelRead er = new ExcelRead(path2);
+		
+		ArrayList<Rule> rules = new ArrayList<Rule>();
+		rules.add(new Rule("is_God_Class", "Class", new ArrayList<RuleObject>()));
+		rules.add(new Rule("is_Long_Method", "Method", new ArrayList<RuleObject>()));
+		
+		ExcelRead er = new ExcelRead(path2, rules);
 		ArrayList<Package> p = er.ReadFile();
 		for(Package pa:p)
 			System.out.println(pa.toString());
 	}
 
-	public ExcelRead() {
+	public ExcelRead(ArrayList<Rule> rules) {
 		// Scanner vai ser alterado quando GUI enviar path
 		scanner = new Scanner(System.in);
 		currentCellInt = 0;
-		rules = new ArrayList<Rule>();
-		rules.add(new Rule("is_God_Class", "Class", null));
-		rules.add(new Rule("is_Long_Method", "Method", null));
-
-
+		this.rules = rules;
+		
 		System.out.println("Insira o caminho do ficheiro: ");
 		path = scanner.nextLine();
 
@@ -65,21 +67,11 @@ public class ExcelRead {
 
 	public ExcelRead(String path, ArrayList<Rule> rules) {
 		this.path = path;
-		currentCellInt = 0;
 		this.rules = rules;
+		currentCellInt = 0;
 		
 	}
 	
-	public ExcelRead(String path) {
-		this.path = path;
-		currentCellInt = 0;
-		cells = new ArrayList<String>();
-		this.rules = new ArrayList<Rule>();
-		rules.add(new Rule("is_God_Class", "Class", new ArrayList<RuleObject>()));
-		rules.add(new Rule("is_Long_Method", "Method", new ArrayList<RuleObject>()));
-		
-	}
-
 	public void ClearVars() {
 		currentCellInt = 0;
 		currentClass = null;
