@@ -28,38 +28,37 @@ public class ExcelRead {
 
 	private String path;
 	private Scanner scanner; // Create a Scanner object
-	private int n_reads;
 	private ArrayList<String> cells;
-	private ArrayList<Package> packages;
 	private Package currentPackage;
 	private Class currentClass;
 	private Method currentMethod;
 	
 	private ArrayList<Rule> rules;
+	ArrayList<Package> packages;
 
 	private int currentCellInt;
 	
 	
 	
-	
+	// ========================== TO REMOVE =============================================
 	public static void main(String[] args) {
 		String path2 = "C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx";
-		ExcelRead er = new ExcelRead(path2);
-		ArrayList<String> c = er.ReadFile();
-		for(String s:c)
-			System.out.println(s);
-	}
+		
+		ArrayList<Rule> rules = new ArrayList<Rule>();
+		rules.add(new Rule("is_God_Class", "Class", new ArrayList<RuleObject>()));
+		rules.add(new Rule("is_Long_Method", "Method", new ArrayList<RuleObject>()));
+		
+		ExcelRead er = new ExcelRead(path2, rules);
+		ArrayList<Package> p = er.ReadFile();
+		for(Package pa:p)
+			System.out.println(pa.toString());
+	} // ========================== TO REMOVE =============================================
 
-	public ExcelRead() {
+	public ExcelRead(ArrayList<Rule> rules) {
 		// Scanner vai ser alterado quando GUI enviar path
 		scanner = new Scanner(System.in);
-		n_reads = 0;
-		currentCellInt = 0;
-		cells = new ArrayList<String>();
-		packages = new ArrayList<Package>();
-		rules = new ArrayList<Rule>();
-
-
+		this.rules = rules;
+		
 		System.out.println("Insira o caminho do ficheiro: ");
 		path = scanner.nextLine();
 
@@ -67,24 +66,9 @@ public class ExcelRead {
 
 	public ExcelRead(String path, ArrayList<Rule> rules) {
 		this.path = path;
-		n_reads = 0;
-		currentCellInt = 0;
-		cells = new ArrayList<String>();
-		packages = new ArrayList<Package>();
 		this.rules = rules;
-		
 	}
 	
-	public ExcelRead(String path) {
-		this.path = path;
-		n_reads = 0;
-		currentCellInt = 0;
-		cells = new ArrayList<String>();
-		packages = new ArrayList<Package>();
-		this.rules = new ArrayList<Rule>();
-		
-	}
-
 	public void ClearVars() {
 		currentCellInt = 0;
 		currentClass = null;
@@ -92,53 +76,58 @@ public class ExcelRead {
 		currentMethod = null;
 	}
 
-	public ArrayList<String> ReadFile() {
-
+	public ArrayList<Package> ReadFile() {
+		currentCellInt = 0;
+		packages = new ArrayList<Package>();
+		
 		try {
 			FileInputStream excelFile = new FileInputStream(new File(path));
 			Workbook workbook = new XSSFWorkbook(excelFile);
 			Sheet datatypeSheet = workbook.getSheetAt(0);
-			Iterator<Row> iterator = datatypeSheet.iterator();
+			Iterator<Row> rowIterator = datatypeSheet.iterator();
+			
+			getCellsTypes(rowIterator);
+			
+			while (rowIterator.hasNext()) {
 
-			while (iterator.hasNext()) {
-
-				Row currentRow = iterator.next();
-				Iterator<Cell> cellIterator = currentRow.iterator();
+				Row currentRow = rowIterator.next();
+				int cellInterator = 0;
 
 				ClearVars();
 
-				while (cellIterator.hasNext()) {
-
-					Cell currentCell = cellIterator.next();
-					if (n_reads == 0) {
-						/*
-						 * Se n_reads = 0 significa que estou na linha do cabeçalho e extraio os nomes
-						 * das colunas todas (MethodID--package--class--method--NOM_class--LOC_class...)
-						 * E adiciono num array para posteriormente saber qual a métrica onde me
-						 * encontro
-						 */
-						cells.add(currentCell.getStringCellValue());
-					} else {
-						
-						ChooseCell(currentCell);
-						currentCellInt++;
-					} // Fim do else
-					
+				while (cellInterator < cells.size()) {
+					Cell currentCell = currentRow.getCell(cellInterator);	
+					ChooseCell(currentCell);
+					currentCellInt++;
+					cellInterator++;
 				} // Fim do while das celulas
 				
-				n_reads++;
-
 			}//Fim do while das linhas
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		System.out.print("So para parar");
-		return cells;
-
+		
+		return packages;
 	}
+	
+	
+	
+	public void getCellsTypes(Iterator<Row> rowIterator)
+	{
+		cells = new ArrayList<String>();
+		Row currentRow = rowIterator.next();
+		Iterator<Cell> cellIterator = currentRow.iterator();
+		
+		while (cellIterator.hasNext()) {
+			Cell currentCell = cellIterator.next();
+			String a = currentCell.getStringCellValue();
+			cells.add(a);
+		}
+	}
+	
+	
 
 	public void ChooseMetric(String var, Cell currentCell) {
 		switch (var) {
@@ -173,6 +162,8 @@ public class ExcelRead {
 	
 	public void ChooseCell(Cell currentCell)
 	{
+		try {
+		
 		switch (currentCellInt) {
 		case 0:
 			// Method id é para ignorar?
@@ -228,37 +219,46 @@ public class ExcelRead {
 			break;
 			
 		default:
-			String rule_name = cells.get(currentCellInt);
-			if(VerifyExistsCodeSmell (rule_name))
-			{
-				//Inserir resultado codesmel em algum lado
-				//processing.......
-			}
-			else
-			{
-				//Significa que esse code_smell não existe por isso não faz sentido lê-lo do excel
-			}
-			
+			ChooseRule(currentCell);
 			break;
 		} // Fim switch
+		
+		
+		}catch (Exception e) {
+			//Apanha a excessão das células vazias
+		}
 	}
 	
-	
+	public void ChooseRule(Cell currentCell)
+	{
+		String rule_name = cells.get(currentCellInt);
+		Rule r = VerifyExistsCodeSmell (rule_name);
+		if(r!=null)
+		{
+			//Inserir resultado codesmel em algum lado
+			if(r.getType().equals("Class"))
+			{
+				currentClass.addSmell(r.getName(), currentCell.getBooleanCellValue());
+			}else if (r.getType().equals("Method"))
+			{
+				currentMethod.addSmell(r.getName(), currentCell.getBooleanCellValue());
+			}
+		}
+	}
 
 	
-	public boolean VerifyExistsCodeSmell (String name)
+	public Rule VerifyExistsCodeSmell(String name)
 	{
-		
 		/*
 		 * Verifica se existe alguma regra com o nome daquele code_smell
 		 * Se não existir não lê do excel
 		 */
 		for (Rule r : rules)
 		{
-			if (r.getName() == name)
-				return true;
+			if (r.getName().equals(name))
+				return r;
 		}
-		return false;
+		return null;
 	}
 
 }
