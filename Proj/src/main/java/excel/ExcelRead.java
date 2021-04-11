@@ -40,7 +40,7 @@ public class ExcelRead {
 	
 	
 	
-	
+	// ========================== TO REMOVE =============================================
 	public static void main(String[] args) {
 		String path2 = "C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx";
 		
@@ -52,12 +52,11 @@ public class ExcelRead {
 		ArrayList<Package> p = er.ReadFile();
 		for(Package pa:p)
 			System.out.println(pa.toString());
-	}
+	} // ========================== TO REMOVE =============================================
 
 	public ExcelRead(ArrayList<Rule> rules) {
 		// Scanner vai ser alterado quando GUI enviar path
 		scanner = new Scanner(System.in);
-		currentCellInt = 0;
 		this.rules = rules;
 		
 		System.out.println("Insira o caminho do ficheiro: ");
@@ -68,8 +67,6 @@ public class ExcelRead {
 	public ExcelRead(String path, ArrayList<Rule> rules) {
 		this.path = path;
 		this.rules = rules;
-		currentCellInt = 0;
-		
 	}
 	
 	public void ClearVars() {
@@ -80,7 +77,7 @@ public class ExcelRead {
 	}
 
 	public ArrayList<Package> ReadFile() {
-		
+		currentCellInt = 0;
 		packages = new ArrayList<Package>();
 		
 		try {
@@ -94,7 +91,6 @@ public class ExcelRead {
 			while (rowIterator.hasNext()) {
 
 				Row currentRow = rowIterator.next();
-				//Iterator<Cell> cellIterator = currentRow.iterator();
 				int cellInterator = 0;
 
 				ClearVars();
@@ -114,7 +110,6 @@ public class ExcelRead {
 		}
 		
 		return packages;
-
 	}
 	
 	
@@ -230,9 +225,8 @@ public class ExcelRead {
 		
 		
 		}catch (Exception e) {
-			//System.out.println("Apanha a exception");
+			//Apanha a excessão das células vazias
 		}
-		
 	}
 	
 	public void ChooseRule(Cell currentCell)
@@ -241,7 +235,6 @@ public class ExcelRead {
 		Rule r = VerifyExistsCodeSmell (rule_name);
 		if(r!=null)
 		{
-			
 			//Inserir resultado codesmel em algum lado
 			if(r.getType().equals("Class"))
 			{
@@ -249,9 +242,6 @@ public class ExcelRead {
 			}else if (r.getType().equals("Method"))
 			{
 				currentMethod.addSmell(r.getName(), currentCell.getBooleanCellValue());
-			}else 
-			{
-				//Problemas
 			}
 		}
 	}
@@ -259,7 +249,6 @@ public class ExcelRead {
 	
 	public Rule VerifyExistsCodeSmell(String name)
 	{
-		
 		/*
 		 * Verifica se existe alguma regra com o nome daquele code_smell
 		 * Se não existir não lê do excel
