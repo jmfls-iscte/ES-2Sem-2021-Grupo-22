@@ -54,6 +54,8 @@ public class ExcelRead {
 		scanner = new Scanner(System.in);
 		currentCellInt = 0;
 		rules = new ArrayList<Rule>();
+		rules.add(new Rule("is_God_Class", "Class", null));
+		rules.add(new Rule("is_Long_Method", "Method", null));
 
 
 		System.out.println("Insira o caminho do ficheiro: ");
@@ -73,6 +75,8 @@ public class ExcelRead {
 		currentCellInt = 0;
 		cells = new ArrayList<String>();
 		this.rules = new ArrayList<Rule>();
+		rules.add(new Rule("is_God_Class", "Class", new ArrayList<RuleObject>()));
+		rules.add(new Rule("is_Long_Method", "Method", new ArrayList<RuleObject>()));
 		
 	}
 
@@ -95,8 +99,6 @@ public class ExcelRead {
 			
 			getCellsTypes(rowIterator);
 			
-			
-
 			while (rowIterator.hasNext()) {
 
 				Row currentRow = rowIterator.next();
@@ -112,16 +114,12 @@ public class ExcelRead {
 					cellInterator++;
 				} // Fim do while das celulas
 				
-				
-
 			}//Fim do while das linhas
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		System.out.print("So para parar");
 		
 		return packages;
 
@@ -140,8 +138,6 @@ public class ExcelRead {
 			String a = currentCell.getStringCellValue();
 			cells.add(a);
 		}
-			
-		
 	}
 	
 	
@@ -236,17 +232,7 @@ public class ExcelRead {
 			break;
 			
 		default:
-			String rule_name = cells.get(currentCellInt);
-			if(VerifyExistsCodeSmell (rule_name))
-			{
-				//Inserir resultado codesmel em algum lado
-				//processing.......
-			}
-			else
-			{
-				//Significa que esse code_smell não existe por isso não faz sentido lê-lo do excel
-			}
-			
+			ChooseRule(currentCell);
 			break;
 		} // Fim switch
 		
@@ -257,10 +243,29 @@ public class ExcelRead {
 		
 	}
 	
-	
+	public void ChooseRule(Cell currentCell)
+	{
+		String rule_name = cells.get(currentCellInt);
+		Rule r = VerifyExistsCodeSmell (rule_name);
+		if(r!=null)
+		{
+			
+			//Inserir resultado codesmel em algum lado
+			if(r.getType().equals("Class"))
+			{
+				currentClass.addSmell(r.getName(), currentCell.getBooleanCellValue());
+			}else if (r.getType().equals("Method"))
+			{
+				currentMethod.addSmell(r.getName(), currentCell.getBooleanCellValue());
+			}else 
+			{
+				//Problemas
+			}
+		}
+	}
 
 	
-	public boolean VerifyExistsCodeSmell (String name)
+	public Rule VerifyExistsCodeSmell(String name)
 	{
 		
 		/*
@@ -269,10 +274,10 @@ public class ExcelRead {
 		 */
 		for (Rule r : rules)
 		{
-			if (r.getName() == name)
-				return true;
+			if (r.getName().equals(name))
+				return r;
 		}
-		return false;
+		return null;
 	}
 
 }
