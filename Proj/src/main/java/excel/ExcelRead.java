@@ -37,6 +37,7 @@ public class ExcelRead {
 	ArrayList<Package> packages;
 
 	private int currentCellInt;
+	private int method_id;
 	
 	
 	
@@ -166,7 +167,7 @@ public class ExcelRead {
 		
 		switch (currentCellInt) {
 		case 0:
-			// Method id é para ignorar?
+				method_id = (int) currentCell.getNumericCellValue();
 			break;
 		case 1:
 			// criar ou verificar se existe package com o nome atual da célula
@@ -199,6 +200,7 @@ public class ExcelRead {
 			currentMethod = currentClass.get_MethodByName(method_name);
 			if (currentMethod == null) {
 				currentMethod = new Method(method_name);
+				currentMethod.setMethod_id(method_id);
 				currentClass.addMethod(currentMethod);
 			}
 			break;
