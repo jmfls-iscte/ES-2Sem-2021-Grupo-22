@@ -12,6 +12,7 @@ public class Method {
 	private int CYCLO_method;
 	private int begin;
 	private int end;
+	private int method_id;
 	
 	
 	public Method() {
@@ -25,10 +26,6 @@ public class Method {
 		code_Smells.put("is_Long_Method", null);
 	}
 
-	public int getMethodID() {
-		return 0;
-	}
-	
 	public String getName_method() {
 		return name;
 	}
@@ -80,5 +77,13 @@ public class Method {
 
 	public void addSmell(String smell, boolean value) {
 		code_Smells.put(smell, value);
+	}
+
+	public int getMethod_id() {
+		return method_id;
+	}
+
+	public void setMethod_id(int method_id) {
+		this.method_id = method_id;
 	}
 }
