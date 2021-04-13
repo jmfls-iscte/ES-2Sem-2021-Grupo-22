@@ -47,9 +47,9 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 				List<Statement> stmt2 = ((BlockStmt) aux).getStatements();
 				loop(stmt2);
 			}
-			if(stmt.get(i).isForStmt()) {
+			if(stmt.get(i).isForEachStmt()) {
 				CYCLO_method ++;
-				Statement aux = stmt.get(i).asForStmt().getBody();
+				Statement aux = stmt.get(i).asForEachStmt().getBody();
 				List<Statement> stmt2 = ((BlockStmt) aux).getStatements();
 				loop(stmt2);
 			}
