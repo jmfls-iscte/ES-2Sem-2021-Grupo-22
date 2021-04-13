@@ -19,6 +19,7 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 	public void visit(MethodDeclaration md, Void arg) {
 		super.visit(md, arg);
 		Method method = new Method(md.getName().toString());
+		CYCLO_method = 0;
 		BlockStmt test = md.getBody().get();
 		List<Statement> stmt = test.getStatements();
 		loop(stmt);

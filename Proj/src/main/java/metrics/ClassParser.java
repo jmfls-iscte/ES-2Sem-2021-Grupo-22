@@ -15,7 +15,6 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 	@Override
 	public void visit(ClassOrInterfaceDeclaration n, Void arg) {
 		super.visit(n, arg);
-		Package package1 = new Package(cu.getPackageDeclaration().get().getNameAsString());
 		VoidVisitor<Void> methodvisitor = new MethodParser();
 		((MethodParser) methodvisitor).setCu(getCu());
 		methodvisitor.visit(cu, null);
@@ -23,15 +22,13 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 		class1.setBegin(n.getBegin().get().line);
 		class1.setEnd(n.getEnd().get().line);
 		class1.setLOC_class(n.getRange().get().getLineCount());
-//		class1.setPacage(this.getP());
 		classmethod(class1,(MethodParser)methodvisitor);
-		package1.addClass(class1);
+		classes.add(class1);
 		System.out.println("");
-//		System.out.println("Package " + class1.getPacage());
 		System.out.println("LOC_class " + class1.getLOC_class());
 		System.out.println("NOM_class " + class1.getNOM_class());
 		System.out.println("WMC_class " + class1.getWMC_class());
-		System.out.println("CLASSSES "+ package1.getClass_list());
+		System.out.println("Methods " + class1.getMethods());
 	}
 
 	private void classmethod(Class class2, MethodParser m) {
