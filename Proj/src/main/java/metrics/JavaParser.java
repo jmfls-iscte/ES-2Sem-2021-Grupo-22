@@ -8,7 +8,7 @@ import com.github.javaparser.ast.visitor.VoidVisitor;
 
 public class JavaParser {
 
-	private static final String FILE_PATH = "src/main/java/excel/ExcelWrite.java";
+	private static final String FILE_PATH = "src/main/java/metrics/Example.java";
 
 	public static void main(String[] args) throws FileNotFoundException {
 		CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
