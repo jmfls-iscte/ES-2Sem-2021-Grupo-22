@@ -14,6 +14,29 @@ public class DirectoryGetter {
 	private File src;
 	private List<Package> Packages= new ArrayList<Package>();
 	
+	public File getBaseFile() {
+		if(baseFile.exists()) {
+			return baseFile;
+		}else {
+			return null;
+		}
+	}
+	
+	public File getsrc() {
+		if(src.exists()) {
+			return src;
+		}else {
+			return null;
+		}
+	}
+	
+	public int getPackageNumber() {
+		return Packages.size();
+	}
+	
+	public List<Package> getPackages(){
+		return Packages;
+	}
 	
 	public void SetDir(String dir) throws IllegalArgumentException {
 		baseFile= new File(dir);

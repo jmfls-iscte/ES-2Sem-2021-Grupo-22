@@ -3,6 +3,7 @@ package metrics;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Class {
 
@@ -11,7 +12,7 @@ public class Class {
 	private int NOM_class;
 	private int LOC_class;
 	private int WMC_class;
-	HashMap<String, Boolean> code_Smells;
+	private Map<String, Boolean> code_Smells= new HashMap<String, Boolean>();
 	private int begin;
 	private int end;
 
