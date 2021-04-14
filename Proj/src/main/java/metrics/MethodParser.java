@@ -1,5 +1,5 @@
 package metrics;
-
+//
 import java.util.ArrayList;
 import java.util.List;
 import com.github.javaparser.ast.CompilationUnit;
@@ -19,6 +19,7 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 	public void visit(MethodDeclaration md, Void arg) {
 		super.visit(md, arg);
 		Method method = new Method(md.getName().toString());
+		CYCLO_method = 0;
 		BlockStmt test = md.getBody().get();
 		List<Statement> stmt = test.getStatements();
 		loop(stmt);
@@ -47,9 +48,9 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 				List<Statement> stmt2 = ((BlockStmt) aux).getStatements();
 				loop(stmt2);
 			}
-			if(stmt.get(i).isForStmt()) {
+			if(stmt.get(i).isForEachStmt()) {
 				CYCLO_method ++;
-				Statement aux = stmt.get(i).asForStmt().getBody();
+				Statement aux = stmt.get(i).asForEachStmt().getBody();
 				List<Statement> stmt2 = ((BlockStmt) aux).getStatements();
 				loop(stmt2);
 			}

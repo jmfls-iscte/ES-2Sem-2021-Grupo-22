@@ -23,10 +23,12 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 		class1.setEnd(n.getEnd().get().line);
 		class1.setLOC_class(n.getRange().get().getLineCount());
 		classmethod(class1,(MethodParser)methodvisitor);
+		classes.add(class1);
 		System.out.println("");
 		System.out.println("LOC_class " + class1.getLOC_class());
 		System.out.println("NOM_class " + class1.getNOM_class());
 		System.out.println("WMC_class " + class1.getWMC_class());
+		System.out.println("Methods " + class1.getMethods());
 	}
 
 	private void classmethod(Class class2, MethodParser m) {
@@ -55,4 +57,5 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 	public void setCu(CompilationUnit cu) {
 		this.cu = cu;
 	}
+
 }
