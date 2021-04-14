@@ -115,4 +115,8 @@ public class Class {
 		return arrayMethods;
 	}
 
+	public void addSmell(String smell, boolean value) {
+		code_Smells.put(smell, value);
+	}
+	
 }
