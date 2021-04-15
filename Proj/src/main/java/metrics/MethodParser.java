@@ -65,6 +65,7 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 				}
 				loop(stmt2);
 			}
+//			
 			if (stmt.get(i).isIfStmt()) {
 				CYCLO_method++;
 				Statement aux = stmt.get(i).asIfStmt().getThenStmt();
