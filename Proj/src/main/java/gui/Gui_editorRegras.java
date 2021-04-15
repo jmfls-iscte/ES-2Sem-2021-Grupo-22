@@ -170,17 +170,25 @@ public class Gui_editorRegras {
 		optLogico.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		optLogico.setText("Operadores Lógicos :");
 		optLogico.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		optLogico.setVisible(false);
 		new Label(shell, SWT.NONE);
 		
 		Combo optL_cmb = new Combo(shell, SWT.NONE);
 		optL_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		optL_cmb.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		optL_cmb.setVisible(false);
 		
 		optL_cmb.add("AND");
 		optL_cmb.add("OR");
-		optL_cmb.add("NONE");
 		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
+		
+		// Criação do botão adicionar metricas à regra
+		
+		Button AdicionarMetricas_btn = new Button(shell, SWT.NONE);
+		AdicionarMetricas_btn.setText("Adicionar Metricas");
+		AdicionarMetricas_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		AdicionarMetricas_btn.setVisible(false);
+		
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		
@@ -198,11 +206,13 @@ public class Gui_editorRegras {
 		regraName_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		regraName_lbl.setText("Nome Regra :");
 		regraName_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		regraName_lbl.setVisible(false);
 		new Label(shell, SWT.NONE);
 		
 		regraName_txt = new Text(shell, SWT.BORDER);
 		regraName_txt.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		regraName_txt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		regraName_txt.setVisible(false);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -221,11 +231,14 @@ public class Gui_editorRegras {
 		metricaType_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		metricaType_lbl.setText("Tipo Metrica :");
 		metricaType_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		metricaType_lbl.setVisible(false);
 		new Label(shell, SWT.NONE);
 		
 		Combo metricaType_cmb = new Combo(shell, SWT.NONE);
 		metricaType_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		metricaType_cmb.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		
+		metricaType_cmb.setVisible(false);
 		
 		metricaType_cmb.add("Class");
 		metricaType_cmb.add("Method");
@@ -249,14 +262,9 @@ public class Gui_editorRegras {
 		Button CriarArrayIinicial_btn = new Button(shell, SWT.NONE);
 		CriarArrayIinicial_btn.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		CriarArrayIinicial_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		CriarArrayIinicial_btn.setText("Criar Array RuleObjects");
+		CriarArrayIinicial_btn.setText("Criar Metrica");
 		new Label(shell, SWT.NONE);
-		
-		// Criação do botão adicionar metricas à regra
-		
-		Button AdicionarMetricas_btn = new Button(shell, SWT.NONE);
-		AdicionarMetricas_btn.setText("Adicionar Metricas ao Array");
-		AdicionarMetricas_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		
 		// Criar Regra botão
@@ -264,6 +272,8 @@ public class Gui_editorRegras {
 		Button CriarRegra_btn = new Button(shell, SWT.NONE);
 		CriarRegra_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		CriarRegra_btn.setText("Criar Regra");
+		
+		CriarRegra_btn.setVisible(false);
 		
 		// Criar o Array inicial para ser usado para criar a regra
 		CriarArrayIinicial_btn.addMouseListener(new MouseAdapter() {
@@ -285,36 +295,45 @@ public class Gui_editorRegras {
 				RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "thresholds");
 				ruleObjects.add(ruleObject2);
 				
+				System.out.println("metrica criada");
 				
+				CriarRegra_btn.setVisible(true);
+				AdicionarMetricas_btn.setVisible(true);
+				optLogico.setVisible(true);
+				optL_cmb.setVisible(true);
+				regraName_lbl.setVisible(true);
+				regraName_txt.setVisible(true);
+				metricaType_lbl.setVisible(true);
+				metricaType_cmb.setVisible(true);
 				}
 			}
 		});
 		
 		// Adicionar metricas ao array de metricas criado
-		// Ter a capacidade de adicionar metricas com AND e OR no comparador lógico
-		AdicionarMetricas_btn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDoubleClick(MouseEvent e) {
-				if (metrica_cmb.getText().isBlank() || comparador_cmb.getText().isBlank()
-						|| Limite_txt.getText().isBlank() || optL_cmb.getText().isBlank()) {
-					
-					throw new IllegalArgumentException("Espaços em branco");
-				}
-				RuleObject ruleObject3 = new RuleObject(optL_cmb.getText(), "logic_operator");
-				ruleObjects.add(ruleObject3);
-				
-				RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "metric");
-				ruleObjects.add(ruleObject);
-				
-				RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "comparator");
-				ruleObjects.add(ruleObject1);
-				
-				RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "thresholds");
-				ruleObjects.add(ruleObject2);
-				
-				System.out.println("Metrica adicionada");
-			}
-		});
+				// Ter a capacidade de adicionar metricas com AND e OR no comparador lógico
+				AdicionarMetricas_btn.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseDoubleClick(MouseEvent e) {
+						if (metrica_cmb.getText().isBlank() || comparador_cmb.getText().isBlank()
+								|| Limite_txt.getText().isBlank() || optL_cmb.getText().isBlank()) {
+							
+							throw new IllegalArgumentException("Espaços em branco");
+						}
+						RuleObject ruleObject3 = new RuleObject(optL_cmb.getText(), "logic_operator");
+						ruleObjects.add(ruleObject3);
+						
+						RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "metric");
+						ruleObjects.add(ruleObject);
+						
+						RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "comparator");
+						ruleObjects.add(ruleObject1);
+						
+						RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "thresholds");
+						ruleObjects.add(ruleObject2);
+						
+						System.out.println("Metrica adicionada");
+					}
+				});
 		
 		// Criar a Regra
 		CriarRegra_btn.addMouseListener(new MouseAdapter() {
