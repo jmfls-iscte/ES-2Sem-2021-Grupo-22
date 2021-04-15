@@ -8,7 +8,7 @@ import com.github.javaparser.ast.visitor.VoidVisitor;
 
 public class JavaParser {
 
-	private static final String FILE_PATH = "src/main/java/metrics/DirectoryGetter.java";
+	private static final String FILE_PATH = "src/main/java/metrics/Package.java";
 
 	public static void main(String[] args) throws FileNotFoundException {
 		CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
@@ -19,6 +19,7 @@ public class JavaParser {
 		for (int i = 0; i < ((ClassParser) classvisitor).getClasses().size(); i++) {
 			package1.addClass(((ClassParser) classvisitor).getClasses().get(i));
 		}
+		System.out.print(package1.getName_Package());
 		System.out.println("Classes " + package1.getClass_list());
 	}
 

@@ -23,13 +23,10 @@ public class Example {
 				break;
 			}
 			while (y < 3) {
-				if (y < 5) {
+				if (y < 5)
 					y++;
-				} else {
-					y--;
-					while (x < 4) {
-						x++;
-					}
+				while (x < 4) {
+					x++;
 				}
 
 				x = 0;
