@@ -7,7 +7,7 @@ public class Rule {
 	// os thresholds têm que ser passados de string para ints
 
 	private String name;
-	private String type;
+	private String type;//class or method
 	private ArrayList<RuleObject> rule_info = new ArrayList<RuleObject>();
 
 	// Recebe da GUI um array de RuleObject com toda a informação da regra.
@@ -16,11 +16,11 @@ public class Rule {
 
 	public Rule(String name, String type, ArrayList<RuleObject> new_rule) {
 		for (int x = 0; x < new_rule.size(); x++) {
-			if (new_rule.get(x).get_label().equals("thresholds")) {
+			if (new_rule.get(x).getLabel().equals(RuleObjectType.THRESHOLD)) {
 				try {
-					int i = Integer.parseInt(new_rule.get(x).get_info()); // confirma se o limite colocado é um inteiro
-				} catch (Exception e) {
-					throw new IllegalArgumentException("O limite inserido não é um número");
+					Integer.parseInt(new_rule.get(x).getInfo()); // confirma se o limite colocado é um inteiro
+				} catch (NumberFormatException e) {
+					System.out.println("O limite inserido não é um número");	
 				}
 			}
 		}
@@ -28,20 +28,63 @@ public class Rule {
 		this.name = name;
 		this.type = type;
 	}
+	
+	public Rule(String name, String type, ArrayList<RuleObject> new_rule,Boolean verification) throws Exception{
+		//boolean valid=true;
+		RuleObjectType ruleType;
+		if(type.equals("class")) {
+			ruleType= RuleObjectType.CLASSMETRIC;
+		}else if(type.equals("method")) {
+			ruleType= RuleObjectType.METHODMETRIC;
+		}else {
+			throw new IllegalArgumentException("invalid type, try \"class\" or \"method\"");
+		}
+			
+		for (int x = 0; x < new_rule.size(); x++) {
+			if(x%4==0) {
+				if(!new_rule.get(x).getLabel().equals(ruleType)) {
+					throw new IllegalArgumentException("Rule structure wasn't followed, RuleObejct #"+x+" is wrong");
+				}
+			}else if(x%4==1) {
+				if(!new_rule.get(x).getLabel().equals(RuleObjectType.COMPARISON_OPERATOR)) {
+					throw new IllegalArgumentException("Rule structure wasn't followed, RuleObejct #"+x+" is wrong");
+				}
+				
+			}else if(x%4==2) {
+				if(!new_rule.get(x).getLabel().equals(RuleObjectType.THRESHOLD)) {
+					throw new IllegalArgumentException("Rule structure wasn't followed, RuleObejct #"+x+" is wrong");
+				}
+			}else {//x%4==3
+				if(!new_rule.get(x).getLabel().equals(RuleObjectType.LOGIC_OPERATOR)) {
+					throw new IllegalArgumentException("Rule structure wasn't followed, RuleObejct #"+x+" is wrong");
+				}
+			}
+		}
+		if(!new_rule.get(new_rule.size()-1).getLabel().equals(RuleObjectType.THRESHOLD)) {
+			throw new IllegalArgumentException("Last element of the rule isn't threshold");
+		}
+		this.rule_info = new_rule;
+		this.name = name;
+		this.type = type;	
+	}
 
 	// Assumimos em discussão de grupo prévia que a única coisa editável são os
 	// limites (thresholds)
 
-	public void editThreshold(RuleObject new_info, RuleObject old_info) {
+	public void editThreshold(RuleObject old_info, RuleObject new_info) {
 
 		// recebe da GUI o novo limite e o limite antigo (ou seja, gera dois objectos:
 		// 1 com a info antiga (que o utilizador tem que ter acesso) e 1 com a
 		// informacao nova que o utilizador dá)
 
-		if (new_info.label.equals("threshold") && old_info.label.equals("thresholds")) {
+		if (new_info.getLabel().equals(RuleObjectType.THRESHOLD) && old_info.getLabel().equals(RuleObjectType.THRESHOLD)) {
 			int id = getObjectID(old_info);
 			rule_info.set(id, new_info);
 		}
+	}
+	
+	public void setInfo(RuleObject object){
+		rule_info.add(object);
 	}
 
 	public int getObjectID(RuleObject object) {
@@ -49,21 +92,19 @@ public class Rule {
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public ArrayList<RuleObject> getInfo() {
-		return this.rule_info;
+		return rule_info;
 	}
 
 	public String getType() {
 		return type;
 
 	}
+	
 
-	public ArrayList<RuleObject> getRule() {
-		return rule_info;
-	}
 
 }
 //verificar se a regra nao existe -> guardar regra

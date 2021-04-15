@@ -2,15 +2,17 @@ package metrics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Method {
 	
-	
-	
 	private String name;
-	private HashMap<String, Boolean> code_Smells;
+	private Map<String, Boolean> code_Smells= new HashMap<String, Boolean>();
 	private int LOC_method;
 	private int CYCLO_method;
+	private int begin;
+	private int end;
+	private int method_id;
 	
 	
 	public Method() {
@@ -24,10 +26,6 @@ public class Method {
 		code_Smells.put("is_Long_Method", null);
 	}
 
-	public int getMethodID() {
-		return 0;
-	}
-	
 	public String getName_method() {
 		return name;
 	}
@@ -61,4 +59,31 @@ public class Method {
 		this.CYCLO_method = CYCLO_method;
 	}
 
+	public int getBegin() {
+		return begin;
+	}
+
+	public void setBegin(int begin) {
+		this.begin = begin;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
+	public void addSmell(String smell, boolean value) {
+		code_Smells.put(smell, value);
+	}
+
+	public int getMethod_id() {
+		return method_id;
+	}
+
+	public void setMethod_id(int method_id) {
+		this.method_id = method_id;
+	}
 }
