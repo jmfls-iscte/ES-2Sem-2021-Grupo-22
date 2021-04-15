@@ -34,7 +34,7 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 		methods.add(method);
 	}
 
-	private void loop(List<Statement> stmt) throws java.lang.ClassCastException {
+	private void loop(List<Statement> stmt){
 		for (int i = 0; i < stmt.size(); i++) {
 			if (stmt.get(i).isWhileStmt()) {
 				CYCLO_method++;
