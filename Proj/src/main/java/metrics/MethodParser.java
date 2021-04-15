@@ -80,7 +80,7 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 					}
 					loop(stmt2);
 				} catch (Exception e) {
-					System.out.print(false);
+					System.out.print("");
 				}
 			}
 		}
