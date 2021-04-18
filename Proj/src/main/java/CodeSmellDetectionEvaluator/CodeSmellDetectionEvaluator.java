@@ -17,15 +17,23 @@ public class CodeSmellDetectionEvaluator {
 	private List<Package> packagesDetection;
 	private List<Package> packagesExcel;
 	
+	private List<PackageEvaluator> packagesEvaluator;
+	
 	public CodeSmellDetectionEvaluator(List<Package> packagesDetection,List<Package> packagesExcel)
 	{
 		this.packagesDetection=packagesDetection;
 		this.packagesExcel = packagesExcel;
+		
+		evaluateCodeSmellsDetection();
 	}
 	
-	public List<PackageEvaluator> evaluateCodeSmellsDetection()
+	private  void evaluateCodeSmellsDetection()
 	{
-		return null;
+		/*
+		 * Percorre todos os packages, e verifica as regras da classes e dos metodos, tanto da deteção como do excel 
+		 * e compara os resultados para verificar qual dos 4 tipos é TP, TN, FP, FN.
+		 * 
+		 */
 		
 	}
 	
