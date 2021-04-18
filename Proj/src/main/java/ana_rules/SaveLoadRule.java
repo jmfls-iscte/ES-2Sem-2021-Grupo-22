@@ -1,37 +1,15 @@
 package ana_rules;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
-import gui.MainGui;
-
 public class SaveLoadRule {
-
-	
-	private String pathFile ;
-	
-	
-
-	public SaveLoadRule() throws IOException {
-		pathFile = "RuleClass.txt";
-		
-	}
-	public SaveLoadRule(String path) {
-		pathFile = path;
-	}
-
-	
-	
-
-	
-	
 
 	/*
 	 * Regras no ficheiro serão guardadas com o segunte layout
@@ -39,40 +17,20 @@ public class SaveLoadRule {
 	 * EX: GodClass;Class;metric:WMC_Class;comparator:>;threshold:50;...
 	 * 
 	 */
-	public void SaveRules(ArrayList<Rule> rules) {
-		
+	public static void SaveRules(ArrayList<Rule> rules, String pathFile) {
+		if(pathFile==null || pathFile.equals(""))
+			throw new IllegalArgumentException();
 		
 		try {
 			
 			FileWriter fileRules = new FileWriter(pathFile);
-			//FileWriterfileRulesClass = new FileWriter(pathFile);
-			//FileWriter fileRulesMethod = new FileWriter(pathFile);
-			
+
 			for (Rule r : rules) {
 				String rule_info_String = RuleToString(r.getInfo());
 				
 				fileRules.append(r.getName()+";"+r.getType()+rule_info_String);
 				fileRules.append("\n");
-				
-				/*if (r.getType().equals("Class")) 
-				{
-					fileRulesClass.append(r.getName()+";"+r.getType()+rule_info_String);
-					fileRulesClass.append("\n");
-					System.out.println("Escrito\n");
-				} else if (r.getType().equals("Method")) {
-					fileRulesMethod.append(r.getName()+";"+r.getType()+rule_info_String);
-					fileRulesMethod.append("\n");
-					System.out.println("Escrito\n");
-				} else 
-				{ 
-					/// ERROR
-				}*/
 			}
-			
-			
-			//fileRulesClass.close();
-			//fileRulesMethod.close();
-			
 			fileRules.close();
 
 		} catch (IOException e) {
@@ -96,7 +54,11 @@ public class SaveLoadRule {
 	 * 
 	 */
 	
-	public ArrayList<Rule> LoadRules() {
+	public static  List<Rule> LoadRules(String pathFile) {
+		
+		if(pathFile==null || pathFile.equals(""))
+			throw new IllegalArgumentException();
+		
 		ArrayList<Rule> rules = new ArrayList<Rule>();
 		
 		try {
@@ -136,7 +98,7 @@ public class SaveLoadRule {
 	
 	
 	
-	public String RuleToString(ArrayList<RuleObject> rule_info)
+	private static String RuleToString(ArrayList<RuleObject> rule_info)
 	{
 		String aux ="";
 		String rule_info_String=null;
