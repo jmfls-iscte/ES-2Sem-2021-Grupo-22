@@ -102,11 +102,11 @@ public class Gui_editorRegras {
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
-		metrica_cmb.add("LOC_class");
-		metrica_cmb.add("NOM_Class");
-		metrica_cmb.add("WMC_class");
-		metrica_cmb.add("LOC_method");
-		metrica_cmb.add("CYCLO_method");
+//		metrica_cmb.add("LOC_CLASS");
+//		metrica_cmb.add("NOM_CLASS");
+//		metrica_cmb.add("WMC_CLASS");
+		metrica_cmb.add("LOC_METHOD");
+		metrica_cmb.add("CYCLO_METHOD");
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -124,10 +124,10 @@ public class Gui_editorRegras {
 		comparador_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		comparador_cmb.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		
-		comparador_cmb.add("<");
-		comparador_cmb.add(">");
-		comparador_cmb.add("<=");
-		comparador_cmb.add(">=");
+		comparador_cmb.add("LESS");
+		comparador_cmb.add("GREATER");
+		comparador_cmb.add("GREATEREQUAL");
+		comparador_cmb.add("LESSEQUAL");
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -286,13 +286,13 @@ public class Gui_editorRegras {
 					throw new IllegalArgumentException("Espaços em branco");
 				}
 				else {	
-				RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "metric");
+				RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
 				ruleObjects.add(ruleObject);
 				
-				RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "comparator");
+				RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
 				ruleObjects.add(ruleObject1);
 				
-				RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "thresholds");
+				RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
 				ruleObjects.add(ruleObject2);
 				
 				System.out.println("metrica criada");
@@ -305,6 +305,7 @@ public class Gui_editorRegras {
 				regraName_txt.setVisible(true);
 				metricaType_lbl.setVisible(true);
 				metricaType_cmb.setVisible(true);
+				CriarArrayIinicial_btn.setVisible(false);
 				}
 			}
 		});
@@ -319,16 +320,16 @@ public class Gui_editorRegras {
 							
 							throw new IllegalArgumentException("Espaços em branco");
 						}
-						RuleObject ruleObject3 = new RuleObject(optL_cmb.getText(), "logic_operator");
+						RuleObject ruleObject3 = new RuleObject(optL_cmb.getText(), "LOGIC_OPERATOR");
 						ruleObjects.add(ruleObject3);
 						
-						RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "metric");
+						RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
 						ruleObjects.add(ruleObject);
 						
-						RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "comparator");
+						RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
 						ruleObjects.add(ruleObject1);
 						
-						RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "thresholds");
+						RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
 						ruleObjects.add(ruleObject2);
 						
 						System.out.println("Metrica adicionada");
@@ -345,6 +346,9 @@ public class Gui_editorRegras {
 				System.out.println(ruleObjects);
 				rules.add(rule); // adiciona a regra a um array de regras
 				ruleObjects.clear(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
+				
+				CriarArrayIinicial_btn.setVisible(false);
+				
 				}
 				else {
 					throw new IllegalArgumentException("Array de RuleObjects vazio");
