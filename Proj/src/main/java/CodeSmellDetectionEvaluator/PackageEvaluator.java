@@ -6,29 +6,36 @@ import java.util.List;
 public class PackageEvaluator {
 
 	private String name;
-	private List<ClassEvaluator> classelst;
+	private List<ClassEvaluator> classlst;
 	
 	public PackageEvaluator()
 	{
-		classelst = new ArrayList<ClassEvaluator>();
+		classlst = new ArrayList<ClassEvaluator>();
 	}
 	
 	public PackageEvaluator(String name)
 	{
 		this.name = name;
-		classelst = new ArrayList<ClassEvaluator>();
+		classlst = new ArrayList<ClassEvaluator>();
 	}
 	
-	public PackageEvaluator(String name, List<ClassEvaluator> classelst)
+	public PackageEvaluator(String name, List<ClassEvaluator> classlst)
 	{
 		this.name = name;
-		classelst = classelst;
+		classlst = classlst;
 	}
 	
 	
 	public void addClass(ClassEvaluator classToAdd)
 	{
-		classelst.add(classToAdd);
+		classlst.add(classToAdd);
 	}
+	
+	public List<ClassEvaluator> getClasslst()
+	{
+		return classlst;
+	}
+	
+	
 	
 }
