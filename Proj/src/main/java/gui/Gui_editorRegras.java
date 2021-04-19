@@ -71,9 +71,7 @@ public class Gui_editorRegras {
 		shell = new Shell();
 		shell.setSize(1004, 546);
 		shell.setText("Editor de Regras");
-		shell.setLayout(new GridLayout(7, false));
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
+		shell.setLayout(new GridLayout(5, false));
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -96,8 +94,6 @@ public class Gui_editorRegras {
 		metrica_cmb.setLayoutData(gd_metrica_cmb);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
 		
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -107,8 +103,6 @@ public class Gui_editorRegras {
 //		metrica_cmb.add("WMC_CLASS");
 		metrica_cmb.add("LOC_METHOD");
 		metrica_cmb.add("CYCLO_METHOD");
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		
@@ -130,11 +124,7 @@ public class Gui_editorRegras {
 		comparador_cmb.add("LESSEQUAL");
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
 		
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -152,10 +142,6 @@ public class Gui_editorRegras {
 		Limite_txt = new Text(shell, SWT.BORDER);
 		Limite_txt.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		Limite_txt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -191,11 +177,6 @@ public class Gui_editorRegras {
 		
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
-		
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -220,10 +201,6 @@ public class Gui_editorRegras {
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
 		
 		//Criação do label Tipo Metrica e combo box associada
 		
@@ -234,21 +211,24 @@ public class Gui_editorRegras {
 		metricaType_lbl.setVisible(false);
 		new Label(shell, SWT.NONE);
 		
-		Combo metricaType_cmb = new Combo(shell, SWT.NONE);
-		metricaType_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		metricaType_cmb.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		Combo RegraType_cmb = new Combo(shell, SWT.NONE);
+		RegraType_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		RegraType_cmb.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		
-		metricaType_cmb.setVisible(false);
+		RegraType_cmb.setVisible(false);
 		
-		metricaType_cmb.add("Class");
-		metricaType_cmb.add("Method");
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
+		RegraType_cmb.add("Class");
+		RegraType_cmb.add("Method");
 		new Label(shell, SWT.NONE);
 		
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
+		// Criar Regra botão
+		
+		Button CriarRegra_btn = new Button(shell, SWT.NONE);
+		CriarRegra_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		CriarRegra_btn.setText("Criar Regra");
+		
+		CriarRegra_btn.setVisible(false);
+		
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -265,15 +245,6 @@ public class Gui_editorRegras {
 		CriarArrayIinicial_btn.setText("Criar Metrica");
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		
-		// Criar Regra botão
-		
-		Button CriarRegra_btn = new Button(shell, SWT.NONE);
-		CriarRegra_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		CriarRegra_btn.setText("Criar Regra");
-		
-		CriarRegra_btn.setVisible(false);
 		
 		// Criar o Array inicial para ser usado para criar a regra
 		CriarArrayIinicial_btn.addMouseListener(new MouseAdapter() {
@@ -304,7 +275,7 @@ public class Gui_editorRegras {
 				regraName_lbl.setVisible(true);
 				regraName_txt.setVisible(true);
 				metricaType_lbl.setVisible(true);
-				metricaType_cmb.setVisible(true);
+				RegraType_cmb.setVisible(true);
 				CriarArrayIinicial_btn.setVisible(false);
 				}
 			}
@@ -335,26 +306,26 @@ public class Gui_editorRegras {
 						System.out.println("Metrica adicionada");
 					}
 				});
-		
-		// Criar a Regra
-		CriarRegra_btn.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDoubleClick(MouseEvent e) {
-				if (ruleObjects.isEmpty() == false) {
-				Rule rule = new Rule(regraName_txt.getText(),metricaType_cmb.getText(),ruleObjects);
-				System.out.println("Regra Criada");
-				System.out.println(ruleObjects);
-				rules.add(rule); // adiciona a regra a um array de regras
-				ruleObjects.clear(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
 				
-				CriarArrayIinicial_btn.setVisible(false);
-				
-				}
-				else {
-					throw new IllegalArgumentException("Array de RuleObjects vazio");
-				}
-			}
-		});
+				// Criar a Regra
+				CriarRegra_btn.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseDoubleClick(MouseEvent e) {
+						if (ruleObjects.isEmpty() == false) {
+						Rule rule = new Rule(regraName_txt.getText(),RegraType_cmb.getText(),ruleObjects);
+						System.out.println("Regra Criada");
+						System.out.println(ruleObjects);
+						rules.add(rule); // adiciona a regra a um array de regras
+						ruleObjects.clear(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
+						
+						CriarArrayIinicial_btn.setVisible(true);
+						
+						}
+						else {
+							throw new IllegalArgumentException("Array de RuleObjects vazio");
+						}
+					}
+				});
 
 	}
 
