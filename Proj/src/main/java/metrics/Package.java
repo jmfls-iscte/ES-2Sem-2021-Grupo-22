@@ -11,7 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 public class Package {
 	
 	private String name;
-	private ArrayList<Class> arrayClasses;
+	private List<Class> arrayClasses;
 	
   
   public Package()
@@ -21,12 +21,16 @@ public class Package {
   
 	public Package(String name,File file) {
 		this.name=name;
-		System.out.println(name);
+		//System.out.println(name);
 		arrayClasses = new ArrayList<Class>();
 	
 		List<File> files= Arrays.asList(file.listFiles()).stream().filter(x->FilenameUtils.getExtension(x.getAbsolutePath()).equals("java")).collect(Collectors.toList());
 		for(File x: files) {
-			//criar classe com file e adicionar a arrayclasses
+			try {
+				arrayClasses.addAll(JavaParser.ParseFile(x));
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 		
 	}
