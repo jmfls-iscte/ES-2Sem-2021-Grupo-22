@@ -84,17 +84,18 @@ public class CodeSmellDetectionEvaluator {
 			List<Class> classDetectionlst = packagesDetectionlst.get(packagesindex).getClass_list();
 			List<Class> classExcellst = packagesExcellst.get(packagesindex).getClass_list();
 
-			packagesEvaluatorlst.add(DetectionClasses(classDetectionlst, classExcellst, currentPackage));
+			List<ClassEvaluator> classlst = DetectionClasses(classDetectionlst, classExcellst);
+
+			PackageEvaluator packageEvaluator = new PackageEvaluator(currentPackage.getName_Package(), classlst);
+			packagesEvaluatorlst.add(packageEvaluator);
 
 		}
 
 	}
 
-	private PackageEvaluator DetectionClasses(List<Class> classDetectionlst, List<Class> classExcellst,
-			Package currentPackage) {
+	private List<ClassEvaluator> DetectionClasses(List<Class> classDetectionlst, List<Class> classExcellst) {
 
-		PackageEvaluator packageEval = new PackageEvaluator(currentPackage.getName_Package());
-
+		List<ClassEvaluator> classEvaluatorlst = new ArrayList<ClassEvaluator>();
 		int classSize = classDetectionlst.size();
 		for (int classindex = 0; classindex < classSize; classindex++) {
 
@@ -103,55 +104,60 @@ public class CodeSmellDetectionEvaluator {
 			List<Method> methodDetectionlst = classDetectionlst.get(classindex).getMethod_list();
 			List<Method> methodExcellst = classExcellst.get(classindex).getMethod_list();
 
-			packageEval.addClass(DetectionMethod(methodDetectionlst, methodExcellst, currentClass));
+			ClassEvaluator classEval = new ClassEvaluator(currentClass);
+			List<MethodEvaluator> detection = DetectionMethod(methodDetectionlst, methodExcellst);
+			classEval.setMethodList(detection);
+
+			classEvaluatorlst.add(classEval);
 		}
 
-		return packageEval;
+		return classEvaluatorlst;
 	}
 
-	private ClassEvaluator DetectionMethod(List<Method> methodDetectionlst, List<Method> methodExcellst,
-			Class currentClass) {
-		
-		
-		ClassEvaluator classEval = new ClassEvaluator(currentClass);
-		
+	private List<MethodEvaluator> DetectionMethod(List<Method> methodDetectionlst, List<Method> methodExcellst) {
+
+		List<MethodEvaluator> methodEvallst = new ArrayList<MethodEvaluator>();
 		int methodsize = methodDetectionlst.size();
 		for (int methodindex = 0; methodindex < methodsize; methodindex++) {
 
 			Method currentMethod = methodDetectionlst.get(methodindex);
+
 			Map<String, Boolean> rulesMethodDetection = methodDetectionlst.get(methodindex).getCode_Smells();
 			Map<String, Boolean> rulesMethodExcel = methodExcellst.get(methodindex).getCode_Smells();
-			
+
 			MethodEvaluator methodEvaluator = new MethodEvaluator(currentMethod);
-			methodEvaluator.setCodesmelssEvaluator(DetectionRule(rulesMethodDetection,rulesMethodExcel));
-			classEval.addMethodList(methodEvaluator);
+
+			Map<String, EvaluatorType> detection = DetectionRule(rulesMethodDetection, rulesMethodExcel);
+
+			methodEvaluator.setCodesmelssEvaluator(detection);
+
+			methodEvallst.add(methodEvaluator);
 		}
 
-		return classEval;
+		return methodEvallst;
 	}
-	
-	private Map<String, EvaluatorType> DetectionRule(Map<String, Boolean> rulesDetection,Map<String, Boolean> rulesExcel)
-	{
+
+	private Map<String, EvaluatorType> DetectionRule(Map<String, Boolean> rulesDetection,
+			Map<String, Boolean> rulesExcel) {
 		Map<String, EvaluatorType> detection = new HashMap<String, EvaluatorType>();
-		
+
 		int rulesSize = rulesDetection.size();
-		for(String rulename : rulesDetection.keySet())
-		{
+		for (String rulename : rulesDetection.keySet()) {
 			boolean ruleDetctionvalue = rulesDetection.get(rulename);
 			boolean ruleExcelvalue = rulesExcel.get(rulename);
-			
-			if(ruleDetctionvalue == true && ruleExcelvalue == true)
+
+			if (ruleDetctionvalue == true && ruleExcelvalue == true)
 				detection.put(rulename, EvaluatorType.TP);
-			else if(ruleDetctionvalue == true && ruleExcelvalue == false)
+			else if (ruleDetctionvalue == true && ruleExcelvalue == false)
 				detection.put(rulename, EvaluatorType.FP);
-			else if(ruleDetctionvalue == false && ruleExcelvalue == true)
+			else if (ruleDetctionvalue == false && ruleExcelvalue == true)
 				detection.put(rulename, EvaluatorType.FN);
-			else if(ruleDetctionvalue == false && ruleExcelvalue == false)
+			else if (ruleDetctionvalue == false && ruleExcelvalue == false)
 				detection.put(rulename, EvaluatorType.TN);
 		}
-		
+
 		return detection;
-			
+
 	}
 
 }
