@@ -87,14 +87,14 @@ public class Class {
 			arrayMethods.add(methodToAdd);
 	}
 
-	private boolean verifyExistsMethod(Method methodToVerify) {
+	public boolean verifyExistsMethod(Method methodToVerify) { //ANA: mudei para public 
 
 		for (Method m : arrayMethods) {
 			if (m.getName_method() == methodToVerify.getName_method())
 				return true;
 		}
 		return false;
-	}
+	 }
 
 	public int getEnd() {
 		return end;

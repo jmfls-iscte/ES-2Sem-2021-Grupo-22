@@ -30,7 +30,7 @@ class MethodTest {
 	
 	@Test
 	public void getMethodIDTest() {
-		assertEquals(0, m1.getMethodID());
+		assertEquals(0, m1.getMethod_id());
 		
 	}
 	
@@ -48,9 +48,32 @@ class MethodTest {
 	}
 	
 	@Test
-	public void getIs_Long_methodTest() {   //no futuro, é preciso criar mais 2 metodos a testar o true e o false
+	public void getIs_Long_methodTest() {   
 		assertNull(m1.getIs_Long_method());
 	}
 	
+	@Test
+	public void getBeginTest() {   
+		m1.setBegin(0);
+		assertEquals(0, m1.getBegin());
+	}
+	
+	@Test
+	public void getEndTest() {   
+		m1.setEnd(1);
+		assertEquals(1, m1.getEnd());
+	}
+	
+	@Test
+	public void addSmellTest() {
+		m1.addSmell("smell_test", false);
+		assertEquals(2, m1.get_name_code_Smells().size());
+	}
+	
+	@Test
+	public void setMethod_idTest() {
+		m1.setMethod_id(1);
+		assertEquals(1, m1.getMethod_id());
+	}
 	
 }

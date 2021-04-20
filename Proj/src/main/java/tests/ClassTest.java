@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,8 @@ class ClassTest {
 		static Method m1;
 		static Method m2;
 		
+		static ArrayList<Method> array_test;
+		
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception{
 			c1 = new Class();
@@ -24,7 +28,8 @@ class ClassTest {
 			m2 = new Method("method_test_fail");
 			
 			c1.addMethod(m1);
-
+			
+			array_test = new ArrayList<Method>();
 		}
 		
 		@Test
@@ -98,14 +103,40 @@ class ClassTest {
 			c1.addMethod(m1);
 			assertEquals(1, c1.getMethod_list().size());
 		}
-		/*
+		
 		@Test
-		public void verifyExistsMethodTestFail() {  //é preciso mudar o método verifyExistsMethod() [da Class] para public
+		public void verifyExistsMethodTestFail() {  
 			assertTrue(c1.verifyExistsMethod(m1));
 		}
+		
 		@Test
 		public void verifyExistsMethodTest() { 
 			assertFalse(c1.verifyExistsMethod(m2));
-		}*/
+		}
+		
+		@Test
+		public void getEndTest() { 
+			c1.setEnd(0);
+			assertEquals(0, c1.getEnd());
+		}
+		
+		@Test
+		public void BeginTest() { 
+			c1.setBegin(0);
+			assertEquals(0, c1.getBegin());
+		}
+		
+		@Test
+		public void getMethodsTest() {
+			assertEquals(1, c1.getMethods().size());
+		}
+		
+		@Test
+		public void addSmellTest() {
+			c1.addSmell("smell_test", true);
+			assertEquals(2, c1.get_name_code_Smells().size());
+
+		}
+	
 
 }
