@@ -9,7 +9,7 @@ import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.stmt.SwitchEntry;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-class MethodParser extends VoidVisitorAdapter<Void> {
+public class MethodParser extends VoidVisitorAdapter<Void> {
 
 	private CompilationUnit cu;
 	private int CYCLO_method = 0;
@@ -34,7 +34,7 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 		methods.add(method);
 	}
 
-	private void loop(List<Statement> stmt){
+	public void loop(List<Statement> stmt){ //ANA: troquei de private para public
 		for (int i = 0; i < stmt.size(); i++) {
 			if (stmt.get(i).isWhileStmt()) {
 				CYCLO_method++;
@@ -97,6 +97,10 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 
 	public void setCu(CompilationUnit cu) {
 		this.cu = cu;
+	}
+
+	public int getCYCLO_method() { //ANA: criei para testes, pode se apagar
+		return CYCLO_method;
 	}
 
 }

@@ -53,8 +53,7 @@ class DirectoryGetterTest {
 	@Test
 	final void getDirFailTest() {
 		Assertions.assertNotNull(dg1);			
-		Throwable exception = assertThrows(IllegalArgumentException.class, () -> dg1.SetDir(test));
-	    assertNotNull(exception);
+		assertThrows(IllegalArgumentException.class, () -> dg1.SetDir(test));
 	}
 	
 	
@@ -65,9 +64,9 @@ class DirectoryGetterTest {
 		assertNotNull(dg2.getBaseFile());
 		assertEquals(working_directory_file, dg2.getBaseFile());
 	}
-	/*
 	
-	@Test NAO CONSIGO TESTAR ESTAS DUAS FUNÇÕES
+	/*
+	@Test //NAO CONSIGO TESTAR ESTAS DUAS FUNÇÕES
 	final void getBaseFileTestFail() {
 		Assertions.assertNull(dg1.getBaseFile()); //PROBLEMAAASSS ????????
 	}
