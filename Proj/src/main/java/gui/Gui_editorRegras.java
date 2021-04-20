@@ -338,13 +338,25 @@ public class Gui_editorRegras {
 								System.out.println("Regra Criada");
 								System.out.println(ruleObjects);
 						
-								// Limpar escolhas e fazer aparecer o botão do inicio do programa
+								// Fazer "reset" à gui restaurando o estado inicial
 								CriarArrayIinicial_btn.setVisible(true);
 								CriarRegra_btn.setVisible(false);
 								AdicionarMetricas_btn.setVisible(false);
+								
+								optL_cmb.setVisible(false);
+								optLogico.setVisible(false);
+								
+								regraName_txt.setVisible(false);
+								RegraType_cmb.setVisible(false);
+								metricaType_lbl.setVisible(false);
+								regraName_lbl.setVisible(false);
+								
+								// apagar as escolhas da regra criada
 								metrica_cmb.deselectAll();
 								comparador_cmb.deselectAll();
 								Limite_txt.setText("");
+								regraName_txt.setText("");
+								RegraType_cmb.deselectAll();
 						
 							}
 						
