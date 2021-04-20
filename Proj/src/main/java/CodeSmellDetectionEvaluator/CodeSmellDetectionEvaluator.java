@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import excel.ExcelRead;
+import gui.MainGui;
 import metrics.*;
 import metrics.Class;
 import metrics.Package;
@@ -21,6 +23,19 @@ public class CodeSmellDetectionEvaluator {
 	private List<Package> packagesExcellst;
 
 	private List<PackageEvaluator> packagesEvaluatorlst;
+	
+	
+	
+	public static void main(String[] args) {
+		//PRECISO DE TESTAR
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	public CodeSmellDetectionEvaluator(List<Package> packagesDetectionlst, List<Package> packagesExcellst) {
 		this.packagesDetectionlst = packagesDetectionlst;
@@ -100,14 +115,20 @@ public class CodeSmellDetectionEvaluator {
 		for (int classindex = 0; classindex < classSize; classindex++) {
 
 			Class currentClass = classDetectionlst.get(classindex);
-
+			
+			Map<String, Boolean> rulesMethodDetection = classDetectionlst.get(classindex).getCode_Smells();
+			Map<String, Boolean> rulesMethodExcel = classExcellst.get(classindex).getCode_Smells();
+			Map<String, EvaluatorType> detectionRules = DetectionRule(rulesMethodDetection, rulesMethodExcel);
+			
 			List<Method> methodDetectionlst = classDetectionlst.get(classindex).getMethod_list();
 			List<Method> methodExcellst = classExcellst.get(classindex).getMethod_list();
-
+			List<MethodEvaluator> detectionMethods = DetectionMethod(methodDetectionlst, methodExcellst);
+			
 			ClassEvaluator classEval = new ClassEvaluator(currentClass);
-			List<MethodEvaluator> detection = DetectionMethod(methodDetectionlst, methodExcellst);
-			classEval.setMethodList(detection);
-
+			classEval.setMethodList(detectionMethods);
+			classEval.setCodesmelssEvaluator(detectionRules);
+			
+			
 			classEvaluatorlst.add(classEval);
 		}
 
