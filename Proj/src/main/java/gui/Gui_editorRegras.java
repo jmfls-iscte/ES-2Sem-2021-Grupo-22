@@ -217,8 +217,8 @@ public class Gui_editorRegras {
 		
 		RegraType_cmb.setVisible(false);
 		
-		RegraType_cmb.add("Class");
-		RegraType_cmb.add("Method");
+		RegraType_cmb.add("class");
+		RegraType_cmb.add("method");
 		new Label(shell, SWT.NONE);
 		
 		// Criar Regra botão
@@ -254,7 +254,7 @@ public class Gui_editorRegras {
 				if (metrica_cmb.getText().isBlank() || comparador_cmb.getText().isBlank()
 						|| Limite_txt.getText().isBlank()) {
 					
-					throw new IllegalArgumentException("Espaços em branco");
+					System.out.println("Espaços em branco");
 				}
 				else {	
 				RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
@@ -270,12 +270,6 @@ public class Gui_editorRegras {
 				
 				CriarRegra_btn.setVisible(true);
 				AdicionarMetricas_btn.setVisible(true);
-				optLogico.setVisible(true);
-				optL_cmb.setVisible(true);
-				regraName_lbl.setVisible(true);
-				regraName_txt.setVisible(true);
-				metricaType_lbl.setVisible(true);
-				RegraType_cmb.setVisible(true);
 				CriarArrayIinicial_btn.setVisible(false);
 				}
 			}
@@ -286,11 +280,17 @@ public class Gui_editorRegras {
 				AdicionarMetricas_btn.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseDoubleClick(MouseEvent e) {
-						if (metrica_cmb.getText().isBlank() || comparador_cmb.getText().isBlank()
-								|| Limite_txt.getText().isBlank() || optL_cmb.getText().isBlank()) {
+						// ao clicar a primeira vez no botão para adicionar metricas à metrica já criada fazemos aparecer o operador lógico e limpamos
+						// as opções da regra anterior
+						if (!optL_cmb.isVisible() && !optLogico.isVisible()) {
 							
-							throw new IllegalArgumentException("Espaços em branco");
-						}
+							optLogico.setVisible(true);
+							optL_cmb.setVisible(true);
+							metrica_cmb.deselectAll();
+							comparador_cmb.deselectAll();
+							Limite_txt.setText("");
+							
+						} else {
 						RuleObject ruleObject3 = new RuleObject(optL_cmb.getText(), "LOGIC_OPERATOR");
 						ruleObjects.add(ruleObject3);
 						
@@ -304,6 +304,13 @@ public class Gui_editorRegras {
 						ruleObjects.add(ruleObject2);
 						
 						System.out.println("Metrica adicionada");
+						
+						// limpar as opções depois de adicionar a metrica
+						metrica_cmb.deselectAll();
+						comparador_cmb.deselectAll();
+						Limite_txt.setText("");
+						optL_cmb.deselectAll();
+						}
 					}
 				});
 				
@@ -311,18 +318,36 @@ public class Gui_editorRegras {
 				CriarRegra_btn.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseDoubleClick(MouseEvent e) {
-						if (ruleObjects.isEmpty() == false) {
-						Rule rule = new Rule(regraName_txt.getText(),RegraType_cmb.getText(),ruleObjects);
-						System.out.println("Regra Criada");
-						System.out.println(ruleObjects);
-						rules.add(rule); // adiciona a regra a um array de regras
-						ruleObjects.clear(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
-						
-						CriarArrayIinicial_btn.setVisible(true);
-						
-						}
+						if (!regraName_txt.isVisible() && !RegraType_cmb.isVisible()) {
+							regraName_txt.setVisible(true);
+							RegraType_cmb.setVisible(true);
+							metricaType_lbl.setVisible(true);
+							regraName_lbl.setVisible(true);
+						} 
 						else {
-							throw new IllegalArgumentException("Array de RuleObjects vazio");
+							if (ruleObjects.isEmpty() == false) {
+								Rule rule;
+								try {
+									rule = new Rule(regraName_txt.getText(),RegraType_cmb.getText(),ruleObjects, true);
+									rules.add(rule); // adiciona a regra a um array de regras
+									ruleObjects.clear(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								System.out.println("Regra Criada");
+								System.out.println(ruleObjects);
+						
+								// Limpar escolhas e fazer aparecer o botão do inicio do programa
+								CriarArrayIinicial_btn.setVisible(true);
+								CriarRegra_btn.setVisible(false);
+								AdicionarMetricas_btn.setVisible(false);
+								metrica_cmb.deselectAll();
+								comparador_cmb.deselectAll();
+								Limite_txt.setText("");
+						
+							}
+						
 						}
 					}
 				});
