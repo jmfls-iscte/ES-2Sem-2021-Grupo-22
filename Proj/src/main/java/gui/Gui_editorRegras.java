@@ -92,22 +92,17 @@ public class Gui_editorRegras {
 		gd_metrica_cmb.heightHint = 30;
 		gd_metrica_cmb.widthHint = 210;
 		metrica_cmb.setLayoutData(gd_metrica_cmb);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-		new Label(shell, SWT.NONE);
-//		metrica_cmb.add("LOC_CLASS");
-//		metrica_cmb.add("NOM_CLASS");
-//		metrica_cmb.add("WMC_CLASS");
 		metrica_cmb.add("LOC_METHOD");
 		metrica_cmb.add("CYCLO_METHOD");
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
 		
 		//Criação do label Comparador e combo box associada
-		
 		Label comparador_lbl = new Label(shell, SWT.NONE);
 		comparador_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		comparador_lbl.setText("Comparador :");
@@ -132,7 +127,6 @@ public class Gui_editorRegras {
 		new Label(shell, SWT.NONE);
 		
 		// Criação label Limite e caixa de texto associada
-		
 		Label limite_lbl = new Label(shell, SWT.NONE);
 		limite_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		limite_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
@@ -151,7 +145,6 @@ public class Gui_editorRegras {
 		new Label(shell, SWT.NONE);
 		
 		//Criação do label Operadores Lógicos e combo box associada
-		
 		Label optLogico = new Label(shell, SWT.NONE);
 		optLogico.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		optLogico.setText("Operadores Lógicos :");
@@ -169,7 +162,6 @@ public class Gui_editorRegras {
 		new Label(shell, SWT.NONE);
 		
 		// Criação do botão adicionar metricas à regra
-		
 		Button AdicionarMetricas_btn = new Button(shell, SWT.NONE);
 		AdicionarMetricas_btn.setText("Adicionar Metricas");
 		AdicionarMetricas_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
@@ -182,7 +174,6 @@ public class Gui_editorRegras {
 		new Label(shell, SWT.NONE);
 		
 		// Criação do label Nome Regra e caixa de texto associada
-		
 		Label regraName_lbl = new Label(shell, SWT.NONE);
 		regraName_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		regraName_lbl.setText("Nome Regra :");
@@ -203,7 +194,6 @@ public class Gui_editorRegras {
 		new Label(shell, SWT.NONE);
 		
 		//Criação do label Tipo Metrica e combo box associada
-		
 		Label metricaType_lbl = new Label(shell, SWT.NONE);
 		metricaType_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		metricaType_lbl.setText("Tipo Metrica :");
@@ -214,7 +204,6 @@ public class Gui_editorRegras {
 		Combo RegraType_cmb = new Combo(shell, SWT.NONE);
 		RegraType_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		RegraType_cmb.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		
 		RegraType_cmb.setVisible(false);
 		
 		RegraType_cmb.add("class");
@@ -222,13 +211,10 @@ public class Gui_editorRegras {
 		new Label(shell, SWT.NONE);
 		
 		// Criar Regra botão
-		
 		Button CriarRegra_btn = new Button(shell, SWT.NONE);
 		CriarRegra_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		CriarRegra_btn.setText("Criar Regra");
-		
 		CriarRegra_btn.setVisible(false);
-		
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
