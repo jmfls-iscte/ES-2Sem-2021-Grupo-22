@@ -266,7 +266,8 @@ public class Gui_editorRegras {
 				RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
 				ruleObjects.add(ruleObject2);
 				
-				System.out.println("metrica criada");
+				Gui_editorRegras_popUp_MetricaCriada newWindow = new Gui_editorRegras_popUp_MetricaCriada();
+				newWindow.open();
 				
 				CriarRegra_btn.setVisible(true);
 				AdicionarMetricas_btn.setVisible(true);
@@ -303,7 +304,9 @@ public class Gui_editorRegras {
 						RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
 						ruleObjects.add(ruleObject2);
 						
-						System.out.println("Metrica adicionada");
+						Gui_editorRegras_popUp_MetricaAdd newWindow1 = new Gui_editorRegras_popUp_MetricaAdd();
+						newWindow1.open();
+
 						
 						// limpar as opções depois de adicionar a metrica
 						metrica_cmb.deselectAll();
@@ -331,13 +334,12 @@ public class Gui_editorRegras {
 									rule = new Rule(regraName_txt.getText(),RegraType_cmb.getText(),ruleObjects, true);
 									rules.add(rule); // adiciona a regra a um array de regras
 									ruleObjects.clear(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
+									Gui_editorRegras_popUp_RegraCriada newWindow2 = new Gui_editorRegras_popUp_RegraCriada();
+									newWindow2.open();
 								} catch (Exception e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
-								System.out.println("Regra Criada");
-								System.out.println(ruleObjects);
-						
 								// Fazer "reset" à gui restaurando o estado inicial
 								CriarArrayIinicial_btn.setVisible(true);
 								CriarRegra_btn.setVisible(false);
