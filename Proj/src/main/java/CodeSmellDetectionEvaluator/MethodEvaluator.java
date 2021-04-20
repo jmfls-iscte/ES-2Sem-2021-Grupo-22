@@ -8,25 +8,32 @@ import metrics.Method;
 
 public class MethodEvaluator {
 
-	//Devia ser uma string com nome??
 	private Method methodEval;
-	private Map<Rule, EvaluatorType> codesmelssEvaluator;
+	private Map<String, EvaluatorType> codesmelssEvaluator;
 	
 	
 	public MethodEvaluator(Method methodEval)
 	{
 		this.methodEval = methodEval;
-		codesmelssEvaluator = new HashMap<Rule, EvaluatorType>();
+		setCodesmelssEvaluator(new HashMap<String, EvaluatorType>());
 	}
 	
-	public MethodEvaluator(Method methodEval,Map<Rule, EvaluatorType> codesmelssEvaluator)
+	public MethodEvaluator(Method methodEval,Map<String, EvaluatorType> codesmelssEvaluator)
 	{
 		this.methodEval = methodEval;
-		this.codesmelssEvaluator = codesmelssEvaluator;
+		this.setCodesmelssEvaluator(codesmelssEvaluator);
 	}
 	
-	public void addRuleAndVal (Rule rule, EvaluatorType evaluatorType)
+	public void addRuleAndVal (String rule, EvaluatorType evaluatorType)
 	{
-		codesmelssEvaluator.put(rule, evaluatorType);
+		getCodesmelssEvaluator().put(rule, evaluatorType);
+	}
+
+	public Map<String, EvaluatorType> getCodesmelssEvaluator() {
+		return codesmelssEvaluator;
+	}
+
+	public void setCodesmelssEvaluator(Map<String, EvaluatorType> codesmelssEvaluator) {
+		this.codesmelssEvaluator = codesmelssEvaluator;
 	}
 }

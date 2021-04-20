@@ -12,33 +12,33 @@ public class ClassEvaluator {
 	
 	//Devia ser string so com nome???
 	private Class classeval;
-	private Map<Rule, EvaluatorType> codesmelssEvaluator;
+	private Map<String, EvaluatorType> codesmelssEvaluator;
 	private List<MethodEvaluator> methodslst;
 	
 	public ClassEvaluator(Class classval)
 	{
 		this.classeval=classval;
-		codesmelssEvaluator = new HashMap<Rule, EvaluatorType>();
+		setCodesmelssEvaluator(new HashMap<String, EvaluatorType>());
 		methodslst = new ArrayList<MethodEvaluator>();
 	}
 	
-	public ClassEvaluator(Class classval,Map<Rule, EvaluatorType> codesmelssEvaluator )
+	public ClassEvaluator(Class classval,Map<String, EvaluatorType> codesmelssEvaluator )
 	{
 		this.classeval=classval;
-		this.codesmelssEvaluator = codesmelssEvaluator;
+		this.setCodesmelssEvaluator(codesmelssEvaluator);
 		methodslst = new ArrayList<MethodEvaluator>();
 	}
 	
-	public ClassEvaluator(Class classval,Map<Rule, EvaluatorType> codesmelssEvaluator, List<MethodEvaluator> methodslst )
+	public ClassEvaluator(Class classval,Map<String, EvaluatorType> codesmelssEvaluator, List<MethodEvaluator> methodslst )
 	{
 		this.classeval=classval;
-		this.codesmelssEvaluator = codesmelssEvaluator;
+		this.setCodesmelssEvaluator(codesmelssEvaluator);
 		this.methodslst = methodslst;
 	}
 	
-	public void addRuleAndVal (Rule rule, EvaluatorType evaluatorType)
+	public void addRuleAndVal (String rule, EvaluatorType evaluatorType)
 	{
-		codesmelssEvaluator.put(rule, evaluatorType);
+		getCodesmelssEvaluator().put(rule, evaluatorType);
 	}
 	
 	public void setMethodList(List<MethodEvaluator> methodslst)
@@ -46,9 +46,17 @@ public class ClassEvaluator {
 		this.methodslst = methodslst;
 	}
 	
-	public void addMethodList(MethodEvaluator methodslst)
+	public void addMethodList(MethodEvaluator method)
 	{
-		this.methodslst.add(methodslst);
+		this.methodslst.add(method);
+	}
+
+	public Map<String, EvaluatorType> getCodesmelssEvaluator() {
+		return codesmelssEvaluator;
+	}
+
+	public void setCodesmelssEvaluator(Map<String, EvaluatorType> codesmelssEvaluator) {
+		this.codesmelssEvaluator = codesmelssEvaluator;
 	}
 	
 		
