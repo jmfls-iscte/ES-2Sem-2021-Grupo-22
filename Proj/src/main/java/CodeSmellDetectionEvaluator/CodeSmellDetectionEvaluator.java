@@ -28,11 +28,9 @@ public class CodeSmellDetectionEvaluator {
 	private List<Package> packagesExcellst;
 
 	private List<PackageEvaluator> packagesEvaluatorlst;
-	
-	
-	
+
 	public static void main(String[] args) {
-		
+
 //		ArrayList<Rule> r = new ArrayList<Rule>();
 //		RuleObject obj1 = new RuleObject("LOC_METHOD", "METHODMETRIC");
 //		RuleObject obj2 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
@@ -75,30 +73,30 @@ public class CodeSmellDetectionEvaluator {
 //		}catch (Exception e) {
 //			e.printStackTrace();
 //		}
-		
-		
-		ArrayList<Rule> rules = (ArrayList<Rule>) SaveLoadRule.LoadRules("rule.txt");
+
+		ArrayList<Rule> rules;
+		try {
+			// rules = (ArrayList<Rule>) SaveLoadRule.LoadRules("..\\rule.txt");
+		} catch (Exception e) {
+
+		}
+
+		rules = (ArrayList<Rule>) RuleEvaluator.BASERULES();
 		ExcelRead excelRead = new ExcelRead("C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx", rules);
-		List<Package> packagesExcel =  excelRead.ReadFile();
+		List<Package> packagesExcel = excelRead.ReadFile();
 
 		metrics.DirectoryGetter dirget = new DirectoryGetter();
 		dirget.SetDir("C:\\Users\\Tiago\\eclipse-workspace2\\jasml_0.10.zip_expanded");
 		dirget.FindSrc();
 		dirget.FindPackages();
 		List<Package> packages = dirget.getPackageList();
-		//RuleEvaluator.runCo
+		RuleEvaluator.runCodeSmells(rules, packages);
 		
+
 		CodeSmellDetectionEvaluator csde = new CodeSmellDetectionEvaluator(packages, packagesExcel);
-		csde.evaluateCodeSmellsDetection();
 		
+
 	}
-	
-	
-	
-	
-	
-	
-	
 
 	public CodeSmellDetectionEvaluator(List<Package> packagesDetectionlst, List<Package> packagesExcellst) {
 		this.packagesDetectionlst = packagesDetectionlst;
@@ -119,14 +117,36 @@ public class CodeSmellDetectionEvaluator {
 		return true;
 	}
 
+	public Package getPackagebyName(String name, List<Package> packagelst) {
+		for (Package p : packagelst) {
+			if (p.getName_Package().equals(name))
+				return p;
+		}
+		return null;
+	}
+
+	public Class getClassbyName(String name, List<Class> classlst) {
+		for (Class c : classlst) {
+			if (c.getName_Class().equals(name))
+				return c;
+		}
+		return null;
+	}
+
 	private boolean verifyClassesAndMethods() {
 		for (int i = 0; i < packagesDetectionlst.size(); i++) {
-			if (packagesDetectionlst.get(i).getClass_list().size() != packagesExcellst.get(i).getClass_list().size())
+			Package packageDetectionVerify = packagesDetectionlst.get(i);;
+			String namepackage = packageDetectionVerify.getName_Package();
+			Package packageEcxelVerify = getPackagebyName(namepackage, packagesExcellst);
+			if (packagesDetectionlst.get(i).getClass_list().size() != packageEcxelVerify.getClass_list().size())
 				return false;
 			else {
 				for (int j = 0; j < packagesDetectionlst.get(i).getClass_list().size(); j++) {
-					if (!VerifyMethods(packagesDetectionlst.get(i).getClass_list().get(j),
-							packagesExcellst.get(i).getClass_list().get(j)))
+					Class classDetectionVerify = packagesDetectionlst.get(i).getClass_list().get(j);
+					String nameclasse = classDetectionVerify.getName_Class();
+					Class classEcxelVerify = getClassbyName(nameclasse, packageEcxelVerify.getClass_list());
+
+					if (!VerifyMethods(classDetectionVerify, classEcxelVerify))
 						return false;
 				}
 			}
@@ -168,7 +188,7 @@ public class CodeSmellDetectionEvaluator {
 			packagesEvaluatorlst.add(packageEvaluator);
 
 		}
-		
+
 		System.out.println("Só para ver");
 
 	}
@@ -180,20 +200,19 @@ public class CodeSmellDetectionEvaluator {
 		for (int classindex = 0; classindex < classSize; classindex++) {
 
 			Class currentClass = classDetectionlst.get(classindex);
-			
+
 			Map<String, Boolean> rulesMethodDetection = classDetectionlst.get(classindex).getCode_Smells();
 			Map<String, Boolean> rulesMethodExcel = classExcellst.get(classindex).getCode_Smells();
 			Map<String, EvaluatorType> detectionRules = DetectionRule(rulesMethodDetection, rulesMethodExcel);
-			
+
 			List<Method> methodDetectionlst = classDetectionlst.get(classindex).getMethod_list();
 			List<Method> methodExcellst = classExcellst.get(classindex).getMethod_list();
 			List<MethodEvaluator> detectionMethods = DetectionMethod(methodDetectionlst, methodExcellst);
-			
+
 			ClassEvaluator classEval = new ClassEvaluator(currentClass);
 			classEval.setMethodList(detectionMethods);
 			classEval.setCodesmelssEvaluator(detectionRules);
-			
-			
+
 			classEvaluatorlst.add(classEval);
 		}
 
