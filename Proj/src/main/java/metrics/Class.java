@@ -19,7 +19,7 @@ public class Class {
 	public Class() {
 		arrayMethods = new ArrayList<Method>();
 		code_Smells = new HashMap<String, Boolean>();
-		code_Smells.put("is_God_Class", null);
+		getCode_Smells().put("is_God_Class", null);
 
 	}
 
@@ -27,7 +27,7 @@ public class Class {
 		this.name = name;
 		arrayMethods = new ArrayList<Method>();
 		code_Smells = new HashMap<String, Boolean>();
-		code_Smells.put("is_God_Class", null);
+		getCode_Smells().put("is_God_Class", null);
 
 	}
 
@@ -50,7 +50,7 @@ public class Class {
 
 	public ArrayList<String> get_name_code_Smells() {
 		ArrayList<String> keys = new ArrayList<String>();
-		keys.addAll(code_Smells.keySet());
+		keys.addAll(getCode_Smells().keySet());
 		return keys;
 	}
 
@@ -117,7 +117,11 @@ public class Class {
 	}
 
 	public void addSmell(String smell, boolean value) {
-		code_Smells.put(smell, value);
+		getCode_Smells().put(smell, value);
+	}
+
+	public Map<String, Boolean> getCode_Smells() {
+		return code_Smells;
 	}
 
 	public Boolean getCsByName(String string) {

@@ -17,13 +17,13 @@ public class Method {
 	
 	public Method() {
 		code_Smells = new HashMap<String, Boolean>();
-		code_Smells.put("is_Long_Method", null);
+		getCode_Smells().put("is_Long_Method", null);
 	}
 	
 	public Method(String method_name) {
 		this.name = method_name;
 		code_Smells = new HashMap<String, Boolean>();
-		code_Smells.put("is_Long_Method", null);
+		getCode_Smells().put("is_Long_Method", null);
 	}
 
 	public String getName_method() {
@@ -34,7 +34,7 @@ public class Method {
 	public ArrayList<String> get_name_code_Smells()
 	{
 		ArrayList<String> keys =  new ArrayList<String>();
-		keys.addAll(code_Smells.keySet());
+		keys.addAll(getCode_Smells().keySet());
 		return keys;
 	}
 	
@@ -76,7 +76,7 @@ public class Method {
 	}
 
 	public void addSmell(String smell, boolean value) {
-		code_Smells.put(smell, value);
+		getCode_Smells().put(smell, value);
 	}
 
 	public int getMethod_id() {
@@ -86,6 +86,11 @@ public class Method {
 	public void setMethod_id(int method_id) {
 		this.method_id = method_id;
 	}
+
+
+	public Map<String, Boolean> getCode_Smells() {
+		return code_Smells;
+}
 	public Boolean getCsByName(String string) {
 		return code_Smells.get(string);
 	}
