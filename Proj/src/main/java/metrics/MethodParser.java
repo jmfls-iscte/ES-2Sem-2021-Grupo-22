@@ -34,24 +34,39 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 		methods.add(method);
 	}
 
-	public void loop(List<Statement> stmt){ //ANA: troquei de private para public
+	public void loop(List<Statement> stmt){
 		for (int i = 0; i < stmt.size(); i++) {
 			if (stmt.get(i).isWhileStmt()) {
 				CYCLO_method++;
 				Statement aux = stmt.get(i).asWhileStmt().getBody();
-				List<Statement> stmt2 = ((BlockStmt) aux).getStatements();
+				List<Statement> stmt2 = new ArrayList<Statement>();
+				try {
+					stmt2 = ((BlockStmt) aux).getStatements();
+				} catch (Exception e) {
+					stmt2.add(aux);
+				}
 				loop(stmt2);
 			}
 			if (stmt.get(i).isForStmt()) {
 				CYCLO_method++;
 				Statement aux = stmt.get(i).asForStmt().getBody();
-				List<Statement> stmt2 = ((BlockStmt) aux).getStatements();
+				List<Statement> stmt2 = new ArrayList<Statement>();
+				try {
+					stmt2 = ((BlockStmt) aux).getStatements();
+				} catch (Exception e) {
+					stmt2.add(aux);
+				}
 				loop(stmt2);
 			}
 			if (stmt.get(i).isForEachStmt()) {
 				CYCLO_method++;
 				Statement aux = stmt.get(i).asForEachStmt().getBody();
-				List<Statement> stmt2 = ((BlockStmt) aux).getStatements();
+				List<Statement> stmt2 = new ArrayList<Statement>();
+				try {
+					stmt2 = ((BlockStmt) aux).getStatements();
+				} catch (Exception e) {
+					stmt2.add(aux);
+				}
 				loop(stmt2);
 			}
 			if (stmt.get(i).isSwitchStmt()) {
@@ -65,26 +80,25 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 				}
 				loop(stmt2);
 			}
-//			
 			if (stmt.get(i).isIfStmt()) {
 				CYCLO_method++;
 				Statement aux = stmt.get(i).asIfStmt().getThenStmt();
-				//System.out.print(aux);
+				List<Statement> stmt2 = new ArrayList<Statement>();
 				try {
-					List<Statement> stmt2 = ((BlockStmt) aux).getStatements();
+					stmt2 = ((BlockStmt) aux).getStatements();
 					if (stmt.get(i).asIfStmt().hasElseBlock()) {
 						CYCLO_method++;
 						Statement aux2 = stmt.get(i).asIfStmt().getElseStmt().get();
 						aux2.asBlockStmt().getStatements();
 						stmt2.addAll(aux2.asBlockStmt().getStatements());
 					}
-					loop(stmt2);
 				} catch (Exception e) {
-					System.out.print("");
+					stmt2.add(aux);
 				}
+				loop(stmt2);
+
 			}
 		}
-
 	}
 
 	public ArrayList<Method> getMethods() {
@@ -99,7 +113,7 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 		this.cu = cu;
 	}
 
-	public int getCYCLO_method() { //ANA: criei para testes, pode se apagar
+	public int getCYCLO_method() {
 		return CYCLO_method;
 	}
 
