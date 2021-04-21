@@ -30,7 +30,7 @@ class MethodTest {
 	
 	@Test
 	public void getMethodIDTest() {
-		assertEquals(0, m1.getMethodID());
+		assertEquals(0, m1.getMethod_id());
 		
 	}
 	
