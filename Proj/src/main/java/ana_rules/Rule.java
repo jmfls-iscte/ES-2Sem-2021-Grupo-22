@@ -15,15 +15,6 @@ public class Rule {
 	// codigo respectivo "Rule rule = new Rule(Arraylist RuleObject)".
 
 	public Rule(String name, String type, ArrayList<RuleObject> new_rule) {
-		for (int x = 0; x < new_rule.size(); x++) {
-			if (new_rule.get(x).getLabel().equals(RuleObjectType.THRESHOLD)) {
-				try {
-					Integer.parseInt(new_rule.get(x).getInfo()); // confirma se o limite colocado é um inteiro
-				} catch (NumberFormatException e) {
-					System.out.println("O limite inserido não é um número");	
-				}
-			}
-		}
 		this.rule_info = new_rule;
 		this.name = name;
 		this.type = type;
@@ -83,8 +74,8 @@ public class Rule {
 		}
 	}
 	
-	public void setInfo(RuleObject object){
-		rule_info.add(object);
+	public void setInfo(ArrayList<RuleObject> object){
+		rule_info = object;
 	}
 
 	public int getObjectID(RuleObject object) {

@@ -48,7 +48,7 @@ public class Method {
 	
 	
 	public Boolean getIs_Long_method() {
-		return getCode_Smells().get("is_Long_Method");
+		return code_Smells.get("Is_Long_Method");
 	}
 
 	public void setLOC_method(int LOC_method) {
@@ -87,7 +87,11 @@ public class Method {
 		this.method_id = method_id;
 	}
 
+
 	public Map<String, Boolean> getCode_Smells() {
 		return code_Smells;
+}
+	public Boolean getCsByName(String string) {
+		return code_Smells.get(string);
 	}
 }

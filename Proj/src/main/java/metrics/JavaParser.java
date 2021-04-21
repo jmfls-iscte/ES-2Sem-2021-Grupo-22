@@ -2,6 +2,8 @@ package metrics;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
+
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.visitor.VoidVisitor;
@@ -21,6 +23,16 @@ public class JavaParser {
 		}
 		System.out.print(package1.getName_Package());
 		System.out.println("Classes " + package1.getClass_list());
+	}
+	
+	public static List<metrics.Class> ParseFile(File file) throws FileNotFoundException{
+		CompilationUnit cu = StaticJavaParser.parse(file);
+		VoidVisitor<Void> classvisitor = new ClassParser();
+		((ClassParser) classvisitor).setCu(cu);
+		classvisitor.visit(cu, null);
+		List<metrics.Class> r= ((ClassParser) classvisitor).getClasses();
+		return r;
+		
 	}
 
 }
