@@ -119,5 +119,9 @@ public class Class {
 	public void addSmell(String smell, boolean value) {
 		code_Smells.put(smell, value);
 	}
+
+	public Boolean getCsByName(String string) {
+		return code_Smells.get(string);
+	}
 	
 }

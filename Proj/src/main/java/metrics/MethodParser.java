@@ -27,10 +27,10 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 		method.setCYCLO_method(CYCLO_method);
 		method.setBegin(md.getBegin().get().line);
 		method.setEnd(md.getEnd().get().line);
-		System.out.println("");
-		System.out.println(method.getName_method());
-		System.out.println("LOC_method " + method.getLOC_method());
-		System.out.println("CYCLO_method " + method.getCYCLO_method());
+		//System.out.println("");
+		//System.out.println(method.getName_method());
+		//System.out.println("LOC_method " + method.getLOC_method());
+		//System.out.println("CYCLO_method " + method.getCYCLO_method());
 		methods.add(method);
 	}
 
@@ -69,7 +69,7 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 			if (stmt.get(i).isIfStmt()) {
 				CYCLO_method++;
 				Statement aux = stmt.get(i).asIfStmt().getThenStmt();
-				System.out.print(aux);
+				//System.out.print(aux);
 				try {
 					List<Statement> stmt2 = ((BlockStmt) aux).getStatements();
 					if (stmt.get(i).asIfStmt().hasElseBlock()) {

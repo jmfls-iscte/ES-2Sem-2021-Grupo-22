@@ -45,7 +45,6 @@ public class DirectoryGetter {
 		}		
 	}
 	
-	
 	public void FindSrc() throws IllegalStateException {
 		String[] var =baseFile.list();
 		if(Arrays.asList(var).contains("src")){
@@ -83,5 +82,9 @@ public class DirectoryGetter {
 	public List<Package> getPackageList(){
 		return Packages;
 	}
+
+	
+
+	
 
 }
