@@ -9,7 +9,7 @@ import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.stmt.SwitchEntry;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-class MethodParser extends VoidVisitorAdapter<Void> {
+public class MethodParser extends VoidVisitorAdapter<Void> {
 
 	private CompilationUnit cu;
 	private int CYCLO_method = 0;
@@ -34,7 +34,7 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 		methods.add(method);
 	}
 
-	private void loop(List<Statement> stmt) throws java.lang.ClassCastException {
+	public void loop(List<Statement> stmt){
 		for (int i = 0; i < stmt.size(); i++) {
 			if (stmt.get(i).isWhileStmt()) {
 				CYCLO_method++;
@@ -50,7 +50,6 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 			if (stmt.get(i).isForStmt()) {
 				CYCLO_method++;
 				Statement aux = stmt.get(i).asForStmt().getBody();
-				System.out.print(aux);
 				List<Statement> stmt2 = new ArrayList<Statement>();
 				try {
 					stmt2 = ((BlockStmt) aux).getStatements();
@@ -100,7 +99,6 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 
 			}
 		}
-
 	}
 
 	public ArrayList<Method> getMethods() {
@@ -113,6 +111,10 @@ class MethodParser extends VoidVisitorAdapter<Void> {
 
 	public void setCu(CompilationUnit cu) {
 		this.cu = cu;
+	}
+
+	public int getCYCLO_method() {
+		return CYCLO_method;
 	}
 
 }
