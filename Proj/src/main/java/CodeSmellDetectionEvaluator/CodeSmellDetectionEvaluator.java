@@ -1,10 +1,14 @@
 package CodeSmellDetectionEvaluator;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ana_rules.Rule;
+import ana_rules.RuleEvaluator;
+import ana_rules.RuleObject;
 import excel.ExcelRead;
 import gui.MainGui;
 import metrics.*;
@@ -27,7 +31,63 @@ public class CodeSmellDetectionEvaluator {
 	
 	
 	public static void main(String[] args) {
-		//PRECISO DE TESTAR
+		
+		ArrayList<Rule> r = new ArrayList<Rule>();
+		RuleObject obj1 = new RuleObject("LOC_METHOD", "METHODMETRIC");
+		RuleObject obj2 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
+		RuleObject obj3 = new RuleObject("50", "THRESHOLD");
+		RuleObject obj4 = new RuleObject("AND", "LOGIC_OPERATOR");
+		RuleObject obj5 = new RuleObject("CYCLO_METHOD", "METHODMETRIC");
+		RuleObject obj6 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
+		RuleObject obj7 = new RuleObject("10", "THRESHOLD");
+		ArrayList<RuleObject> ruleinfo = new ArrayList<RuleObject>();
+		ruleinfo.add(obj1);
+		ruleinfo.add(obj2);
+		ruleinfo.add(obj3);
+		ruleinfo.add(obj4);
+		ruleinfo.add(obj5);
+		ruleinfo.add(obj6);
+		ruleinfo.add(obj7);
+		
+		
+		RuleObject obj8 = new RuleObject("WMC_CLASS", "CLASSMETRIC");
+		RuleObject obj9 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
+		RuleObject obj10 = new RuleObject("50", "THRESHOLD");
+		RuleObject obj11 = new RuleObject("OR", "LOGIC_OPERATOR");
+		RuleObject obj12 = new RuleObject("NOM_CLASS", "CLASSMETRIC");
+		RuleObject obj13 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
+		RuleObject obj14 = new RuleObject("10", "THRESHOLD");
+		ArrayList<RuleObject> ruleinfo2 = new ArrayList<RuleObject>();
+		ruleinfo2.add(obj8);
+		ruleinfo2.add(obj9);
+		ruleinfo2.add(obj10);
+		ruleinfo2.add(obj11);
+		ruleinfo2.add(obj12);
+		ruleinfo2.add(obj13);
+		ruleinfo2.add(obj14);
+		
+		try {
+			Rule long_method = new Rule("Is_Long_Method", "method", ruleinfo, true);
+			Rule Is_God_Class = new Rule("Is_God_Class", "class", ruleinfo2, true);
+			r.add(long_method);
+			r.add(Is_God_Class);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		ExcelRead excelRead = new ExcelRead("C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx", r);
+		List<Package> packagesExcel =  excelRead.ReadFile();
+
+		metrics.DirectoryGetter dirget = new DirectoryGetter();
+		dirget.SetDir("C:\\Users\\Tiago\\eclipse-workspace2\\jasml_0.10.zip_expanded");
+		dirget.FindSrc();
+		dirget.FindPackages();
+		List<Package> packages = dirget.getPackageList();
+		//RuleEvaluator.runCo
+		
+		CodeSmellDetectionEvaluator csde = new CodeSmellDetectionEvaluator(packages, packagesExcel);
+		csde.evaluateCodeSmellsDetection();
+		
 	}
 	
 	
@@ -105,6 +165,8 @@ public class CodeSmellDetectionEvaluator {
 			packagesEvaluatorlst.add(packageEvaluator);
 
 		}
+		
+		System.out.println("Só para ver");
 
 	}
 
