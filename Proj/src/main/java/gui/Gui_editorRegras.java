@@ -102,7 +102,7 @@ public class Gui_editorRegras {
 		Label metrica_lbl = new Label(shell, SWT.NONE);
 		metrica_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		metrica_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		metrica_lbl.setText("Metrica :");
+		metrica_lbl.setText("Métrica :");
 		new Label(shell, SWT.NONE);
 		
 		metrica_cmb = new Combo(shell, SWT.NONE);
@@ -165,7 +165,7 @@ public class Gui_editorRegras {
 		Label limite_lbl = new Label(shell, SWT.NONE);
 		limite_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		limite_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		limite_lbl.setText("Limte :");
+		limite_lbl.setText("Limite :");
 		new Label(shell, SWT.NONE);
 		
 		Limite_txt = new Text(shell, SWT.BORDER);
