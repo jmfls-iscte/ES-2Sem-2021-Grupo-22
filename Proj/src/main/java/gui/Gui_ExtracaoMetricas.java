@@ -5,10 +5,16 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
+import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Button;
 
 public class Gui_ExtracaoMetricas {
 
 	protected Shell shell;
+	private Text dirProj_txt;
+	private Text dirExcel_txt;
 
 	/**
 	 * Launch the application.
@@ -43,25 +49,46 @@ public class Gui_ExtracaoMetricas {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(450, 300);
-		shell.setText("SWT Application");
-		shell.setLayout(new GridLayout(2,true));
+		shell.setSize(895, 546);
+		shell.setText("Extração de Métricas");
+		shell.setLayout(new GridLayout(2, false));
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+
 		
-		Label ExtraoDeMetricas_lbl = new Label(shell, SWT.NONE);
-		ExtraoDeMetricas_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		ExtraoDeMetricas_lbl.setText("Extra\u00E7\u00E3o de Metricas");
+		Label dirProj_lbl = new Label(shell, SWT.NONE);
+		dirProj_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		dirProj_lbl.setText("Diretório do Projeto :");
+		dirProj_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		
-		Label ExtraoDeMetricas_lbl2 = new Label(shell, SWT.NONE);
-		ExtraoDeMetricas_lbl2.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		ExtraoDeMetricas_lbl2.setText("");
+		dirProj_txt = new Text(shell, SWT.BORDER);
+		GridData gd_dirProj_txt = new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1);
+		gd_dirProj_txt.widthHint = 511;
+		dirProj_txt.setLayoutData(gd_dirProj_txt);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
 		
-		Label NOM_Class_lbl = new Label(shell, SWT.NONE);
-		NOM_Class_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		NOM_Class_lbl.setText("NOM_Class");
+		Label dirExcel_lbl = new Label(shell, SWT.NONE);
+		dirExcel_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		dirExcel_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		dirExcel_lbl.setText("Diretório do Ficheiro Excel :");
 		
-		Label NOM_Class_lbl2 = new Label(shell, SWT.NONE);
-		NOM_Class_lbl2.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
-		NOM_Class_lbl2.setText("Result");
+		dirExcel_txt = new Text(shell, SWT.BORDER);
+		dirExcel_txt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		
+		Button extrairMetricas_btn = new Button(shell, SWT.NONE);
+		extrairMetricas_btn.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
+		extrairMetricas_btn.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		extrairMetricas_btn.setText("Extrair Métricas");
 
 		Label WMC_Class_lbl = new Label(shell, SWT.NONE);
 		WMC_Class_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
