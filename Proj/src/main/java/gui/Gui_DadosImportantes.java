@@ -109,11 +109,11 @@ public class Gui_DadosImportantes {
 				ruleinfo.add(obj6);
 				ruleinfo.add(obj7);
 				
-				RuleObject obj21 = new RuleObject("WMC_CLASS", "METHODMETRIC");
+				RuleObject obj21 = new RuleObject("WMC_CLASS", "CLASSMETRIC");
 				RuleObject obj22 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
 				RuleObject obj23 = new RuleObject("50", "THRESHOLD");
 				RuleObject obj24 = new RuleObject("OR", "LOGIC_OPERATOR");
-				RuleObject obj25 = new RuleObject("NOM_CLASS", "METHODMETRIC");
+				RuleObject obj25 = new RuleObject("NOM_CLASS", "CLASSMETRIC");
 				RuleObject obj26 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
 				RuleObject obj27 = new RuleObject("10", "THRESHOLD");
 				ArrayList<RuleObject> ruleinfo2 = new ArrayList<RuleObject>();
