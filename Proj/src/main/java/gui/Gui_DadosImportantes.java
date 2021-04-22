@@ -146,7 +146,7 @@ public class Gui_DadosImportantes {
 				}
 			}
 		});
-		SelectButton.setText("Selecionar Projeto");
+		SelectButton.setText("Selecionar Ficheiro");
 		
 		excelPath_txt = new Text(composite_1, SWT.BORDER);
 		GridData gd_excelPath_txt = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
@@ -163,14 +163,7 @@ public class Gui_DadosImportantes {
 					if(FilePath.equals("")) {
 						//TODO erro popup
 					}else {
-//						metrics.DirectoryGetter dirget= new DirectoryGetter();
-//						dirget.SetDir(FilePath);
-//						dirget.FindSrc();
-//						dirget.FindPackages();
-//						List<Package> packages = dirget.getPackageList();
-//						RuleEvaluator.runCodeSmells(temp, packages);
-//						packagePrint(packages,CStable,colunas);
-						
+
 						ExcelRead excel = new ExcelRead(excelPath_txt.getText(),rules);
 						ArrayList<Package> packages = excel.ReadFile();
 						packagePrint(packages,CStable,colunas);
