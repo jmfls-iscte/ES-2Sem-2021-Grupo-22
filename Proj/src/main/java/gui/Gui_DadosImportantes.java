@@ -16,11 +16,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import ana_rules.Rule;
-import ana_rules.RuleEvaluator;
 import ana_rules.RuleObject;
 
 import org.eclipse.swt.events.MouseAdapter;
@@ -36,8 +34,8 @@ public class Gui_DadosImportantes {
 
 	protected Shell shell;
 	private Text excelPath_txt;
-	private ArrayList<Rule> rules = new ArrayList<Rule>();
 	private List<Rule> temp=new ArrayList<Rule>();
+	private ArrayList<Rule> rules = new ArrayList<Rule>();
 	private List<String> colunas = new ArrayList<String>();
 	private Table CStable;
 
@@ -184,11 +182,6 @@ public class Gui_DadosImportantes {
 				}
 			}
 		});
-		CSButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-			}
-		});
 		CSButton.setText("Deteção de CodeSmells");
 		new Label(composite_1, SWT.NONE);
 		
@@ -196,7 +189,7 @@ public class Gui_DadosImportantes {
 		CStable.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		CStable.setHeaderVisible(true);
 		CStable.setLinesVisible(true);
-		colunas=getColunas(temp);
+		colunas=getColunas(rules);
 		getTable(CStable, colunas);
 
 	}
@@ -247,11 +240,13 @@ public class Gui_DadosImportantes {
 				item2.setText(1,c.getName_Class());
 				for(String rule:c.get_name_code_Smells()) {
 					int colindex=getColIndex(colunas, rule);
+					System.out.println(colindex);
 					if(colindex!=-1) {
-						item2.setText(colindex,"Hello");
-//						c.getCsByName(rule).toString()
+						System.out.println("hello");
+						//item2.setText(colindex,c.getCsByName(rule).toString());
 					}
 				}
+				
 				List<metrics.Method> methodlst = c.getMethod_list();
 				for (metrics.Method m : methodlst) {
 					TableItem item3= new TableItem(CStable, SWT.LEFT);
@@ -263,7 +258,7 @@ public class Gui_DadosImportantes {
 						if(colindex!=-1) {
 							item3.setText(colindex,"hello2");
 //							m.getCsByName(rule).toString()
-						}
+//						}
 					}
 					//MetricsText.append("\n____________________________ >"+m.getName_method());
 					//MetricsText.append("\n................................................ [Is_long_Method: "+m.getIs_Long_method()+"]");
@@ -274,63 +269,6 @@ public class Gui_DadosImportantes {
 			}
 		}
 	}
-
-		
-//		RuleObject obj1 = new RuleObject("LOC_METHOD", "METHODMETRIC");
-//		RuleObject obj2 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
-//		RuleObject obj3 = new RuleObject("50", "THRESHOLD");
-//		RuleObject obj4 = new RuleObject("AND", "LOGIC_OPERATOR");
-//		RuleObject obj5 = new RuleObject("CYCLO_METHOD", "METHODMETRIC");
-//		RuleObject obj6 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
-//		RuleObject obj7 = new RuleObject("10", "THRESHOLD");
-//		ArrayList<RuleObject> ruleinfo = new ArrayList<RuleObject>();
-//		ruleinfo.add(obj1);
-//		ruleinfo.add(obj2);
-//		ruleinfo.add(obj3);
-//		ruleinfo.add(obj4);
-//		ruleinfo.add(obj5);
-//		ruleinfo.add(obj6);
-//		ruleinfo.add(obj7);
-//		
-//		RuleObject obj21 = new RuleObject("WMC_CLASS", "CLASSMETRIC");
-//		RuleObject obj22 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
-//		RuleObject obj23 = new RuleObject("50", "THRESHOLD");
-//		RuleObject obj24 = new RuleObject("OR", "LOGIC_OPERATOR");
-//		RuleObject obj25 = new RuleObject("NOM_CLASS", "CLASSMETRIC");
-//		RuleObject obj26 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
-//		RuleObject obj27 = new RuleObject("10", "THRESHOLD");
-//		ArrayList<RuleObject> ruleinfo2 = new ArrayList<RuleObject>();
-//		ruleinfo2.add(obj21);
-//		ruleinfo2.add(obj22);
-//		ruleinfo2.add(obj23);
-//		ruleinfo2.add(obj24);
-//		ruleinfo2.add(obj25);
-//		ruleinfo2.add(obj26);
-//		ruleinfo2.add(obj27);
-//		
-//		try {
-//			Rule longmethod = new Rule ("Is_Long_Method","method",ruleinfo,true);
-//			Rule godclass = new Rule ("Is_God_Class","class",ruleinfo2,true);
-//			rules.add(longmethod);
-//			rules.add(godclass);
-//		} catch (Exception e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		
-		
-//		mostrarDadosImp_btn.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseDoubleClick(MouseEvent e) {
-//				
-//				ExcelRead excel = new ExcelRead(excelPath_txt.getText(),rules);
-//				ArrayList<Package> packages = excel.ReadFile();
-//				for(Package p:packages)
-//					System.out.println(p.toString());
-//				
-//			}
-//		});
-
-	
+	}
 
 }
