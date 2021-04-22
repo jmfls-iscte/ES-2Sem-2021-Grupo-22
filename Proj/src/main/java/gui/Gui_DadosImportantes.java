@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -73,6 +74,49 @@ public class Gui_DadosImportantes {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
+		
+		RuleObject obj1 = new RuleObject("LOC_METHOD", "METHODMETRIC");
+		RuleObject obj2 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
+		RuleObject obj3 = new RuleObject("50", "THRESHOLD");
+		RuleObject obj4 = new RuleObject("AND", "LOGIC_OPERATOR");
+		RuleObject obj5 = new RuleObject("CYCLO_METHOD", "METHODMETRIC");
+		RuleObject obj6 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
+		RuleObject obj7 = new RuleObject("10", "THRESHOLD");
+		ArrayList<RuleObject> ruleinfo = new ArrayList<RuleObject>();
+		ruleinfo.add(obj1);
+		ruleinfo.add(obj2);
+		ruleinfo.add(obj3);
+		ruleinfo.add(obj4);
+		ruleinfo.add(obj5);
+		ruleinfo.add(obj6);
+		ruleinfo.add(obj7);
+		
+		RuleObject obj21 = new RuleObject("WMC_CLASS", "CLASSMETRIC");
+		RuleObject obj22 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
+		RuleObject obj23 = new RuleObject("50", "THRESHOLD");
+		RuleObject obj24 = new RuleObject("OR", "LOGIC_OPERATOR");
+		RuleObject obj25 = new RuleObject("NOM_CLASS", "CLASSMETRIC");
+		RuleObject obj26 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
+		RuleObject obj27 = new RuleObject("10", "THRESHOLD");
+		ArrayList<RuleObject> ruleinfo2 = new ArrayList<RuleObject>();
+		ruleinfo2.add(obj21);
+		ruleinfo2.add(obj22);
+		ruleinfo2.add(obj23);
+		ruleinfo2.add(obj24);
+		ruleinfo2.add(obj25);
+		ruleinfo2.add(obj26);
+		ruleinfo2.add(obj27);
+		
+		try {
+			Rule longmethod = new Rule ("Is_Long_Method","method",ruleinfo,true);
+			Rule godclass = new Rule ("Is_God_Class","class",ruleinfo2,true);
+			rules.add(longmethod);
+			rules.add(godclass);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		shell = new Shell();
 		shell.setSize(904, 571);
 		shell.setText("SWT Application");
@@ -95,15 +139,13 @@ public class Gui_DadosImportantes {
 		SelectButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-				DirectoryDialog directoryDialog = new DirectoryDialog(shell);
-		        
-		        directoryDialog.setFilterPath(excelPath_txt.getText());
-		        directoryDialog.setMessage("Please select a directory and click OK");
-		        
-		        String dir = directoryDialog.open();
-		        if(dir != null) {
-		          excelPath_txt.setText(dir);
-		        }
+				FileDialog filedialog = new FileDialog(shell);
+				filedialog.setFilterPath(excelPath_txt.getText());
+				
+				String file = filedialog.open();
+				if (file != null) {
+					excelPath_txt.setText(file);
+				}
 			}
 		});
 		SelectButton.setText("Selecionar Projeto");
@@ -206,7 +248,8 @@ public class Gui_DadosImportantes {
 				for(String rule:c.get_name_code_Smells()) {
 					int colindex=getColIndex(colunas, rule);
 					if(colindex!=-1) {
-						item2.setText(colindex,c.getCsByName(rule).toString());
+						item2.setText(colindex,"Hello");
+//						c.getCsByName(rule).toString()
 					}
 				}
 				List<metrics.Method> methodlst = c.getMethod_list();
@@ -218,7 +261,8 @@ public class Gui_DadosImportantes {
 					for(String rule:m.get_name_code_Smells()) {
 						int colindex=getColIndex(colunas, rule);
 						if(colindex!=-1) {
-							item3.setText(colindex,m.getCsByName(rule).toString());
+							item3.setText(colindex,"hello2");
+//							m.getCsByName(rule).toString()
 						}
 					}
 					//MetricsText.append("\n____________________________ >"+m.getName_method());
