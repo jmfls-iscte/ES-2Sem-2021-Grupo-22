@@ -242,10 +242,10 @@ public class ExcelRead {
 		if(r!=null)
 		{
 			//Inserir resultado codesmel em algum lado
-			if(r.getType().equals("Class"))
+			if(r.getType().equals("class"))
 			{
 				currentClass.addSmell(r.getName(), currentCell.getBooleanCellValue());
-			}else if (r.getType().equals("Method"))
+			}else if (r.getType().equals("method"))
 			{
 				currentMethod.addSmell(r.getName(), currentCell.getBooleanCellValue());
 			}
