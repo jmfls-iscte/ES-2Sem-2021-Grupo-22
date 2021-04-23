@@ -305,24 +305,24 @@ public class Gui_editorRegras {
 					
 				} 
 				else {
+					RuleObject ruleObject = new RuleObject(optL_cmb.getText(), "LOGIC_OPERATOR");
+					ruleObjects.add(ruleObject);	
+					
 					if (metrica_cmb.getText().compareTo("LOC_METHOD") == 0 || metrica_cmb.getText().compareTo("CYCLO_METHOD") == 0) {
-						RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
-						ruleObjects.add(ruleObject);
+						RuleObject ruleObject1 = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
+						ruleObjects.add(ruleObject1);
 					}
 					if (metrica_cmb.getText().compareTo("NOM_CLASS") == 0 || metrica_cmb.getText().compareTo("LOC_CLASS") == 0 
 							|| metrica_cmb.getText().compareTo("WMC_CLASS") == 0) {
-						RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "CLASSMETRIC");
-						ruleObjects.add(ruleObject);
+						RuleObject ruleObject1 = new RuleObject(metrica_cmb.getText(), "CLASSMETRIC");
+						ruleObjects.add(ruleObject1);
 					}
-					
-				RuleObject ruleObject3 = new RuleObject(optL_cmb.getText(), "LOGIC_OPERATOR");
-				ruleObjects.add(ruleObject3);
 				
-				RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
-				ruleObjects.add(ruleObject1);
-				
-				RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
+				RuleObject ruleObject2 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
 				ruleObjects.add(ruleObject2);
+				
+				RuleObject ruleObject3 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
+				ruleObjects.add(ruleObject3);
 				
 				Gui_editorRegras_popUp_MetricaAdd newWindow1 = new Gui_editorRegras_popUp_MetricaAdd();
 				newWindow1.open();
