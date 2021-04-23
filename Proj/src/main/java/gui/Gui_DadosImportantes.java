@@ -233,7 +233,7 @@ public class Gui_DadosImportantes {
 					
 					int colindex=getColIndex(colunas, rule);
 					if(colindex!=-1) {
-						item2.setText(colindex, "hello");
+						item2.setText(colindex,"hello");
 						
 					}
 				}
