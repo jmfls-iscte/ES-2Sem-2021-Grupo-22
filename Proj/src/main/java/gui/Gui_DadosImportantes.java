@@ -175,7 +175,7 @@ public class Gui_DadosImportantes {
 				}
 			}
 		});
-		CSButton.setText("Deteção de CodeSmells");
+		CSButton.setText("Importar Dados");
 		new Label(composite_1, SWT.NONE);
 		
 		CStable = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION);
@@ -220,7 +220,7 @@ public class Gui_DadosImportantes {
 	
 	public static void packagePrint(List<Package> pck,Table CStable,List<String> colunas) {
 		for (Package x : pck) {
-			//MetricsText.append("\n >"+x.getName_Package());
+			
 			TableItem item= new TableItem(CStable, SWT.LEFT);
 			item.setText(0,x.getName_Package());
 			List<metrics.Class> classlst = x.getClass_list();
@@ -234,7 +234,7 @@ public class Gui_DadosImportantes {
 					int colindex=getColIndex(colunas, rule);
 					if(colindex!=-1) {
 						item2.setText(colindex, "hello");
-						//item2.setText(colindex,c.getCsByName(rule).toString());
+						
 					}
 				}
 				
@@ -248,7 +248,7 @@ public class Gui_DadosImportantes {
 						int colindex=getColIndex(colunas, rule);
 						if(colindex!=-1) {
 							item3.setText(colindex,"hello2");
-//							m.getCsByName(rule).toString()
+//							
 //						}
 					}
 				}
