@@ -113,6 +113,9 @@ public class Gui_editorRegras {
 		metrica_cmb.setLayoutData(gd_metrica_cmb);
 		metrica_cmb.add("LOC_METHOD");
 		metrica_cmb.add("CYCLO_METHOD");
+		metrica_cmb.add("NOM_CLASS");
+		metrica_cmb.add("LOC_CLASS");
+		metrica_cmb.add("WMC_CLASS");
 		new Label(shell, SWT.NONE);
 		
 		//Criação do label Operadores Lógicos e combo box associada
@@ -159,6 +162,7 @@ public class Gui_editorRegras {
 		MostrarRegra_btn.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		MostrarRegra_btn.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		MostrarRegra_btn.setText("Mostrar Regra");
+		MostrarRegra_btn.setVisible(false);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -245,34 +249,43 @@ public class Gui_editorRegras {
 		new Label(shell, SWT.NONE);
 		
 		// Criar o Array inicial para ser usado para criar a regra
-				CriarArrayIinicial_btn.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseDoubleClick(MouseEvent e) {
-						//verificar se existem espaços em branco necessários para criar o array de rule objects inicial
-						if (metrica_cmb.getText().isBlank() || comparador_cmb.getText().isBlank()
-								|| Limite_txt.getText().isBlank()) {
-							
-							System.out.println("Espaços em branco");
-						}
-						else {	
-						RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
-						ruleObjects.add(ruleObject);
-						
-						RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
-						ruleObjects.add(ruleObject1);
-						
-						RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
-						ruleObjects.add(ruleObject2);
-						
-						Gui_editorRegras_popUp_MetricaCriada newWindow = new Gui_editorRegras_popUp_MetricaCriada();
-						newWindow.open();
-						
-						CriarRegra_btn.setVisible(true);
-						AdicionarMetricas_btn.setVisible(true);
-						CriarArrayIinicial_btn.setVisible(false);
-						}
-					}
-				});
+		CriarArrayIinicial_btn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				//verificar se existem espaços em branco necessários para criar o array de rule objects inicial
+				if (metrica_cmb.getText().isBlank() || comparador_cmb.getText().isBlank()
+						|| Limite_txt.getText().isBlank() ) {
+
+					System.out.println("Espaços em branco");
+				}
+				if (metrica_cmb.getText().compareTo("LOC_METHOD") == 0 || metrica_cmb.getText().compareTo("CYCLO_METHOD") == 0) {
+					RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
+					ruleObjects.add(ruleObject);
+				}
+				if (metrica_cmb.getText().compareTo("NOM_CLASS") == 0 || metrica_cmb.getText().compareTo("LOC_CLASS") == 0 
+						|| metrica_cmb.getText().compareTo("WMC_CLASS") == 0) {
+					RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "CLASSMETRIC");
+					ruleObjects.add(ruleObject);
+				}
+
+				RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
+				ruleObjects.add(ruleObject1);
+
+				RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
+				ruleObjects.add(ruleObject2);
+
+				Gui_editorRegras_popUp_MetricaCriada newWindow = new Gui_editorRegras_popUp_MetricaCriada();
+				newWindow.open();
+
+				CriarRegra_btn.setVisible(true);
+				AdicionarMetricas_btn.setVisible(true);
+				CriarArrayIinicial_btn.setVisible(false);
+
+
+			}
+
+
+		});
 		
 		
 		// Adicionar metricas ao array de metricas criado
@@ -290,18 +303,26 @@ public class Gui_editorRegras {
 					comparador_cmb.deselectAll();
 					Limite_txt.setText("");
 					
-				} else {
-				RuleObject ruleObject3 = new RuleObject(optL_cmb.getText(), "LOGIC_OPERATOR");
-				ruleObjects.add(ruleObject3);
+				} 
+				else {
+					RuleObject ruleObject = new RuleObject(optL_cmb.getText(), "LOGIC_OPERATOR");
+					ruleObjects.add(ruleObject);	
+					
+					if (metrica_cmb.getText().compareTo("LOC_METHOD") == 0 || metrica_cmb.getText().compareTo("CYCLO_METHOD") == 0) {
+						RuleObject ruleObject1 = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
+						ruleObjects.add(ruleObject1);
+					}
+					if (metrica_cmb.getText().compareTo("NOM_CLASS") == 0 || metrica_cmb.getText().compareTo("LOC_CLASS") == 0 
+							|| metrica_cmb.getText().compareTo("WMC_CLASS") == 0) {
+						RuleObject ruleObject1 = new RuleObject(metrica_cmb.getText(), "CLASSMETRIC");
+						ruleObjects.add(ruleObject1);
+					}
 				
-				RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
-				ruleObjects.add(ruleObject);
-				
-				RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
-				ruleObjects.add(ruleObject1);
-				
-				RuleObject ruleObject2 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
+				RuleObject ruleObject2 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
 				ruleObjects.add(ruleObject2);
+				
+				RuleObject ruleObject3 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
+				ruleObjects.add(ruleObject3);
 				
 				Gui_editorRegras_popUp_MetricaAdd newWindow1 = new Gui_editorRegras_popUp_MetricaAdd();
 				newWindow1.open();
@@ -317,53 +338,63 @@ public class Gui_editorRegras {
 		});
 		
 		// Criar a Regra
-				CriarRegra_btn.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseDoubleClick(MouseEvent e) {
-						if (!regraName_txt.isVisible() && !RegraType_cmb.isVisible()) {
-							regraName_txt.setVisible(true);
-							RegraType_cmb.setVisible(true);
-							metricaType_lbl.setVisible(true);
-							regraName_lbl.setVisible(true);
-						} 
-						else {
-							if (ruleObjects.isEmpty() == false) {
-								Rule rule;
-								try {
-									rule = new Rule(regraName_txt.getText(),RegraType_cmb.getText(),ruleObjects, true);
-									rules.add(rule); // adiciona a regra a um array de regras
-									ruleObjects.clear(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
-									Gui_editorRegras_popUp_RegraCriada newWindow2 = new Gui_editorRegras_popUp_RegraCriada();
-									newWindow2.open();
-								} catch (Exception e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
-								// Fazer "reset" à gui restaurando o estado inicial
-								CriarArrayIinicial_btn.setVisible(true);
-								CriarRegra_btn.setVisible(false);
-								AdicionarMetricas_btn.setVisible(false);
-								
-								optL_cmb.setVisible(false);
-								optLogico.setVisible(false);
-								
-								regraName_txt.setVisible(false);
-								RegraType_cmb.setVisible(false);
-								metricaType_lbl.setVisible(false);
-								regraName_lbl.setVisible(false);
-								
-								// apagar as escolhas da regra criada
-								metrica_cmb.deselectAll();
-								comparador_cmb.deselectAll();
-								Limite_txt.setText("");
-								regraName_txt.setText("");
-								RegraType_cmb.deselectAll();
-						
-							}
-						
+		CriarRegra_btn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				if (!regraName_txt.isVisible() && !RegraType_cmb.isVisible()) {
+					regraName_txt.setVisible(true);
+					RegraType_cmb.setVisible(true);
+					metricaType_lbl.setVisible(true);
+					regraName_lbl.setVisible(true);
+				} 
+				else {
+					if (ruleObjects.isEmpty() == false) {
+						Rule rule;
+						try {
+							rule = new Rule(regraName_txt.getText(),RegraType_cmb.getText(),ruleObjects, true);
+							rules.add(rule); // adiciona a regra a um array de regras
+							ruleObjects.clear(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
+							Gui_editorRegras_popUp_RegraCriada newWindow2 = new Gui_editorRegras_popUp_RegraCriada();
+							newWindow2.open();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
 						}
+						// Fazer "reset" à gui restaurando o estado inicial
+						CriarArrayIinicial_btn.setVisible(true);
+						CriarRegra_btn.setVisible(false);
+						AdicionarMetricas_btn.setVisible(false);
+
+						optL_cmb.setVisible(false);
+						optLogico.setVisible(false);
+
+						regraName_txt.setVisible(false);
+						RegraType_cmb.setVisible(false);
+						metricaType_lbl.setVisible(false);
+						regraName_lbl.setVisible(false);
+
+						// apagar as escolhas da regra criada
+						metrica_cmb.deselectAll();
+						comparador_cmb.deselectAll();
+						Limite_txt.setText("");
+						regraName_txt.setText("");
+						RegraType_cmb.deselectAll();
+
 					}
-				});
+
+				}
+			}
+		});
+		
+		MostrarRegra_btn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDoubleClick(MouseEvent e) {
+				System.out.println(metrica_cmb.getText());
+				if (metrica_cmb.getText().compareTo("LOC_METHOD") == 0) {
+					System.out.println("teste");
+				}
+			}
+		});
 
 	}
 
