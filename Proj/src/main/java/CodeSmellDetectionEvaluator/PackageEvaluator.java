@@ -22,7 +22,7 @@ public class PackageEvaluator {
 	public PackageEvaluator(String name, List<ClassEvaluator> classlst)
 	{
 		this.name = name;
-		classlst = classlst;
+		this.classlst = classlst;
 	}
 	
 	

@@ -186,6 +186,10 @@ public class ExcelRead {
 		case 2:
 			// criar ou verificar se existe classe com o nome atual da célula
 			String class_name = currentCell.getStringCellValue();
+			if(class_name.contains(".")) {
+				 String[] names = class_name.split("\\.");
+				 class_name=names[1];
+			}
 			currentClass = currentPackage.get_ClassByName(class_name);
 			if (currentClass == null) {
 				currentClass = new Class(class_name);
@@ -238,10 +242,10 @@ public class ExcelRead {
 		if(r!=null)
 		{
 			//Inserir resultado codesmel em algum lado
-			if(r.getType().equals("Class"))
+			if(r.getType().equals("class"))
 			{
 				currentClass.addSmell(r.getName(), currentCell.getBooleanCellValue());
-			}else if (r.getType().equals("Method"))
+			}else if (r.getType().equals("method"))
 			{
 				currentMethod.addSmell(r.getName(), currentCell.getBooleanCellValue());
 			}
