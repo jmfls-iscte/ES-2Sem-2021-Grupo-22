@@ -108,8 +108,8 @@ public class Gui_DadosImportantes {
 		try {
 			Rule longmethod = new Rule ("Is_Long_Method","method",ruleinfo,true);
 			Rule godclass = new Rule ("Is_God_Class","class",ruleinfo2,true);
-			rules.add(longmethod);
 			rules.add(godclass);
+			rules.add(longmethod);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -211,7 +211,7 @@ public class Gui_DadosImportantes {
 	
 	private static int getColIndex(List<String> colunas,String title) {
 		for(int i=0;i <colunas.size();i++) {
-			if(colunas.get(i).equals(title)) {
+			if(colunas.get(i).equalsIgnoreCase(title)) {
 				return i;
 			}
 		}
@@ -225,17 +225,15 @@ public class Gui_DadosImportantes {
 			item.setText(0,x.getName_Package());
 			List<metrics.Class> classlst = x.getClass_list();
 			for (metrics.Class c : classlst) {
-				//MetricsText.append("\n______________ >"+c.getName_Class());
-				//MetricsText.append("\n........................ [Is_God_Class: "+c.getCsByName("Is_God_Class")+"]");					
-				//System.out.println("\t" +"\n"+c.getName_Class());
+
 				TableItem item2= new TableItem(CStable, SWT.LEFT);
 				item2.setText(0,x.getName_Package());
 				item2.setText(1,c.getName_Class());
 				for(String rule:c.get_name_code_Smells()) {
+					System.out.println(c.getName_Class());
 					int colindex=getColIndex(colunas, rule);
-					System.out.println(colindex);
 					if(colindex!=-1) {
-						System.out.println("hello");
+						item2.setText(colindex, "hello");
 						//item2.setText(colindex,c.getCsByName(rule).toString());
 					}
 				}
@@ -253,11 +251,6 @@ public class Gui_DadosImportantes {
 //							m.getCsByName(rule).toString()
 //						}
 					}
-					//MetricsText.append("\n____________________________ >"+m.getName_method());
-					//MetricsText.append("\n................................................ [Is_long_Method: "+m.getIs_Long_method()+"]");
-					
-					
-
 				}
 			}
 		}
