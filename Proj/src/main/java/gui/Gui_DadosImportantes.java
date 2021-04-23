@@ -230,7 +230,7 @@ public class Gui_DadosImportantes {
 				item2.setText(0,x.getName_Package());
 				item2.setText(1,c.getName_Class());
 				for(String rule:c.get_name_code_Smells()) {
-					System.out.println(c.getName_Class());
+					
 					int colindex=getColIndex(colunas, rule);
 					if(colindex!=-1) {
 						item2.setText(colindex, "hello");
