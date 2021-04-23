@@ -15,6 +15,9 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 	@Override
 	public void visit(ClassOrInterfaceDeclaration n, Void arg) {
 		super.visit(n, arg);
+		VoidVisitor<Void> constructorvisitor = new ConstructorParser();
+		((ConstructorParser) constructorvisitor).setCu(getCu());
+		constructorvisitor.visit(cu, null);
 		VoidVisitor<Void> methodvisitor = new MethodParser();
 		((MethodParser) methodvisitor).setCu(getCu());
 		methodvisitor.visit(cu, null);
@@ -22,16 +25,27 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 		class1.setBegin(n.getBegin().get().line);
 		class1.setEnd(n.getEnd().get().line);
 		class1.setLOC_class(n.getRange().get().getLineCount());
+		classconstructor(class1,(ConstructorParser)constructorvisitor);
 		classmethod(class1,(MethodParser)methodvisitor);
 		classes.add(class1);
-		//System.out.println("");
-		//System.out.println("LOC_class " + class1.getLOC_class());
-		//System.out.println("NOM_class " + class1.getNOM_class());
-		//System.out.println("WMC_class " + class1.getWMC_class());
-		//System.out.println("Methods " + class1.getMethods());
+		System.out.println("");
+		System.out.println(class1.getName_Class());
+		System.out.println("LOC_class " + class1.getLOC_class());
+		System.out.println("NOM_class " + class1.getNOM_class());
+		System.out.println("WMC_class " + class1.getWMC_class());
 	}
 
 	public void classmethod(Class class2, MethodParser m) { //ANA : mudei de private para void por causa dos testes
+		for (int i = 0; i < m.getMethods().size(); i++) {
+			if ((class2.getBegin() < m.getMethods().get(i).getBegin()) && (class2.getEnd() > m.getMethods().get(i).getEnd())) {
+				class2.addMethod(m.getMethods().get(i));
+				class2.setWMC_class(class2.getWMC_class() + m.getMethods().get(i).getCYCLO_method());
+				class2.setNOM_class(class2.getNOM_class() + 1);
+			}
+		}
+	}
+	
+	public void classconstructor(Class class2, ConstructorParser m) { //ANA : mudei de private para void por causa dos testes
 		for (int i = 0; i < m.getMethods().size(); i++) {
 			if ((class2.getBegin() < m.getMethods().get(i).getBegin()) && (class2.getEnd() > m.getMethods().get(i).getEnd())) {
 				class2.addMethod(m.getMethods().get(i));
