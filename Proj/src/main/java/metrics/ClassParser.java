@@ -28,11 +28,19 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 		classconstructor(class1,(ConstructorParser)constructorvisitor);
 		classmethod(class1,(MethodParser)methodvisitor);
 		classes.add(class1);
+//<<<<<<< HEAD
 		System.out.println("");
 		System.out.println(class1.getName_Class());
 		System.out.println("LOC_class " + class1.getLOC_class());
 		System.out.println("NOM_class " + class1.getNOM_class());
 		System.out.println("WMC_class " + class1.getWMC_class());
+//=======
+//		System.out.println("");
+//		System.out.println(class1.getName_Class());
+//		System.out.println("LOC_class " + class1.getLOC_class());
+//		System.out.println("NOM_class " + class1.getNOM_class());
+//		System.out.println("WMC_class " + class1.getWMC_class());
+//>>>>>>> branch 'master' of https://github.com/jmfls-iscte/ES-2Sem-2021-Grupo-22.git
 	}
 
 	public void classmethod(Class class2, MethodParser m) {

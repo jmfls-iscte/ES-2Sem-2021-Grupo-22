@@ -18,7 +18,35 @@ public class ConstructorParser extends VoidVisitorAdapter<Void> {
 	@Override
 	public void visit(ConstructorDeclaration md, Void arg) {
 		super.visit(md, arg);
-		Method method = new Method(md.getName().toString());
+//<<<<<<< HEAD
+//		Method method = new Method(md.getName().toString());
+//		CYCLO_constructor = 0;
+//		BlockStmt test = md.getBody();
+//		List<Statement> stmt = test.getStatements();
+//		loop(stmt);
+//		method.setLOC_method(test.getRange().get().getLineCount());
+//		method.setCYCLO_method(CYCLO_constructor);
+//		method.setBegin(md.getBegin().get().line);
+//		method.setEnd(md.getEnd().get().line);
+//		System.out.println("");
+//		System.out.println(method.getName_method());
+//		System.out.println("LOC_method " + method.getLOC_method());
+//		System.out.println("CYCLO_method " + method.getCYCLO_method());
+//=======
+		String s = md.getName().toString();
+		if (md.getParameters().size() == 0)
+			s += "()";
+		else {
+			for (int h = 0; h < md.getParameters().size(); h++) {
+				s += "(";
+				s += md.getParameter(0);
+				if (h == md.getParameters().size() - 1)
+					s += ")";
+				else
+					s += ",";
+			}
+		}
+		Method method = new Method(s);
 		CYCLO_constructor = 0;
 		BlockStmt test = md.getBody();
 		List<Statement> stmt = test.getStatements();
@@ -27,10 +55,11 @@ public class ConstructorParser extends VoidVisitorAdapter<Void> {
 		method.setCYCLO_method(CYCLO_constructor);
 		method.setBegin(md.getBegin().get().line);
 		method.setEnd(md.getEnd().get().line);
-		System.out.println("");
-		System.out.println(method.getName_method());
-		System.out.println("LOC_method " + method.getLOC_method());
-		System.out.println("CYCLO_method " + method.getCYCLO_method());
+//		System.out.println("");
+//		System.out.println(method.getName_method());
+//		System.out.println("LOC_method " + method.getLOC_method());
+//		System.out.println("CYCLO_method " + method.getCYCLO_method());
+//>>>>>>> branch 'master' of https://github.com/jmfls-iscte/ES-2Sem-2021-Grupo-22.git
 		methods.add(method);
 	}
 

@@ -18,7 +18,20 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 	@Override
 	public void visit(MethodDeclaration md, Void arg) {
 		super.visit(md, arg);
-		Method method = new Method(md.getName().toString());
+		String s = md.getName().toString();
+		if (md.getParameters().size() == 0)
+			s += "()";
+		else {
+			for (int h = 0; h < md.getParameters().size(); h++) {
+				s += "(";
+				s += md.getParameter(0);
+				if (h == md.getParameters().size() - 1)
+					s += ")";
+				else
+					s += ",";
+			}
+		}
+		Method method = new Method(s);
 		CYCLO_method = 0;
 		BlockStmt test = md.getBody().get();
 		List<Statement> stmt = test.getStatements();
@@ -27,10 +40,10 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 		method.setCYCLO_method(CYCLO_method);
 		method.setBegin(md.getBegin().get().line);
 		method.setEnd(md.getEnd().get().line);
-		//System.out.println("");
-		//System.out.println(method.getName_method());
-		//System.out.println("LOC_method " + method.getLOC_method());
-		//System.out.println("CYCLO_method " + method.getCYCLO_method());
+		System.out.println("");
+		System.out.println(method.getName_method());
+		System.out.println("LOC_method " + method.getLOC_method());
+		System.out.println("CYCLO_method " + method.getCYCLO_method());
 		methods.add(method);
 	}
 
