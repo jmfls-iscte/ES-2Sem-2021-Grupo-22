@@ -84,22 +84,22 @@ public class Gui_ExtracaoMetricas {
 		Tree tree = new Tree(shell, SWT.BORDER);
 		tree.setBounds(10, 179, 811, 318);
 		
-		TreeColumn trclmnPackage = new TreeColumn(tree, SWT.NONE);
-		trclmnPackage.setWidth(200);
-		trclmnPackage.setText("Package");
+		TreeColumn trclmnPackageExplorer = new TreeColumn(tree, SWT.NONE);
 		TreeColumn trclmn1 = new TreeColumn(tree, SWT.NONE);
+		TreeColumn trclmn2= new TreeColumn(tree, SWT.NONE);
+		TreeColumn trclmn3= new TreeColumn(tree, SWT.NONE);
+		TreeColumn trclmn4 = new TreeColumn(tree, SWT.NONE);
+		TreeColumn trclmn5= new TreeColumn(tree, SWT.NONE);
+		trclmnPackageExplorer.setWidth(400);
+		trclmnPackageExplorer.setText("Package");
 		trclmn1.setWidth(100);
 		trclmn1.setText("LOC_Class");
-		TreeColumn trclmn2= new TreeColumn(tree, SWT.NONE);
 		trclmn2.setWidth(100);
 		trclmn2.setText("NOM_Class");
-		TreeColumn trclmn3= new TreeColumn(tree, SWT.NONE);
 		trclmn3.setWidth(100);
 		trclmn3.setText("WMC_Class");
-		TreeColumn trclmn4 = new TreeColumn(tree, SWT.NONE);
 		trclmn4.setWidth(100);
 		trclmn4.setText("LOC_Method");
-		TreeColumn trclmn5= new TreeColumn(tree, SWT.NONE);
 		trclmn5.setWidth(100);
 		trclmn5.setText("CYCLO_Method");
 		

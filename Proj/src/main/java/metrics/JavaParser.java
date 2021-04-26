@@ -10,7 +10,7 @@ import com.github.javaparser.ast.visitor.VoidVisitor;
 
 public class JavaParser {
 
-	private static final String FILE_PATH = "src/main/java/metrics/Package.java";
+	private static final String FILE_PATH = "src/main/java/metrics/Class.java";
 
 	public static void main(String[] args) throws FileNotFoundException {
 		CompilationUnit cu = StaticJavaParser.parse(new File(FILE_PATH));
