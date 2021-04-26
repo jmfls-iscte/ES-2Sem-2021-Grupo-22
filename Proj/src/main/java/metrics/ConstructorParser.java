@@ -18,7 +18,20 @@ public class ConstructorParser extends VoidVisitorAdapter<Void> {
 	@Override
 	public void visit(ConstructorDeclaration md, Void arg) {
 		super.visit(md, arg);
-		Method method = new Method(md.getName().toString());
+		String s = md.getName().toString();
+		if (md.getParameters().size() == 0)
+			s += "()";
+		else {
+			for (int h = 0; h < md.getParameters().size(); h++) {
+				s += "(";
+				s += md.getParameter(0);
+				if (h == md.getParameters().size() - 1)
+					s += ")";
+				else
+					s += ",";
+			}
+		}
+		Method method = new Method(s);
 		CYCLO_constructor = 0;
 		BlockStmt test = md.getBody();
 		List<Statement> stmt = test.getStatements();
