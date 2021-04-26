@@ -35,6 +35,10 @@ public class PackageEvaluator {
 	{
 		return classlst;
 	}
+
+	public String getName() {
+		return name;
+	}
 	
 	
 	

@@ -199,11 +199,10 @@ public class CodeSmellDetectionEvaluator {
 				// if(methodDetectionlst.size()!=methodExcellst.size())
 				// throw new IllegalArgumentException();
 
-				// List<MethodEvaluator> detectionMethods = DetectionMethod(methodDetectionlst,
-				// methodExcellst);
+				 List<MethodEvaluator> detectionMethods = DetectionMethod(methodDetectionlst,methodExcellst);
 
 				ClassEvaluator classEval = new ClassEvaluator(currentClass);
-				// classEval.setMethodList(detectionMethods);
+				classEval.setMethodList(detectionMethods);
 				classEval.setCodesmelssEvaluator(detectionRules);
 				classEvaluatorlst.add(classEval);
 			} catch (Exception e) {

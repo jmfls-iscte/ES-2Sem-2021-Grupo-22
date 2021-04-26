@@ -48,7 +48,7 @@ public class ClassEvaluator {
 	
 	public void addMethodList(MethodEvaluator method)
 	{
-		this.methodslst.add(method);
+		this.getMethodslst().add(method);
 	}
 
 	public Map<String, EvaluatorType> getCodesmelssEvaluator() {
@@ -57,6 +57,19 @@ public class ClassEvaluator {
 
 	public void setCodesmelssEvaluator(Map<String, EvaluatorType> codesmelssEvaluator) {
 		this.codesmelssEvaluator = codesmelssEvaluator;
+	}
+
+	public Class getClasseval() {
+		return classeval;
+	}
+	
+	public EvaluatorType getEvalByName(String name)
+	{
+		return codesmelssEvaluator.get(name);
+	}
+
+	public List<MethodEvaluator> getMethodslst() {
+		return methodslst;
 	}
 	
 		
