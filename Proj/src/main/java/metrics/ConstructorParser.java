@@ -34,7 +34,7 @@ public class ConstructorParser extends VoidVisitorAdapter<Void> {
 		methods.add(method);
 	}
 
-	public void loop(List<Statement> stmt){
+	public void loop(List<Statement> stmt) {
 		for (int i = 0; i < stmt.size(); i++) {
 			if (stmt.get(i).isWhileStmt()) {
 				CYCLO_constructor++;
