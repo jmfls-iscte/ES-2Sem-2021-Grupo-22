@@ -35,7 +35,7 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 		System.out.println("WMC_class " + class1.getWMC_class());
 	}
 
-	public void classmethod(Class class2, MethodParser m) { //ANA : mudei de private para void por causa dos testes
+	public void classmethod(Class class2, MethodParser m) {
 		for (int i = 0; i < m.getMethods().size(); i++) {
 			if ((class2.getBegin() < m.getMethods().get(i).getBegin()) && (class2.getEnd() > m.getMethods().get(i).getEnd())) {
 				class2.addMethod(m.getMethods().get(i));
@@ -45,7 +45,7 @@ public class ClassParser extends VoidVisitorAdapter<Void> {
 		}
 	}
 	
-	public void classconstructor(Class class2, ConstructorParser m) { //ANA : mudei de private para void por causa dos testes
+	public void classconstructor(Class class2, ConstructorParser m) {
 		for (int i = 0; i < m.getMethods().size(); i++) {
 			if ((class2.getBegin() < m.getMethods().get(i).getBegin()) && (class2.getEnd() > m.getMethods().get(i).getEnd())) {
 				class2.addMethod(m.getMethods().get(i));
