@@ -36,4 +36,13 @@ public class MethodEvaluator {
 	public void setCodesmelssEvaluator(Map<String, EvaluatorType> codesmelssEvaluator) {
 		this.codesmelssEvaluator = codesmelssEvaluator;
 	}
+	
+	public EvaluatorType getEvalByName(String name)
+	{
+		return getCodesmelssEvaluator().get(name);
+	}
+
+	public Method getMethodEval() {
+		return methodEval;
+	}
 }

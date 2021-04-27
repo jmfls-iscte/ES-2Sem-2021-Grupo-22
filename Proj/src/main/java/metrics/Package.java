@@ -29,7 +29,7 @@ public class Package {
 			try {
 				arrayClasses.addAll(JavaParser.ParseFile(x));
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 		
