@@ -6,7 +6,7 @@ import org.junit.platform.suite.api.SelectClasses;
 
 @RunWith(JUnitPlatform.class)
 @SelectClasses({PackageTest.class,  MethodTest.class, ClassTest.class, DirectoryGetterTest.class, JavaParserTest.class,
-	MethodParserTest.class, RuleTest.class, RuleObjectTest.class, ClassMetricTest.class})
+	MethodParserTest.class, ClassParserTest .class, ConstructorParserTest.class, RuleTest.class, RuleObjectTest.class})
 public class AllTests {
 }
 
