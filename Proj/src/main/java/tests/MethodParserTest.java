@@ -1,5 +1,6 @@
 package tests;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -26,11 +27,14 @@ class MethodParserTest {
 	static Statement stmt2 = new ForStmt();
 	static Statement stmt3 = new SwitchStmt();
 	static Statement stmt4 = new IfStmt();
+	
+	//erros
+	static Statement stmt1_fail = new WhileStmt();
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception{
 		stmt1.asWhileStmt();
-		stmt_list.add(stmt1);
+		stmt_list.add(stmt1);	
 	}
 	
 	@Test
@@ -40,8 +44,7 @@ class MethodParserTest {
 	}
 	
 	@Test
-	void methodParserAsWhileStmtExceptionTest() { //FALTA FAZER
-		
+	void methodParserAsWhileStmtExceptionTest() { //FALTA FAZER ??
 	}
 	
 	@Test
@@ -56,7 +59,7 @@ class MethodParserTest {
 	
 	
 	@Test
-	void methodParserAsForStmtExceptionTest() { //FALTA FAZER
+	void methodParserAsForStmtExceptionTest() { //FALTA FAZER??
 		
 	}
 	
