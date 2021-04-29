@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import metrics.Metrics;
 
-class NunoMetricsTest {
+class MetricsTest {
 
 	static Metrics metric;
 	
@@ -77,4 +77,13 @@ class NunoMetricsTest {
 		assertEquals(true, metric.is_Long_Method);
 	}
 
+	@Test
+	void testgetIs_God_Class() {
+		assertFalse(metric.getIs_God_Class());
+	}
+	
+	@Test
+	void testgetIs_Long_Method() {
+		assertTrue(metric.getIs_Long_Method());
+	}
 }
