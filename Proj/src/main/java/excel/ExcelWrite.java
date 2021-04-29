@@ -1,6 +1,8 @@
 package excel;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+
 import metrics.*;
 
 import metrics.Class;
@@ -32,7 +34,7 @@ public class ExcelWrite {
 
 
 
-	public ExcelWrite() throws IOException {
+	public ExcelWrite(){
 		metrics = new ArrayList<Metrics>();
 	}
 
@@ -50,7 +52,7 @@ public class ExcelWrite {
 		}
 	}
 
-	public void writeFile(String filePath, ArrayList<Package> listPackages) throws IOException {
+	public void writeFile(String filePath, ArrayList<Package> listPackages) {
 
 		addMetrics(listPackages);
 
@@ -110,9 +112,24 @@ public class ExcelWrite {
 			}
 		}
 
-		FileOutputStream fileOut = new FileOutputStream(filePath);
-		workbook.write(fileOut);
-		fileOut.close();
+		FileOutputStream fileOut;
+		try {
+			fileOut = new FileOutputStream(filePath);
+			workbook.write(fileOut);
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	public ArrayList<Metrics> getMetrics() {
+		return metrics;
 	}
 
 

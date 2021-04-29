@@ -48,7 +48,7 @@ class ExcelReadTest {
 	static Cell currentCell;
 	
 	@BeforeAll
-	static void setUpBeforeClass() throws IOException {
+	static void setUpBeforeClass() throws Exception {
 		path = "/Users/anantunes0/Code_Smells.xlsx"; //É NECESSÁRIO POR UM PATH CORRECTO
 		er = new ExcelRead(path, rules);					
 	}
@@ -58,7 +58,7 @@ class ExcelReadTest {
 		er = new excel.ExcelRead(path, rules);
 		assertNotNull(er);
 	}
-
+	
 	@Test
 	void testReadFile() {
 		 assertNotNull(er.ReadFile());
@@ -87,5 +87,5 @@ class ExcelReadTest {
 		assertNull(er_2.VerifyExistsCodeSmell("test"));
 		rules.remove(rule);
 	}
-	
+	 
 }
