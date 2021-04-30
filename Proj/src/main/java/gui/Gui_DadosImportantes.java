@@ -223,27 +223,28 @@ public class Gui_DadosImportantes {
 			
 			TableItem item= new TableItem(CStable, SWT.LEFT);
 			item.setText(0,x.getName_Package());
+			
 			List<metrics.Class> classlst = x.getClass_list();
 			for (metrics.Class c : classlst) {
-
 				TableItem item2= new TableItem(CStable, SWT.LEFT);
 				item2.setText(0,x.getName_Package());
 				item2.setText(1,c.getName_Class());
+				
 				for(String rule:c.get_name_code_Smells()) {
-					
+					System.out.println(c.getCsByName(rule));
 					int colindex=getColIndex(colunas, rule);
 					if(colindex!=-1) {
-						item2.setText(colindex,"hello");
+						item2.setText(colindex,c.getCsByName(rule).toString());
 						
 					}
 				}
-				
 				List<metrics.Method> methodlst = c.getMethod_list();
 				for (metrics.Method m : methodlst) {
 					TableItem item3= new TableItem(CStable, SWT.LEFT);
 					item3.setText(0,x.getName_Package());
 					item3.setText(1,c.getName_Class());
 					item3.setText(2,m.getName_method());
+					
 					for(String rule:m.get_name_code_Smells()) {
 						int colindex=getColIndex(colunas, rule);
 						if(colindex!=-1) {

@@ -324,8 +324,8 @@ public class Gui_editorRegras {
 				RuleObject ruleObject3 = new RuleObject(Limite_txt.getText(), "THRESHOLD");
 				ruleObjects.add(ruleObject3);
 				
-				Gui_editorRegras_popUp_MetricaAdd newWindow1 = new Gui_editorRegras_popUp_MetricaAdd();
-				newWindow1.open();
+//				Gui_editorRegras_popUp_MetricaAdd newWindow1 = new Gui_editorRegras_popUp_MetricaAdd();
+//				newWindow1.open();
 
 				
 				// limpar as opções depois de adicionar a metrica
