@@ -27,6 +27,7 @@ import ana_rules.SaveLoadRule;
 import excel.ExcelRead;
 import metrics.DirectoryGetter;
 import metrics.Package;
+import org.eclipse.swt.layout.RowLayout;
 
 public class ProjMainGui {
 
@@ -68,13 +69,14 @@ public class ProjMainGui {
 	public void open() {
 		display = Display.getDefault();
 		createContents();
+		
 		shell.open();
 		shell.layout();
 		shell.addListener(SWT.Close, new Listener() {
 			public void handleEvent(Event event) {
 
 				File myObj = new File(ruleFile);
-				SaveLoadRule.SaveRules((ArrayList<Rule>) rules, ruleFile);
+				SaveLoadRule.SaveRules((ArrayList<Rule>) getRules(), ruleFile);
 				//System.out.println(myObj.getAbsolutePath());
 			}
 		});
@@ -90,14 +92,13 @@ public class ProjMainGui {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(886, 571);
+		shell.setSize(1027, 623);
 		shell.setText("SWT Application");
-		shell.setLayout(new GridLayout(1, false));
+		shell.setLayout(new RowLayout(SWT.HORIZONTAL));
 		menuBar = new MenuBar(shell, SWT.NONE, this);
-		menuBar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 0, 0));
 		
-		rules=SaveLoadRule.LoadRules(ruleFile);
-		if(!assertBaseRules()) {rules=RuleEvaluator.BASERULES();}
+		setRules(SaveLoadRule.LoadRules(ruleFile));
+		if(!assertBaseRules()) {setRules(RuleEvaluator.BASERULES());}
 	}
 
 	protected void Button1() {
@@ -105,9 +106,10 @@ public class ProjMainGui {
 		this.disposeAll();
 
 		metricas = new GuiExtracaoMetricas(shell, SWT.NONE, this);
-		metricas.setLayoutData(defaultLayout());
+		//metricas.setLayoutData(defaultLayout());
 		metricas.firstFill(projPath, packages);
 		shell.layout();
+		shell.pack();
 
 	}
 
@@ -116,8 +118,9 @@ public class ProjMainGui {
 		this.disposeAll();
 
 		editor = new GuiEditorRegras(shell, SWT.NONE, this);
-		editor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		//editor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		shell.layout();
+		shell.pack();
 
 	}
 
@@ -126,8 +129,9 @@ public class ProjMainGui {
 		this.disposeAll();
 
 		qualidade = new GuiQualidadeRegras(shell, SWT.NONE, this);
-		qualidade.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		//qualidade.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		shell.layout();
+		shell.pack();
 
 	}
 
@@ -136,9 +140,10 @@ public class ProjMainGui {
 		this.disposeAll();
 
 		importados = new GuiDadosImportados(shell, SWT.NONE, this);
-		importados.setLayoutData(defaultLayout());
+		//importados.setLayoutData(defaultLayout());
 		importados.firstFill(importPath, importedPackages);
 		shell.layout();
+		shell.pack();
 
 	}
 
@@ -147,8 +152,9 @@ public class ProjMainGui {
 		this.disposeAll();
 
 		exportar = new GuiExportarDados(shell, SWT.NONE, this);
-		exportar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		//exportar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		shell.layout();
+		shell.pack();
 
 	}
 
@@ -196,6 +202,7 @@ public class ProjMainGui {
 			dirget.FindSrc();
 			dirget.FindPackages();
 			packages = dirget.getPackages();
+			RuleEvaluator.runCodeSmells(getRules(),packages);
 		} else {
 			// TODO error pop-up (no project selected)
 		}
@@ -203,7 +210,7 @@ public class ProjMainGui {
 
 	protected void runImport() {
 		if (importPath != null) {
-			ExcelRead excel = new ExcelRead(importPath, (ArrayList<Rule>) rules);
+			ExcelRead excel = new ExcelRead(importPath, (ArrayList<Rule>) getRules());
 			importedPackages = excel.ReadFile();
 		}
 	}
@@ -227,10 +234,18 @@ public class ProjMainGui {
 	private boolean assertBaseRules() {
 		boolean godclass=false;
 		boolean longmethod=false;
-		for(Rule rule: rules) {
+		for(Rule rule: getRules()) {
 			if(rule.getName().equals("Is_God_Class")) {godclass=true;}
 			if(rule.getName().equals("Is_Long_Method")) {longmethod=true;}
 		}
 		return godclass && longmethod;
+	}
+
+	protected List<Rule> getRules() {
+		return rules;
+	}
+
+	protected void setRules(List<Rule> rules) {
+		this.rules = rules;
 	}
 }

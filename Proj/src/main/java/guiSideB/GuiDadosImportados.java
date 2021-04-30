@@ -37,9 +37,10 @@ public class GuiDadosImportados extends Composite {
 		
 		Composite composite = new Composite(this, SWT.EMBEDDED);
 		composite.setLayout(new GridLayout(2, false));
-		GridData gd_composite = new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1);
-		gd_composite.widthHint = 837;
-		composite.setLayoutData(gd_composite);
+		GridData gridDatacomposite1 = new GridData();
+		gridDatacomposite1.grabExcessHorizontalSpace = true;
+		gridDatacomposite1.horizontalAlignment = GridData.FILL;
+		composite.setLayoutData(gridDatacomposite1);
 		
 		Button btnSelecionarProjeto = new Button(composite, SWT.NONE);
 		GridData gd_btnSelecionarProjeto = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);

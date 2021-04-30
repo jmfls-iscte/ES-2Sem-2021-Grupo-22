@@ -19,7 +19,6 @@ public class MenuBar extends Composite {
 	Button btnNewButton_1;
 	Button btnNewButton_2;
 	Button btnNewButton_3;
-	Button btnNewButton_4;
 
 	/**
 	 * Create the composite.
@@ -29,7 +28,7 @@ public class MenuBar extends Composite {
 	public MenuBar(Composite parent, int style,ProjMainGui mainWindow) {
 		super(parent, style);
 		this.mainWindow=mainWindow;
-		setLayout(new GridLayout(5, false));
+		setLayout(new GridLayout(1, false));
 		
 		btnNewButton = new Button(this, SWT.BORDER | SWT.FLAT | SWT.TOGGLE);
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -46,7 +45,7 @@ public class MenuBar extends Composite {
 			public void widgetSelected(SelectionEvent e) {
 			}
 		});
-		GridData gd_btnNewButton = new GridData(SWT.CENTER, SWT.CENTER, true, true, 1, 1);
+		GridData gd_btnNewButton = new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1);
 		gd_btnNewButton.heightHint = 45;
 		btnNewButton.setLayoutData(gd_btnNewButton);
 		btnNewButton.setText("Extração Métricas");
@@ -59,11 +58,11 @@ public class MenuBar extends Composite {
 				resetButtons();
 			}
 		});
-
-		GridData gd_btnNewButton_1 = new GridData(SWT.CENTER, SWT.CENTER, true, true, 1, 1);
-		gd_btnNewButton_1.heightHint = 45;
-		btnNewButton_1.setLayoutData(gd_btnNewButton_1);
-		btnNewButton_1.setText("Editor de CodeSmells");
+		
+				GridData gd_btnNewButton_1 = new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1);
+				gd_btnNewButton_1.heightHint = 45;
+				btnNewButton_1.setLayoutData(gd_btnNewButton_1);
+				btnNewButton_1.setText("Editor de CodeSmells");
 		
 		btnNewButton_2 = new Button(this, SWT.BORDER | SWT.TOGGLE);
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
@@ -73,7 +72,7 @@ public class MenuBar extends Composite {
 				resetButtons();
 			}
 		});
-		GridData gd_btnNewButton_2 = new GridData(SWT.CENTER, SWT.CENTER, true, true, 1, 1);
+		GridData gd_btnNewButton_2 = new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1);
 		gd_btnNewButton_2.heightHint = 45;
 		btnNewButton_2.setLayoutData(gd_btnNewButton_2);
 		btnNewButton_2.setText("Qualidade de CodeSmells");
@@ -86,23 +85,10 @@ public class MenuBar extends Composite {
 				resetButtons();
 			}
 		});
-		GridData gd_btnNewButton_3 = new GridData(SWT.CENTER, SWT.CENTER, true, true, 1, 1);
+		GridData gd_btnNewButton_3 = new GridData(SWT.CENTER, SWT.CENTER, true, false, 1, 1);
 		gd_btnNewButton_3.heightHint = 45;
 		btnNewButton_3.setLayoutData(gd_btnNewButton_3);
 		btnNewButton_3.setText("Importar dados");
-		
-		btnNewButton_4 = new Button(this, SWT.BORDER | SWT.TOGGLE);
-		btnNewButton_4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				mainWindow.Button5();
-				resetButtons();
-			}
-		});
-		GridData gd_btnNewButton_4 = new GridData(SWT.CENTER, SWT.CENTER, true, true, 1, 1);
-		gd_btnNewButton_4.heightHint = 45;
-		btnNewButton_4.setLayoutData(gd_btnNewButton_4);
-		btnNewButton_4.setText("Exportar Dados");
 
 	}
 
@@ -116,7 +102,7 @@ public class MenuBar extends Composite {
 		btnNewButton_1.setSelection(false);
 		btnNewButton_2.setSelection(false);
 		btnNewButton_3.setSelection(false);
-		btnNewButton_4.setSelection(false);
+		//btnNewButton_4.setSelection(false);
 	}
 
 }
