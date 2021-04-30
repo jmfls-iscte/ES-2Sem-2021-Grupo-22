@@ -41,7 +41,7 @@ public class Class {
 
 	public Method get_MethodByName(String methodname) {
 		for (Method m : arrayMethods) {
-			if (m.getName_method() == methodname)
+			if (m.getName_method().equals(methodname) )
 				return m;
 		}
 

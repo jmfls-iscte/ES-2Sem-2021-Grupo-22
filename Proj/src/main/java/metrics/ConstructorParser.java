@@ -37,10 +37,13 @@ public class ConstructorParser extends VoidVisitorAdapter<Void> {
 		if (md.getParameters().size() == 0)
 			s += "()";
 		else {
+			s += "(";
 			for (int h = 0; h < md.getParameters().size(); h++) {
-				s += "(";
-				s += md.getParameter(0);
-				if (h == md.getParameters().size() - 1)
+				
+				String aux = md.getParameter(h).toString();
+				String[] auxsplit = aux.split(" ");
+				s += auxsplit[0];
+				if (h == (md.getParameters().size() - 1))
 					s += ")";
 				else
 					s += ",";
