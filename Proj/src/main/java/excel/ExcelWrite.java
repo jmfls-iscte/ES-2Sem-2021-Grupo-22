@@ -23,7 +23,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-//
+// APAGAR FICHEIRO NO COMPUTADORRRRRRRRRRR!!!!!!!!!!
+
 public class ExcelWrite {
 
 	private  String[] columns = {"MethodID","Package","Class","Method","NOM_class","LOC_class","WMC_class","is_God_Class","LOC_method","CYCLO_method","is_Long_Method"};

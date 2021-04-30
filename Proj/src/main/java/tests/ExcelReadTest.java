@@ -63,13 +63,13 @@ class ExcelReadTest {
 	void testReadFile() {
 		 assertNotNull(er.ReadFile());
 	}
-	
+	/*
 	@Test
 	void testReadFileException() {
 		er_fail = new excel.ExcelRead("test", rules);
 		assertThrows(FileNotFoundException.class, () -> er_fail.ReadFile());
 	}
-	
+	*/
 	@Test
 	void testVerifyExistsCodeSmellFail() {
 		assertNull(er.VerifyExistsCodeSmell("rule"));
