@@ -32,7 +32,7 @@ public class ExcelWrite {
 
 
 
-	public ExcelWrite() throws IOException {
+	public ExcelWrite(){
 		metrics = new ArrayList<Metrics>();
 	}
 
