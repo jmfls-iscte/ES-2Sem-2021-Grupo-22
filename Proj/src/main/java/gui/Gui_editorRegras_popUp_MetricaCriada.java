@@ -7,6 +7,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 
@@ -90,34 +91,47 @@ public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 		Confirm_btn.setText("Criar");
 		Confirm_btn.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		Confirm_btn.setBounds(126, 299, 90, 30);
+		
+		
+
 
 		Confirm_btn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-				if (metrica_cmb.getText().isBlank() || comparador_cmb.getText().isBlank()
-						|| limite_txt.getText().isBlank() ) {
+				if (metrica_cmb.getText().isBlank() == true || comparador_cmb.getText().isBlank() == true
+						|| limite_txt.getText().isBlank() == true ) {
 
-					System.out.println("Espaços em branco");
+					Gui_editorRegras2.setAviso("Espaços em branco");
 				}
-				if (metrica_cmb.getText().compareTo("LOC_METHOD") == 0 || metrica_cmb.getText().compareTo("CYCLO_METHOD") == 0) {
-					RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
-//					ruleObjects.add(ruleObject);
-					Gui_editorRegras2.AddToRuleObjects(ruleObject);
-				}
-				if (metrica_cmb.getText().compareTo("NOM_CLASS") == 0 || metrica_cmb.getText().compareTo("LOC_CLASS") == 0 
-						|| metrica_cmb.getText().compareTo("WMC_CLASS") == 0) {
-					RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "CLASSMETRIC");
-					Gui_editorRegras2.AddToRuleObjects(ruleObject);
+				else {
+					if (metrica_cmb.getText().compareTo("LOC_METHOD") == 0 || metrica_cmb.getText().compareTo("CYCLO_METHOD") == 0) {
+						RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
+						Gui_editorRegras2.AddToRuleObjects(ruleObject);
+					}
+					if (metrica_cmb.getText().compareTo("NOM_CLASS") == 0 || metrica_cmb.getText().compareTo("LOC_CLASS") == 0 
+							|| metrica_cmb.getText().compareTo("WMC_CLASS") == 0) {
+						RuleObject ruleObject = new RuleObject(metrica_cmb.getText(), "CLASSMETRIC");
+						Gui_editorRegras2.AddToRuleObjects(ruleObject);
+					}
+
+					RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
+					Gui_editorRegras2.AddToRuleObjects(ruleObject1);
+
+					RuleObject ruleObject2 = new RuleObject(limite_txt.getText(), "THRESHOLD");
+					Gui_editorRegras2.AddToRuleObjects(ruleObject2);
+
+					Gui_editorRegras2.setRegraType(RegraType_cmb.getText());
+					System.out.println(Gui_editorRegras2.getRegratype());
+
+					Gui_editorRegras2.setAviso("Métrica Criada");
 				}
 
-				RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
-				Gui_editorRegras2.AddToRuleObjects(ruleObject1);
-
-				RuleObject ruleObject2 = new RuleObject(limite_txt.getText(), "THRESHOLD");
-				Gui_editorRegras2.AddToRuleObjects(ruleObject2);
-				
-				Gui_editorRegras2.setRegraType(RegraType_cmb.getText());
-				System.out.println(Gui_editorRegras2.getRegratype());
+			}
+			
+			public void mandarAviso() {
+//				Label teste;
+//				teste = new Label("hello");
+//				mensagem = new Gui_editorRegras_MessageBoard(composite_MessagePanel,SWT.NONE, shellEditor);
 			}
 		});
 
@@ -127,5 +141,4 @@ public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
-
 }

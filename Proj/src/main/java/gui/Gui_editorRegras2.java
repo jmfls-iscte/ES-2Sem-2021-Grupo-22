@@ -21,6 +21,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -36,6 +37,9 @@ public class Gui_editorRegras2 {
 	public static ArrayList<RuleObject> ruleObjects = new ArrayList<RuleObject>();
 	public static ArrayList<Rule> rules = new ArrayList<Rule>();
 	public static String regraType;
+	public static String aviso;
+	public static Label teste;
+	public static MessageBox box;
 
 	/**
 	 * Launch the application.
@@ -104,40 +108,43 @@ public class Gui_editorRegras2 {
 		btnCriarRegra.setText("Criar Regra");
 		btnCriarRegra.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnCriarRegra.setBounds(338, 10, 111, 30);
+		
+		Button btnMostrarRegras = new Button(composite_Buttons, SWT.NONE);
+		btnMostrarRegras.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		btnMostrarRegras.setBounds(488, 10, 95, 30);
+		btnMostrarRegras.setText("Ver Regras");
 		composite_Panel.setLayout(new GridLayout(1, false));
 		composite_Panel.setLayoutData(fd_composite_Panel);
 		
+		box = new MessageBox(shell);
 		
 		btnCriarMetrica.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				this.disposeAll();
-//				Gui_editorRegras_popUp_MetricaCriada gui = new Gui_editorRegras_popUp_MetricaCriada(composite_Panel,SWT.NONE, shellEditor);
 				metrica_criada = new Gui_editorRegras_popUp_MetricaCriada(composite_Panel,SWT.NONE, shellEditor);
 				composite_Panel.layout();
 				
 			}
 
 			private void disposeAll() {
-				// TODO Auto-generated method stub
 				disposeSafe(metrica_criada);
 				disposeSafe(metrica_add);
 				disposeSafe(regra_criada);
 			}
+			
 		});
 		
 		btnAdicionarMetric.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				this.disposeAll();
-//				Gui_editorRegras_popUp_MetricaAdd gui = new Gui_editorRegras_popUp_MetricaAdd(composite_Panel,SWT.NONE, shellEditor);
 				metrica_add = new Gui_editorRegras_popUp_MetricaAdd(composite_Panel,SWT.NONE, shellEditor);
 				composite_Panel.layout();
 				
 			}
 			
 			private void disposeAll() {
-				// TODO Auto-generated method stub
 				disposeSafe(metrica_criada);
 				disposeSafe(metrica_add);
 				disposeSafe(regra_criada);
@@ -148,14 +155,30 @@ public class Gui_editorRegras2 {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				this.disposeAll();
-//				Gui_editorRegras_popUp_MetricaAdd gui = new Gui_editorRegras_popUp_MetricaAdd(composite_Panel,SWT.NONE, shellEditor);
 				regra_criada = new Gui_editorRegras_popUp_RegraCriada(composite_Panel,SWT.NONE, shellEditor);
 				composite_Panel.layout();
 				
 			}
 			
 			private void disposeAll() {
-				// TODO Auto-generated method stub
+				disposeSafe(metrica_criada);
+				disposeSafe(metrica_add);
+				disposeSafe(regra_criada);
+			}
+		});
+		
+		btnMostrarRegras.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				this.disposeAll();
+				System.out.println(getRule());
+				for ( Rule rule : rules) {
+//					System.out.println(rule.get);
+				}
+				
+			}
+			
+			private void disposeAll() {
 				disposeSafe(metrica_criada);
 				disposeSafe(metrica_add);
 				disposeSafe(regra_criada);
@@ -163,6 +186,10 @@ public class Gui_editorRegras2 {
 		});
 
 	}
+	
+//	public static getRuleObjectsFromRule(Rule rule) {
+//		
+//	}
 	
 	private static void disposeSafe(Composite composite) {
 		if (composite != null) {
@@ -197,5 +224,12 @@ public class Gui_editorRegras2 {
 	public static void ClearRuleObjects() {
 		ruleObjects.clear();
 	}
+	
+	public static void setAviso(String string) {
+		aviso = string;
+		box.setMessage(aviso);
+		box.open();
+	}
+	
 	
 }

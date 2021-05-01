@@ -47,10 +47,10 @@ public class Gui_editorRegras_popUp_RegraCriada extends Composite {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				if (Gui_editorRegras2.getRuleObjects().isEmpty() == true) {
-					System.out.println("Metrica ainda não criada");
+					Gui_editorRegras2.setAviso("Métrica ainda não foi criada");
 				}
 				if (regraName_txt.getText().isBlank()) {
-					System.out.println("Regra sem nome");
+					Gui_editorRegras2.setAviso("Regra sem nome");
 				}
 				else {
 					try {
@@ -58,6 +58,7 @@ public class Gui_editorRegras_popUp_RegraCriada extends Composite {
 						rule = new Rule(regraName_txt.getText(),Gui_editorRegras2.getRegratype(),Gui_editorRegras2.getRuleObjects(), true);
 						Gui_editorRegras2.AddToRule(rule); // adiciona a regra a um array de regras
 						Gui_editorRegras2.ClearRuleObjects(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
+						Gui_editorRegras2.setAviso("Regra Criada");
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -73,4 +74,6 @@ public class Gui_editorRegras_popUp_RegraCriada extends Composite {
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
+	
+	
 }

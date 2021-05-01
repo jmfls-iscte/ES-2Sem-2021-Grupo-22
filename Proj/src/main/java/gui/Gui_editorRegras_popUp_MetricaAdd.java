@@ -95,34 +95,44 @@ public class Gui_editorRegras_popUp_MetricaAdd extends Composite {
 		Confirm_btn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-				
-				RuleObject ruleObject = new RuleObject(optL_cmb.getText(), "LOGIC_OPERATOR");
-				Gui_editorRegras2.AddToRuleObjects(ruleObject);	
-				
-				if (metrica_cmb.getText().compareTo("LOC_METHOD") == 0 || metrica_cmb.getText().compareTo("CYCLO_METHOD") == 0) {
-					RuleObject ruleObject1 = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
-					Gui_editorRegras2.AddToRuleObjects(ruleObject1);
+
+				if (metrica_cmb.getText().isBlank() == true || optL_cmb.getText().isBlank() == true 
+						|| comparador_cmb.getText().isBlank() == true || limite_txt.getText().isBlank() == true) {
+					
+					Gui_editorRegras2.setAviso("Espaços em branco");
+
 				}
-				if (metrica_cmb.getText().compareTo("NOM_CLASS") == 0 || metrica_cmb.getText().compareTo("LOC_CLASS") == 0 
-						|| metrica_cmb.getText().compareTo("WMC_CLASS") == 0) {
-					RuleObject ruleObject1 = new RuleObject(metrica_cmb.getText(), "CLASSMETRIC");
-					Gui_editorRegras2.AddToRuleObjects(ruleObject1);
+				else {
+					RuleObject ruleObject = new RuleObject(optL_cmb.getText(), "LOGIC_OPERATOR");
+					Gui_editorRegras2.AddToRuleObjects(ruleObject);	
+
+					if (metrica_cmb.getText().compareTo("LOC_METHOD") == 0 || metrica_cmb.getText().compareTo("CYCLO_METHOD") == 0) {
+						RuleObject ruleObject1 = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
+						Gui_editorRegras2.AddToRuleObjects(ruleObject1);
+					}
+					if (metrica_cmb.getText().compareTo("NOM_CLASS") == 0 || metrica_cmb.getText().compareTo("LOC_CLASS") == 0 
+							|| metrica_cmb.getText().compareTo("WMC_CLASS") == 0) {
+						RuleObject ruleObject1 = new RuleObject(metrica_cmb.getText(), "CLASSMETRIC");
+						Gui_editorRegras2.AddToRuleObjects(ruleObject1);
+					}
+
+					RuleObject ruleObject2 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
+					Gui_editorRegras2.AddToRuleObjects(ruleObject2);
+
+					RuleObject ruleObject3 = new RuleObject(limite_txt.getText(), "THRESHOLD");
+					Gui_editorRegras2.AddToRuleObjects(ruleObject3);
+
+					Gui_editorRegras2.setAviso("Métrica Adicionada");
+
+					metrica_cmb.deselectAll();
+					comparador_cmb.deselectAll();
+					limite_txt.setText("");
+					optL_cmb.deselectAll();
 				}
-				
-				RuleObject ruleObject2 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
-				Gui_editorRegras2.AddToRuleObjects(ruleObject2);
-				
-				RuleObject ruleObject3 = new RuleObject(limite_txt.getText(), "THRESHOLD");
-				Gui_editorRegras2.AddToRuleObjects(ruleObject3);
-				
-				metrica_cmb.deselectAll();
-				comparador_cmb.deselectAll();
-				limite_txt.setText("");
-				optL_cmb.deselectAll();
-				
+
 			}
 		});
-		
+
 
 	}
 	
