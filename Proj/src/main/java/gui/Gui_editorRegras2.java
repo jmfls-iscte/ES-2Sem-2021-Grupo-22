@@ -161,8 +161,6 @@ public class Gui_editorRegras2 {
 				disposeSafe(regra_criada);
 			}
 		});
-		
-		
 
 	}
 	
