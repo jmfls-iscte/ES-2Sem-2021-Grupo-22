@@ -7,9 +7,14 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import ana_rules.Rule;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 
 public class Gui_editorRegras_popUp_RegraCriada extends Composite {
 	
@@ -37,6 +42,30 @@ public class Gui_editorRegras_popUp_RegraCriada extends Composite {
 		Confirm_btn.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		Confirm_btn.setBounds(124, 174, 90, 30);
 		Confirm_btn.setText("Criar");
+		
+		Confirm_btn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				if (Gui_editorRegras2.getRuleObjects().isEmpty() == true) {
+					System.out.println("Metrica ainda não criada");
+				}
+				if (regraName_txt.getText().isBlank()) {
+					System.out.println("Regra sem nome");
+				}
+				else {
+					try {
+						Rule rule;
+						rule = new Rule(regraName_txt.getText(),Gui_editorRegras2.getRegratype(),Gui_editorRegras2.getRuleObjects(), true);
+						Gui_editorRegras2.AddToRule(rule); // adiciona a regra a um array de regras
+						Gui_editorRegras2.ClearRuleObjects(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+			
+		});
 		
 	}
 	

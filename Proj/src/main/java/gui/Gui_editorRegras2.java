@@ -35,6 +35,7 @@ public class Gui_editorRegras2 {
 	private Gui_editorRegras2 shellEditor;
 	public static ArrayList<RuleObject> ruleObjects = new ArrayList<RuleObject>();
 	public static ArrayList<Rule> rules = new ArrayList<Rule>();
+	public static String regraType;
 
 	/**
 	 * Launch the application.
@@ -181,6 +182,22 @@ public class Gui_editorRegras2 {
 	
 	public static void AddToRuleObjects(RuleObject ruleObject) {
 		ruleObjects.add(ruleObject);
+	}
+	
+	public static void setRegraType(String string) {
+		regraType = string;
+	}
+	
+	public static String getRegratype() {
+		return regraType;
+	}
+	
+	public static void AddToRule(Rule rule) {
+		rules.add(rule);
+	}
+	
+	public static void ClearRuleObjects() {
+		ruleObjects.clear();
 	}
 	
 }

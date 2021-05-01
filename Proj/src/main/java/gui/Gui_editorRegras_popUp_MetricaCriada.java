@@ -73,18 +73,18 @@ public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 		metrica_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		metrica_lbl.setBounds(53, 68, 67, 25);
 		
-		Label metricaType_lbl = new Label(this, SWT.NONE);
-		metricaType_lbl.setVisible(true);
-		metricaType_lbl.setText("Tipo Metrica :");
-		metricaType_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		metricaType_lbl.setBounds(13, 245, 107, 25);
+		Label RegraType_lbl = new Label(this, SWT.NONE);
+		RegraType_lbl.setVisible(true);
+		RegraType_lbl.setText("Tipo Regra :");
+		RegraType_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		RegraType_lbl.setBounds(13, 245, 107, 25);
 		
-		Combo MetricaType_cmb = new Combo(this, SWT.NONE);
-		MetricaType_cmb.setVisible(true);
-		MetricaType_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		MetricaType_cmb.setBounds(126, 242, 245, 33);
-		MetricaType_cmb.add("class");
-		MetricaType_cmb.add("method");
+		Combo RegraType_cmb = new Combo(this, SWT.NONE);
+		RegraType_cmb.setVisible(true);
+		RegraType_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
+		RegraType_cmb.setBounds(126, 242, 245, 33);
+		RegraType_cmb.add("class");
+		RegraType_cmb.add("method");
 		
 		Button Confirm_btn = new Button(this, SWT.NONE);
 		Confirm_btn.setText("Criar");
@@ -116,6 +116,8 @@ public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 				RuleObject ruleObject2 = new RuleObject(limite_txt.getText(), "THRESHOLD");
 				Gui_editorRegras2.AddToRuleObjects(ruleObject2);
 				
+				Gui_editorRegras2.setRegraType(RegraType_cmb.getText());
+				System.out.println(Gui_editorRegras2.getRegratype());
 			}
 		});
 

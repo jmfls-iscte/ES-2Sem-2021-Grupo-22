@@ -8,9 +8,14 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import ana_rules.RuleObject;
+
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 
 public class Gui_editorRegras_popUp_MetricaAdd extends Composite {
 
@@ -79,11 +84,44 @@ public class Gui_editorRegras_popUp_MetricaAdd extends Composite {
 		optL_cmb.setVisible(true);
 		optL_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		optL_cmb.setBounds(187, 253, 245, 33);
+		optL_cmb.add("AND");
+		optL_cmb.add("OR");
 		
 		Button Confirm_btn = new Button(this, SWT.NONE);
 		Confirm_btn.setText("Adicionar");
 		Confirm_btn.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		Confirm_btn.setBounds(187, 313, 90, 30);
+		
+		Confirm_btn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				
+				RuleObject ruleObject = new RuleObject(optL_cmb.getText(), "LOGIC_OPERATOR");
+				Gui_editorRegras2.AddToRuleObjects(ruleObject);	
+				
+				if (metrica_cmb.getText().compareTo("LOC_METHOD") == 0 || metrica_cmb.getText().compareTo("CYCLO_METHOD") == 0) {
+					RuleObject ruleObject1 = new RuleObject(metrica_cmb.getText(), "METHODMETRIC");
+					Gui_editorRegras2.AddToRuleObjects(ruleObject1);
+				}
+				if (metrica_cmb.getText().compareTo("NOM_CLASS") == 0 || metrica_cmb.getText().compareTo("LOC_CLASS") == 0 
+						|| metrica_cmb.getText().compareTo("WMC_CLASS") == 0) {
+					RuleObject ruleObject1 = new RuleObject(metrica_cmb.getText(), "CLASSMETRIC");
+					Gui_editorRegras2.AddToRuleObjects(ruleObject1);
+				}
+				
+				RuleObject ruleObject2 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
+				Gui_editorRegras2.AddToRuleObjects(ruleObject2);
+				
+				RuleObject ruleObject3 = new RuleObject(limite_txt.getText(), "THRESHOLD");
+				Gui_editorRegras2.AddToRuleObjects(ruleObject3);
+				
+				metrica_cmb.deselectAll();
+				comparador_cmb.deselectAll();
+				limite_txt.setText("");
+				optL_cmb.deselectAll();
+				
+			}
+		});
 		
 
 	}
