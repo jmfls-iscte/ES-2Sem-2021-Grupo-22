@@ -3,9 +3,16 @@ package gui;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Composite;
+
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import ana_rules.Rule;
+import ana_rules.RuleObject;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.custom.StackLayout;
@@ -17,11 +24,17 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.layout.GridLayout;
 
 public class Gui_editorRegras2 {
 
 	protected Shell shell;
-	private Gui_editorRegras_popUp_MetricaAdd metrica_criada;
+	private Gui_editorRegras_popUp_MetricaCriada metrica_criada;
+	private Gui_editorRegras_popUp_MetricaAdd metrica_add;
+	private Gui_editorRegras_popUp_RegraCriada regra_criada;
+	private Gui_editorRegras2 shellEditor;
+	public static ArrayList<RuleObject> ruleObjects = new ArrayList<RuleObject>();
+	public static ArrayList<Rule> rules = new ArrayList<Rule>();
 
 	/**
 	 * Launch the application.
@@ -75,11 +88,6 @@ public class Gui_editorRegras2 {
 		btnCriarMetrica.setText("Criar Métrica");
 		
 		Button btnAdicionarMetric = new Button(composite_Buttons, SWT.NONE);
-		btnAdicionarMetric.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-			}
-		});
 		btnAdicionarMetric.setText("Adicionar Métrica");
 		btnAdicionarMetric.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnAdicionarMetric.setBounds(150, 10, 150, 30);
@@ -95,19 +103,84 @@ public class Gui_editorRegras2 {
 		btnCriarRegra.setText("Criar Regra");
 		btnCriarRegra.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		btnCriarRegra.setBounds(338, 10, 111, 30);
+		composite_Panel.setLayout(new GridLayout(1, false));
 		composite_Panel.setLayoutData(fd_composite_Panel);
 		
 		
 		btnCriarMetrica.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-				
-				metrica_criada = new Gui_editorRegras_popUp_MetricaAdd(composite_Panel,SWT.NONE);
-				metrica_criada.setLayoutData(new GridData ( SWT.FILL, SWT.CENTER, true, false,1,1));
+				this.disposeAll();
+//				Gui_editorRegras_popUp_MetricaCriada gui = new Gui_editorRegras_popUp_MetricaCriada(composite_Panel,SWT.NONE, shellEditor);
+				metrica_criada = new Gui_editorRegras_popUp_MetricaCriada(composite_Panel,SWT.NONE, shellEditor);
 				composite_Panel.layout();
 				
 			}
+
+			private void disposeAll() {
+				// TODO Auto-generated method stub
+				disposeSafe(metrica_criada);
+				disposeSafe(metrica_add);
+				disposeSafe(regra_criada);
+			}
 		});
+		
+		btnAdicionarMetric.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				this.disposeAll();
+//				Gui_editorRegras_popUp_MetricaAdd gui = new Gui_editorRegras_popUp_MetricaAdd(composite_Panel,SWT.NONE, shellEditor);
+				metrica_add = new Gui_editorRegras_popUp_MetricaAdd(composite_Panel,SWT.NONE, shellEditor);
+				composite_Panel.layout();
+				
+			}
+			
+			private void disposeAll() {
+				// TODO Auto-generated method stub
+				disposeSafe(metrica_criada);
+				disposeSafe(metrica_add);
+				disposeSafe(regra_criada);
+			}
+		});
+		
+		btnCriarRegra.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				this.disposeAll();
+//				Gui_editorRegras_popUp_MetricaAdd gui = new Gui_editorRegras_popUp_MetricaAdd(composite_Panel,SWT.NONE, shellEditor);
+				regra_criada = new Gui_editorRegras_popUp_RegraCriada(composite_Panel,SWT.NONE, shellEditor);
+				composite_Panel.layout();
+				
+			}
+			
+			private void disposeAll() {
+				// TODO Auto-generated method stub
+				disposeSafe(metrica_criada);
+				disposeSafe(metrica_add);
+				disposeSafe(regra_criada);
+			}
+		});
+		
+		
 
 	}
+	
+	private static void disposeSafe(Composite composite) {
+		if (composite != null) {
+			composite.dispose();
+		}
+	}
+	
+	public static ArrayList<RuleObject> getRuleObjects() {
+		return ruleObjects;
+	}
+	
+	public static ArrayList<Rule> getRule() {
+		return rules;
+	}
+	
+	public static void AddToRuleObjects(RuleObject ruleObject) {
+		ruleObjects.add(ruleObject);
+	}
+	
 }
