@@ -5,9 +5,12 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.platform.suite.api.SelectClasses;
 
 @RunWith(JUnitPlatform.class)
-@SelectClasses({PackageTest.class,  MethodTest.class, ClassTest.class, DirectoryGetterTest.class, JavaParserTest.class,
-	MethodParserTest.class, ClassParserTest.class, ConstructorParserTest.class, RuleTest.class, RuleObjectTest.class,
-	MetricsTest.class, ClassEvaluatorTest.class, CodeSmellDetectionEvaluatorTest.class, MethodEvaluatorTest.class})
+@SelectClasses({ClassEvaluatorTest.class, ClassParserTest.class, ClassTest.class, CodeSmellDetectionEvaluatorTest.class, 
+	ConstructorParserTest.class, DirectoryGetterTest.class, JavaParserTest.class,
+	 MethodEvaluatorTest.class, MethodParserTest.class,  MethodTest.class, MetricsTest.class, PackageTest.class,  
+	 RuleEvaluatorTest.class, RuleObjectTest.class, RuleTest.class,SaveLoadRuleTest.class})
+	  	
+	
 public class AllTests {
 }
 

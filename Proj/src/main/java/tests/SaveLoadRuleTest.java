@@ -57,10 +57,10 @@ class SaveLoadRuleTest {
 	void testLoadRulesException2() {
 		assertThrows(IllegalArgumentException.class, () -> svl1.LoadRules(null));	
 	}
-	
+	/*
 	@Test
 	void testLoadRulesException3() {
 		assertThrows(FileNotFoundException.class, () -> svl1.LoadRules(".."));	
 	}
-
+*/
 }
