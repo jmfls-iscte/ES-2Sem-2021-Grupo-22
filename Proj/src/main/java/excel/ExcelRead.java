@@ -201,6 +201,27 @@ public class ExcelRead {
 			// criar ou verificar se existe metodo com o nome atual da célula
 
 			String method_name = currentCell.getStringCellValue();
+			if(method_name.contains(".")) {
+				String args[] = method_name.split("\\,");
+				method_name="";
+				int count=0;
+				for(String arg:args)
+				{
+					if(arg.contains(".")) {
+						String[] names = arg.split("\\.");
+						if(count==0)
+							method_name+=names[1];
+						else
+							method_name+=","+names[1]; 
+					}else {
+						if(count==0)
+							method_name+=arg;
+						else
+							method_name+=","+arg;
+					}
+					count++;
+				}
+			}
 			currentMethod = currentClass.get_MethodByName(method_name);
 			if (currentMethod == null) {
 				currentMethod = new Method(method_name);

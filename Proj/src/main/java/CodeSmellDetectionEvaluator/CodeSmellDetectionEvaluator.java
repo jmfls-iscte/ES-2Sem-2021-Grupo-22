@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hpsf.Util;
+
 import ana_rules.Rule;
 import ana_rules.RuleEvaluator;
 import ana_rules.RuleObject;
@@ -22,59 +24,20 @@ public class CodeSmellDetectionEvaluator {
 	private int falsePositive;
 	private int trueNegative;
 	private int falseNegative;
-	private int totalDetetions;
 
+	private int totalDetetions;
 	private int total;
+	private int totalClasses;
+	private int totalMethods;
 
 	private List<Package> packagesDetectionlst;
 	private List<Package> packagesExcellst;
 
 	private List<PackageEvaluator> packagesEvaluatorlst;
 
+	// ============================ MAIN TO BE REMOVED
+	// =====================================
 	public static void main(String[] args) {
-
-//		ArrayList<Rule> r = new ArrayList<Rule>();
-//		RuleObject obj1 = new RuleObject("LOC_METHOD", "METHODMETRIC");
-//		RuleObject obj2 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
-//		RuleObject obj3 = new RuleObject("50", "THRESHOLD");
-//		RuleObject obj4 = new RuleObject("AND", "LOGIC_OPERATOR");
-//		RuleObject obj5 = new RuleObject("CYCLO_METHOD", "METHODMETRIC");
-//		RuleObject obj6 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
-//		RuleObject obj7 = new RuleObject("10", "THRESHOLD");
-//		ArrayList<RuleObject> ruleinfo = new ArrayList<RuleObject>();
-//		ruleinfo.add(obj1);
-//		ruleinfo.add(obj2);
-//		ruleinfo.add(obj3);
-//		ruleinfo.add(obj4);
-//		ruleinfo.add(obj5);
-//		ruleinfo.add(obj6);
-//		ruleinfo.add(obj7);
-//		
-//		
-//		RuleObject obj8 = new RuleObject("WMC_CLASS", "CLASSMETRIC");
-//		RuleObject obj9 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
-//		RuleObject obj10 = new RuleObject("50", "THRESHOLD");
-//		RuleObject obj11 = new RuleObject("OR", "LOGIC_OPERATOR");
-//		RuleObject obj12 = new RuleObject("NOM_CLASS", "CLASSMETRIC");
-//		RuleObject obj13 = new RuleObject("GREATER", "COMPARISON_OPERATOR");
-//		RuleObject obj14 = new RuleObject("10", "THRESHOLD");
-//		ArrayList<RuleObject> ruleinfo2 = new ArrayList<RuleObject>();
-//		ruleinfo2.add(obj8);
-//		ruleinfo2.add(obj9);
-//		ruleinfo2.add(obj10);
-//		ruleinfo2.add(obj11);
-//		ruleinfo2.add(obj12);
-//		ruleinfo2.add(obj13);
-//		ruleinfo2.add(obj14);
-//		
-//		try {
-//			Rule long_method = new Rule("Is_Long_Method", "method", ruleinfo, true);
-//			Rule Is_God_Class = new Rule("Is_God_Class", "class", ruleinfo2, true);
-//			r.add(long_method);
-//			r.add(Is_God_Class);
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
 
 		ArrayList<Rule> rules;
 		try {
@@ -98,17 +61,14 @@ public class CodeSmellDetectionEvaluator {
 		CodeSmellDetectionEvaluator csde = new CodeSmellDetectionEvaluator(packages, packagesExcel);
 
 	}
+	// ============================ MAIN TO BE REMOVED
+	// =====================================
 
 	public CodeSmellDetectionEvaluator(List<Package> packagesDetectionlst, List<Package> packagesExcellst) {
 		this.packagesDetectionlst = packagesDetectionlst;
 		this.packagesExcellst = packagesExcellst;
 
 		evaluateCodeSmellsDetection();
-	}
-
-	private boolean verifyPossibleEvaluate() {
-		return verifyPackages();
-
 	}
 
 	private boolean verifyPackages() {
@@ -118,30 +78,6 @@ public class CodeSmellDetectionEvaluator {
 		return true;
 	}
 
-	public Package getPackagebyName(String name, List<Package> packagelst) {
-		for (Package p : packagelst) {
-			if (p.getName_Package().equals(name))
-				return p;
-		}
-		return null;
-	}
-
-	public Class getClassbyName(String name, List<Class> classlst) {
-		for (Class c : classlst) {
-			if (c.getName_Class().equals(name))
-				return c;
-		}
-		return null;
-	}
-
-	public Method getMethodbyName(String name, List<Method> methodlst) {
-		for (Method m : methodlst) {
-			if (m.getName_method().equals(name))
-				return m;
-		}
-		return null;
-	}
-
 	private void evaluateCodeSmellsDetection() {
 		/*
 		 * Percorre todos os packages, e verifica as regras da classes e dos metodos,
@@ -149,30 +85,36 @@ public class CodeSmellDetectionEvaluator {
 		 * dos 4 tipos é TP, TN, FP, FN.
 		 * 
 		 */
-		if (!verifyPossibleEvaluate())
+		if (!verifyPackages())
 			throw new IllegalArgumentException();
 
 		packagesEvaluatorlst = new ArrayList<PackageEvaluator>();
 
-		int packagesSize = packagesDetectionlst.size();
+		int packagesSize = packagesExcellst.size();
 		for (int packagesindex = 0; packagesindex < packagesSize; packagesindex++) {
 
 			System.out.println("Package atual = " + packagesindex);
-			Package currentPackage = packagesDetectionlst.get(packagesindex);
-			Package packageExcel = getPackagebyName(currentPackage.getName_Package(), packagesExcellst);
+			Package currentPackage = packagesExcellst.get(packagesindex);
+			Package packageDet = Utils.getPackagebyName(currentPackage.getName_Package(), packagesDetectionlst);
 
-			List<Class> classDetectionlst = currentPackage.getClass_list();
-			List<Class> classExcellst = packageExcel.getClass_list();
+			List<Class> classExcel = currentPackage.getClass_list();
+			List<Class> classDet = packageDet.getClass_list();
 
-			if (classDetectionlst.size() != classExcellst.size())
-				throw new IllegalArgumentException();
-
-			List<ClassEvaluator> classlst = DetectionClasses(classDetectionlst, classExcellst);
+			List<ClassEvaluator> classlst = DetectionClasses(classDet, classExcel);
 
 			PackageEvaluator packageEvaluator = new PackageEvaluator(currentPackage.getName_Package(), classlst);
 			packagesEvaluatorlst.add(packageEvaluator);
 
 		}
+
+		// So para fazer testes
+		Map<EvaluatorType, Integer> map = getClassificationTotal(); //Todos os codeSmelss
+		Map<EvaluatorType, Integer> map1 = getClassificationPackage("com.jasml.compiler"); //Apenas de um package
+		Map<EvaluatorType, Integer> map2 = getClassificationClass("com.jasml.compiler", "Scanner"); //Apenas de uma classe de um determinado package
+		Map<EvaluatorType, Integer> map3 = getClassificationRule("is_God_Class"); //Projeto todo mas de uma regra especifica
+		Map<EvaluatorType, Integer> map4 = getClassificationPackageRule("com.jasml.compiler", "is_God_Class"); // Apenas de um package e regra especifica
+		Map<EvaluatorType, Integer> map5 = getClassificationClassRule("com.jasml.compiler", "Scanner", "is_God_Class");//Apenas de uma classe de um determinado package e regra especifica
+		Map<EvaluatorType, Integer> map6 = getClassificationClassRule("com.jasml.compiler", "Scanner", "is_Long_Method");//Apenas de uma classe de um determinado package e regra especifica
 
 		System.out.println("Só para ver");
 
@@ -181,30 +123,28 @@ public class CodeSmellDetectionEvaluator {
 	private List<ClassEvaluator> DetectionClasses(List<Class> classDetectionlst, List<Class> classExcellst) {
 
 		List<ClassEvaluator> classEvaluatorlst = new ArrayList<ClassEvaluator>();
-		int classSize = classDetectionlst.size();
+		int classSize = classExcellst.size();
 		for (int classindex = 0; classindex < classSize; classindex++) {
 
 			try {
-				Class currentClass = classDetectionlst.get(classindex);
+				Class currentClass = classExcellst.get(classindex);
 				System.out.println("Classe atual = " + currentClass.getName_Class());
-				Class classExcel = getClassbyName(currentClass.getName_Class(), classExcellst);
+				Class classDet = Utils.getClassbyName(currentClass.getName_Class(), classDetectionlst);
 
 				Map<String, Boolean> rulesClassDetection = currentClass.getCode_Smells();
-				Map<String, Boolean> rulesClassExcel = classExcel.getCode_Smells();
+				Map<String, Boolean> rulesClassExcel = classDet.getCode_Smells();
 				Map<String, EvaluatorType> detectionRules = DetectionRule(rulesClassDetection, rulesClassExcel);
 
-				List<Method> methodDetectionlst = currentClass.getMethod_list();
-				List<Method> methodExcellst = classExcel.getMethod_list();
+				List<Method> methodExcel = currentClass.getMethod_list();
+				List<Method> methodDet = classDet.getMethod_list();
 
-				// if(methodDetectionlst.size()!=methodExcellst.size())
-				// throw new IllegalArgumentException();
-
-				 List<MethodEvaluator> detectionMethods = DetectionMethod(methodDetectionlst,methodExcellst);
+				List<MethodEvaluator> detectionMethods = DetectionMethod(methodDet, methodExcel);
 
 				ClassEvaluator classEval = new ClassEvaluator(currentClass);
 				classEval.setMethodList(detectionMethods);
 				classEval.setCodesmelssEvaluator(detectionRules);
 				classEvaluatorlst.add(classEval);
+				totalClasses++;
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
@@ -217,20 +157,23 @@ public class CodeSmellDetectionEvaluator {
 	private List<MethodEvaluator> DetectionMethod(List<Method> methodDetectionlst, List<Method> methodExcellst) {
 
 		List<MethodEvaluator> methodEvallst = new ArrayList<MethodEvaluator>();
-		int methodsize = methodDetectionlst.size();
+		int methodsize = methodExcellst.size();
 		for (int methodindex = 0; methodindex < methodsize; methodindex++) {
 
-			Method currentMethod = methodDetectionlst.get(methodindex);
-			Method methodExcel = getMethodbyName(currentMethod.getName_method(), methodExcellst);
+			Method currentMethod = methodExcellst.get(methodindex);
+			Method methodDet = Utils.getMethodbyName(currentMethod.getName_method(), methodDetectionlst);
 
-			Map<String, Boolean> rulesMethodDetection = currentMethod.getCode_Smells();
-			Map<String, Boolean> rulesMethodExcel = methodExcel.getCode_Smells();
+			if (currentMethod != null && methodDet != null) {
+				Map<String, Boolean> rulesMethodDetection = currentMethod.getCode_Smells();
+				Map<String, Boolean> rulesMethodExcel = methodDet.getCode_Smells();
 
-			Map<String, EvaluatorType> detection = DetectionRule(rulesMethodDetection, rulesMethodExcel);
+				Map<String, EvaluatorType> detection = DetectionRule(rulesMethodDetection, rulesMethodExcel);
 
-			MethodEvaluator methodEvaluator = new MethodEvaluator(currentMethod);
-			methodEvaluator.setCodesmelssEvaluator(detection);
-			methodEvallst.add(methodEvaluator);
+				MethodEvaluator methodEvaluator = new MethodEvaluator(currentMethod);
+				methodEvaluator.setCodesmelssEvaluator(detection);
+				methodEvallst.add(methodEvaluator);
+				totalMethods++;
+			}
 
 		}
 
@@ -258,12 +201,98 @@ public class CodeSmellDetectionEvaluator {
 				detection.put(rulename, EvaluatorType.TN);
 				trueNegative++;
 			}
-			
+
 			total++;
 		}
 
 		return detection;
 
+	}
+
+	
+	public Map<EvaluatorType, Integer> getClassificationTotal() {
+
+		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
+		mapa.put(EvaluatorType.TP, 0);
+		mapa.put(EvaluatorType.TN, 0);
+		mapa.put(EvaluatorType.FP, 0);
+		mapa.put(EvaluatorType.FN, 0);
+		return Utils.getClassificationTotal(mapa, packagesEvaluatorlst);
+	}
+	
+	
+	public Map<EvaluatorType, Integer> getClassificationPackage(String packageName) {
+
+		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
+		mapa.put(EvaluatorType.TP, 0);
+		mapa.put(EvaluatorType.TN, 0);
+		mapa.put(EvaluatorType.FP, 0);
+		mapa.put(EvaluatorType.FN, 0);
+		return Utils.getClassificationPackage(mapa, packagesEvaluatorlst, packageName);
+	}
+
+	public Map<EvaluatorType, Integer> getClassificationClass(String packageName, String className) {
+		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
+		mapa.put(EvaluatorType.TP, 0);
+		mapa.put(EvaluatorType.TN, 0);
+		mapa.put(EvaluatorType.FP, 0);
+		mapa.put(EvaluatorType.FN, 0);
+		for (PackageEvaluator p : packagesEvaluatorlst) {
+			if (p.getName().equals(packageName)) {
+				for (ClassEvaluator c : p.getClasslst()) {
+					if (c.getClasseval().getName_Class().equals(className)) {
+						return Utils.getClassificationClass(mapa, c);
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public Map<EvaluatorType, Integer> getClassificationRule(String ruleName) {
+		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
+		mapa.put(EvaluatorType.TP, 0);
+		mapa.put(EvaluatorType.TN, 0);
+		mapa.put(EvaluatorType.FP, 0);
+		mapa.put(EvaluatorType.FN, 0);
+
+		for (PackageEvaluator p : packagesEvaluatorlst)
+			mapa = Utils.getClassificationRule(mapa, p, ruleName);
+
+		return mapa;
+
+	}
+
+	public Map<EvaluatorType, Integer> getClassificationPackageRule(String packageName, String ruleName) {
+		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
+		mapa.put(EvaluatorType.TP, 0);
+		mapa.put(EvaluatorType.TN, 0);
+		mapa.put(EvaluatorType.FP, 0);
+		mapa.put(EvaluatorType.FN, 0);
+		for (PackageEvaluator p : packagesEvaluatorlst) {
+			if (p.getName().equals(packageName)) {
+				mapa = Utils.getClassificationRule(mapa, p, ruleName);
+			}
+		}
+		return mapa;
+	}
+
+	public Map<EvaluatorType, Integer> getClassificationClassRule(String packageName, String className,
+			String ruleName) {
+		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
+		mapa.put(EvaluatorType.TP, 0);
+		mapa.put(EvaluatorType.TN, 0);
+		mapa.put(EvaluatorType.FP, 0);
+		mapa.put(EvaluatorType.FN, 0);
+		for (PackageEvaluator p : packagesEvaluatorlst) {
+			if (p.getName().equals(packageName)) {
+				for (ClassEvaluator c : p.getClasslst())
+					if(c.getClasseval().getName_Class().equals(className))
+						mapa = Utils.getClassificationClassRule(mapa, c, ruleName);
+
+			}
+		}
+		return mapa;
 	}
 
 }
