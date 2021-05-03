@@ -135,8 +135,10 @@ class ClassTest {
 		public void addSmellTest() {
 			c1.addSmell("smell_test", true);
 			assertEquals(2, c1.get_name_code_Smells().size());
-
 		}
-	
+		@Test
+		public void getCsByNameTest() {
+			assertNull(c1.getCsByName("test"));
+		}
 
 }

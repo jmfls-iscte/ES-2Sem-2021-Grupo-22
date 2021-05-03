@@ -31,7 +31,6 @@ class DirectoryGetterTest {
 	
 	private List<Package> packages_test= new ArrayList<Package>();
 
-
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception{
 		dg1 = new DirectoryGetter();
@@ -45,9 +44,6 @@ class DirectoryGetterTest {
 		lst = new ArrayList<Package>();
 		
 		dg3.SetDir(working_directory_2);
-
-		
-
 	}
 	
 	@Test
@@ -109,8 +105,6 @@ class DirectoryGetterTest {
 	final void createPackageTest() {
 		dg2.FindPackages();
 		assertNotNull(dg2.getPackages());
-		
-		
 	}
 
 	
