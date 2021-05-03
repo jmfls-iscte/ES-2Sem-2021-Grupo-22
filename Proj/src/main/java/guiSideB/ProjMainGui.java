@@ -28,6 +28,8 @@ import excel.ExcelRead;
 import metrics.DirectoryGetter;
 import metrics.Package;
 import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.wb.swt.SWTResourceManager;
 
 public class ProjMainGui {
 
@@ -35,6 +37,7 @@ public class ProjMainGui {
 	protected Display display;
 	private Text text;
 	private Composite menuBar;
+	private WelcomePage welcomePage;
 	private GuiExtracaoMetricas metricas;
 	private GuiDadosImportados importados;
 	private GuiEditorRegras editor;
@@ -69,7 +72,7 @@ public class ProjMainGui {
 	public void open() {
 		display = Display.getDefault();
 		createContents();
-		
+		shell.pack();
 		shell.open();
 		shell.layout();
 		shell.addListener(SWT.Close, new Listener() {
@@ -91,16 +94,29 @@ public class ProjMainGui {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(1027, 623);
-		shell.setText("SWT Application");
+		shell = new Shell(SWT.SHELL_TRIM & (~SWT.RESIZE) & (~SWT.MAX));
+		shell.setSize(930, 473);
+		shell.setImage(SWTResourceManager.getImage("C:\\Users\\ASUS\\git\\ES-2Sem-2021-Grupo-22\\Proj\\Images\\codeSmell.png"));
+		shell.setText("Code Quality Assessor");
+		
 		shell.setLayout(new RowLayout(SWT.HORIZONTAL));
 		menuBar = new MenuBar(shell, SWT.NONE, this);
+		menuBar.setLayoutData(new RowData(205, 305));
+		
+		welcomePage = new WelcomePage(shell, SWT.NONE, this);
 		
 		setRules(SaveLoadRule.LoadRules(ruleFile));
 		if(!assertBaseRules()) {setRules(RuleEvaluator.BASERULES());}
 	}
 
+	protected void MainButton() {
+		this.disposeAll();
+		
+		welcomePage = new WelcomePage(shell, SWT.NONE, this);
+		shell.layout();
+		shell.pack();
+	}
+	
 	protected void Button1() {
 		// System.out.println("Button1");
 		this.disposeAll();
@@ -159,6 +175,7 @@ public class ProjMainGui {
 	}
 
 	private void disposeAll() {
+		disposeSafe(welcomePage);
 		disposeSafe(metricas);
 		disposeSafe(importados);
 		disposeSafe(editor);
