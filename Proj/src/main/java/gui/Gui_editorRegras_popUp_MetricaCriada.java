@@ -121,18 +121,12 @@ public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 					Gui_editorRegras2.AddToRuleObjects(ruleObject2);
 
 					Gui_editorRegras2.setRegraType(RegraType_cmb.getText());
-					System.out.println(Gui_editorRegras2.getRegratype());
 
 					Gui_editorRegras2.setAviso("Métrica Criada");
 				}
 
 			}
 			
-			public void mandarAviso() {
-//				Label teste;
-//				teste = new Label("hello");
-//				mensagem = new Gui_editorRegras_MessageBoard(composite_MessagePanel,SWT.NONE, shellEditor);
-			}
 		});
 
 	}

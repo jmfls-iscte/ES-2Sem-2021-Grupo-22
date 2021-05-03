@@ -5,10 +5,15 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 
 import ana_rules.Rule;
+import ana_rules.RuleObject;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
@@ -55,9 +60,13 @@ public class Gui_editorRegras_popUp_RegraCriada extends Composite {
 				else {
 					try {
 						Rule rule;
-						rule = new Rule(regraName_txt.getText(),Gui_editorRegras2.getRegratype(),Gui_editorRegras2.getRuleObjects(), true);
+						System.out.println(Gui_editorRegras2.getRuleObjects());
+						ArrayList<RuleObject> newArray = new ArrayList<>();
+						copyArray(newArray,Gui_editorRegras2.getRuleObjects());
+						rule = new Rule(regraName_txt.getText(),Gui_editorRegras2.getRegratype(),newArray, true);
 						Gui_editorRegras2.AddToRule(rule); // adiciona a regra a um array de regras
 						Gui_editorRegras2.ClearRuleObjects(); //limpa o array inicial criado para poder ser usado novamente para a criação de outras regras
+						System.out.println(Gui_editorRegras2.getRule().get(0).getInfo());
 						Gui_editorRegras2.setAviso("Regra Criada");
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
@@ -75,5 +84,10 @@ public class Gui_editorRegras_popUp_RegraCriada extends Composite {
 		// Disable the check that prevents subclassing of SWT components
 	}
 	
+	private static void copyArray(ArrayList<RuleObject> destino, ArrayList<RuleObject> origem ) {
+		for (RuleObject object : origem) {
+			destino.add(object);
+		}
+	}
 	
 }

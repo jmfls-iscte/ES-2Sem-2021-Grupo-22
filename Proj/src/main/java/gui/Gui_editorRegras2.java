@@ -171,9 +171,20 @@ public class Gui_editorRegras2 {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				this.disposeAll();
-				System.out.println(getRule());
 				for ( Rule rule : rules) {
-//					System.out.println(rule.get);
+					rule.getName();
+					rule.getType();
+					System.out.println(rule.getName());
+					System.out.println(rule.getType());
+					System.out.println(rule.getInfo());
+					ArrayList<RuleObject> ListRuleObjects = rule.getInfo();
+					for(RuleObject ruleobject : ListRuleObjects) {
+						System.out.println("memes");
+						ruleobject.getLabel();
+						ruleobject.getInfo();
+						System.out.println(ruleobject.getInfo());
+						System.out.println(ruleobject.getLabel().toString());
+					}
 				}
 				
 			}
