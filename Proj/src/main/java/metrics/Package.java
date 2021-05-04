@@ -73,8 +73,7 @@ public class Package {
 	
 	private boolean verifyExistsClass(Class classToVerify)
 	{
-		//TO DO
-		return false;
+		return arrayClasses.contains(classToVerify);
 	}
 
 }
