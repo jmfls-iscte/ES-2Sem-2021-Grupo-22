@@ -253,7 +253,12 @@ public class GuiExtracaoMetricas extends Composite {
 	
 	protected void excelExport(String filePath) {
 		ExcelWrite excelWrite= new ExcelWrite();
-		excelWrite.writeFile(filePath, (ArrayList<metrics.Package>)mainWindow.getPackages());
+		try {
+			excelWrite.writeFile(filePath, (ArrayList<metrics.Package>)mainWindow.getPackages());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private static List<String> getColunas(List<Rule> rules) {
