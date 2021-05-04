@@ -3,8 +3,10 @@ package CodeSmellDetectionEvaluator;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.poi.hpsf.Util;
 
@@ -92,7 +94,7 @@ public class CodeSmellDetectionEvaluator {
 		int packagesSize = packagesExcellst.size();
 		for (int packagesindex = 0; packagesindex < packagesSize; packagesindex++) {
 
-			//System.out.println("Package atual = " + packagesindex);
+			// System.out.println("Package atual = " + packagesindex);
 			Package currentPackage = packagesExcellst.get(packagesindex);
 			Package packageDet = Utils.getPackagebyName(currentPackage.getName_Package(), packagesDetectionlst);
 
@@ -107,13 +109,33 @@ public class CodeSmellDetectionEvaluator {
 		}
 
 		// So para fazer testes
-		Map<EvaluatorType, Integer> map = getClassificationTotal(); //Todos os codeSmelss
-		Map<EvaluatorType, Integer> map1 = getClassificationPackage("com.jasml.compiler"); //Apenas de um package
-		Map<EvaluatorType, Integer> map2 = getClassificationClass("com.jasml.compiler", "Scanner"); //Apenas de uma classe de um determinado package
-		Map<EvaluatorType, Integer> map3 = getClassificationRule("is_God_Class"); //Projeto todo mas de uma regra especifica
-		Map<EvaluatorType, Integer> map4 = getClassificationPackageRule("com.jasml.compiler", "is_God_Class"); // Apenas de um package e regra especifica
-		Map<EvaluatorType, Integer> map5 = getClassificationClassRule("com.jasml.compiler", "Scanner", "is_God_Class");//Apenas de uma classe de um determinado package e regra especifica
-		Map<EvaluatorType, Integer> map6 = getClassificationClassRule("com.jasml.compiler", "Scanner", "is_Long_Method");//Apenas de uma classe de um determinado package e regra especifica
+		Map<EvaluatorType, Integer> map = getClassificationTotal(); // Todos os codeSmelss
+		Map<EvaluatorType, Integer> map1 = getClassificationPackage("com.jasml.compiler"); // Apenas de um package
+		Map<EvaluatorType, Integer> map2 = getClassificationClass("com.jasml.compiler", "Scanner"); // Apenas de uma
+																									// classe de um
+																									// determinado
+																									// package
+		Map<EvaluatorType, Integer> map3 = getClassificationRule("is_God_Class"); // Projeto todo mas de uma regra
+																					// especifica
+		Map<EvaluatorType, Integer> map4 = getClassificationPackageRule("com.jasml.compiler", "is_God_Class"); // Apenas
+																												// de um
+																												// package
+																												// e
+																												// regra
+																												// especifica
+		Map<EvaluatorType, Integer> map5 = getClassificationClassRule("com.jasml.compiler", "Scanner", "is_God_Class");// Apenas
+																														// de
+																														// uma
+																														// classe
+																														// de
+																														// um
+																														// determinado
+																														// package
+																														// e
+																														// regra
+																														// especifica
+		Map<EvaluatorType, Integer> map6 = getClassificationClassRule("com.jasml.compiler", "Scanner",
+				"is_Long_Method");// Apenas de uma classe de um determinado package e regra especifica
 
 	}
 
@@ -125,7 +147,7 @@ public class CodeSmellDetectionEvaluator {
 
 			try {
 				Class currentClass = classExcellst.get(classindex);
-				//System.out.println("Classe atual = " + currentClass.getName_Class());
+				// System.out.println("Classe atual = " + currentClass.getName_Class());
 				Class classDet = Utils.getClassbyName(currentClass.getName_Class(), classDetectionlst);
 
 				Map<String, Boolean> rulesClassDetection = currentClass.getCode_Smells();
@@ -206,7 +228,6 @@ public class CodeSmellDetectionEvaluator {
 
 	}
 
-	
 	public Map<EvaluatorType, Integer> getClassificationTotal() {
 
 		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
@@ -216,8 +237,7 @@ public class CodeSmellDetectionEvaluator {
 		mapa.put(EvaluatorType.FN, 0);
 		return Utils.getClassificationTotal(mapa, getPackagesEvaluatorlst());
 	}
-	
-	
+
 	public Map<EvaluatorType, Integer> getClassificationPackage(String packageName) {
 
 		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
@@ -284,7 +304,7 @@ public class CodeSmellDetectionEvaluator {
 		for (PackageEvaluator p : getPackagesEvaluatorlst()) {
 			if (p.getName().equals(packageName)) {
 				for (ClassEvaluator c : p.getClasslst())
-					if(c.getClasseval().getName_Class().equals(className))
+					if (c.getClasseval().getName_Class().equals(className))
 						mapa = Utils.getClassificationClassRule(mapa, c, ruleName);
 
 			}
@@ -296,4 +316,36 @@ public class CodeSmellDetectionEvaluator {
 		return packagesEvaluatorlst;
 	}
 
+	public List<String> getPackagesName() {
+		List<String> result = new ArrayList<String>();
+		for (PackageEvaluator pacote : packagesEvaluatorlst) {
+			result.add(pacote.getName());
+		}
+		return result;
+	}
+
+	public List<String> getClassesName(String pacote) {
+		List<String> result = new ArrayList<String>();
+		for (PackageEvaluator pacotei : packagesEvaluatorlst) {
+			if (pacotei.getName().equals(pacote)) {
+				for (ClassEvaluator classe : pacotei.getClasslst()) {
+					result.add(classe.getClasseval().getName_Class());
+				}
+			}
+		}
+		return result;
+	}
+
+	public List<String> getRulesName() {
+		Set<String> result = new HashSet<String>();
+		for (PackageEvaluator pacotei : packagesEvaluatorlst) {
+			for (ClassEvaluator classe : pacotei.getClasslst()) {
+				result.addAll(classe.getCodesmelssEvaluator().keySet());
+				for(MethodEvaluator metodo:classe.getMethodslst()) {
+					result.addAll(metodo.getCodesmelssEvaluator().keySet());
+				}
+			}
+		}
+		return new ArrayList<String>(result);
+	}
 }

@@ -162,6 +162,7 @@ public class ProjMainGui {
 
 		qualidade = new GuiQualidadeRegras(shell, SWT.NONE, this);
 		qualidade.setLayoutData(defaultLayout());
+		qualidade.firstFill(csde);
 		shell.layout();
 		
 
