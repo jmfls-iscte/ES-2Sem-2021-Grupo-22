@@ -12,7 +12,7 @@ public enum MethodMetric {
 		}else if (metric.equals(MethodMetric.CYCLO_METHOD)) {
 			return method.getCYCLO_method();
 		}else {
-			return 0;
+			return 0;  //unreachable code
 		}
 	}
 	public static boolean IsValid(String input) {

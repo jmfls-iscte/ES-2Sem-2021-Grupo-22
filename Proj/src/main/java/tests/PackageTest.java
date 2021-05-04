@@ -33,8 +33,6 @@ class PackageTest {
 		pg2.addClass(c1);
 		pg2.addClass(c2);
 
-
-		//pg3 = new Package("test_package_3", file); //falta testar o List e o for 
 	}
 	
 	@Test
@@ -47,13 +45,7 @@ class PackageTest {
 		assertEquals("test_package_2", pg2.getName_Package());
 		Assertions.assertNotNull(pg2.getClass_list());
 		assertEquals(2, pg2.getClass_list().size());
-		
-
-		/*Assertions.assertNotNull(pg3);
-		assertEquals("test_package_3", pg3.getName_Package());
-		Assertions.assertNotNull(pg3.getClass_list());
-		assertEquals(0, pg3.getClass_list().size());*/
-
+	
 	}
 	
 	@Test
@@ -86,10 +78,11 @@ class PackageTest {
 		pg1.setName_Package("test_package_1");
 		assertEquals("test_package_1", pg1.getName_Package());
 	}
-/*	@Test
-	public void addClassTest() {
+	@Test
+	public void addClassFailTest() {
+		//dá erro porque o VerifyExistsClass ainda nao está implementado 
 		pg2.addClass(c1);
-		assertEquals(2, pg2.getClass_list().size()); //dá erro porque o VerifyExistsClass ainda nao está implementado 
+		assertEquals(2, pg2.getClass_list().size()); 
 	}
-*/
+
 }

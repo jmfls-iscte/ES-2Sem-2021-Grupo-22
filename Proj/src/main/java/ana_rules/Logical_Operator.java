@@ -11,7 +11,7 @@ public enum Logical_Operator {
 		case OR:
 			return one || two;
 		default:
-			return true;
+			return true;  //unreachable code
 		}
 	}
 	
