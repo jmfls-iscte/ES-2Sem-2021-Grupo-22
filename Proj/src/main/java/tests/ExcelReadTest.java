@@ -32,60 +32,61 @@ import metrics.Metrics;
 import metrics.Package;
 
 class ExcelReadTest {
-
-	private static String path;
-	private static ArrayList<Rule> rules = new ArrayList<Rule>();
-	private static ArrayList<RuleObject> rulesObj = new ArrayList<RuleObject>();
-	 static Package currentPackage;
-	 static Class currentClass;
-	 static Method currentMethod;
-	 static ExcelRead er;
-	 static ExcelRead er_fail;
+	
+	private static String path_2;
+	private static ArrayList<Rule> rules_2 = new ArrayList<Rule>();
+	private static ArrayList<RuleObject> rulesObj_2 = new ArrayList<RuleObject>();
+	static ExcelRead er_2;
 	 
-	 static ExcelRead er_2;
-	 static Rule rule = new Rule("NOM_class", "class", rulesObj);
+	static ExcelRead er_3;
+	static Rule rule = new Rule("NOM_class", "class", rulesObj_2);
 
 	static Cell currentCell;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		path = "/Users/anantunes0/Code_Smells.xlsx"; //É NECESSÁRIO POR UM PATH CORRECTO
-		er = new ExcelRead(path, rules);					
+		path_2 = "/Users/anantunes0/Code_Smells.xlsx"; //É NECESSÁRIO POR UM PATH CORRECTO
+		er_2 = new ExcelRead(path_2, rules_2);					
 	}
 	
 	@Test
 	void testExcelRead() {
-		er = new excel.ExcelRead(path, rules);
-		assertNotNull(er);
+		er_2 = new excel.ExcelRead(rules_2);
+		assertNotNull(er_2);
+	}
+
+	@Test
+	void testExcelRead2() {
+		er_2 = new excel.ExcelRead(path_2, rules_2);
+		assertNotNull(er_2);
 	}
 	
 	@Test
 	void testReadFile() {
-		 assertNotNull(er.ReadFile());
+		 assertNotNull(er_2.ReadFile());
 	}
-	/*
-	@Test
-	void testReadFileException() {
-		er_fail = new excel.ExcelRead("test", rules);
-		assertThrows(FileNotFoundException.class, () -> er_fail.ReadFile());
-	}
-	*/
+	
 	@Test
 	void testVerifyExistsCodeSmellFail() {
-		assertNull(er.VerifyExistsCodeSmell("rule"));
+		assertNull(er_2.VerifyExistsCodeSmell("rule"));
 	}
 	
 	@Test
 	void testVerifyExistsCodeSmell() {
-		rules.add(rule);
-		er_2 = new excel.ExcelRead(path, rules);
-		assertNotNull(er_2.VerifyExistsCodeSmell("NOM_class"));
+		rules_2.add(rule);
+		er_3 = new excel.ExcelRead(path_2, rules_2);
+		assertNotNull(er_3.VerifyExistsCodeSmell("NOM_class"));
 	}
 	
 	@Test
 	void testVerifyExistsCodeSmellFailOnIf() {
-		assertNull(er_2.VerifyExistsCodeSmell("test"));
-		rules.remove(rule);
+		assertNull(er_3.VerifyExistsCodeSmell("test"));
+		rules_2.remove(rule);
+	}
+	
+	@Test
+	void testChooseRule() {
+		
 	}
 	 
 }

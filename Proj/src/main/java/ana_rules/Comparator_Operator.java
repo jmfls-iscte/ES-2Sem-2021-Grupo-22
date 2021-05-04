@@ -28,7 +28,7 @@ public enum Comparator_Operator {
 			case LESSEQUAL:
 				return metric<=threshhold;
 			default:
-				return false;
+				return false;  //unreachable code
 		}
 	}
 	

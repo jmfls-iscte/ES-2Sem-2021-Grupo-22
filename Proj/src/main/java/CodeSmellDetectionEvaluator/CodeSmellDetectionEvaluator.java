@@ -13,7 +13,6 @@ import ana_rules.RuleEvaluator;
 import ana_rules.RuleObject;
 import ana_rules.SaveLoadRule;
 import excel.ExcelRead;
-import gui.MainGui;
 import metrics.*;
 import metrics.Class;
 import metrics.Package;

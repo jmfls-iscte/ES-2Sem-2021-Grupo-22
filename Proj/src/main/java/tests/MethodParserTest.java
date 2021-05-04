@@ -43,9 +43,6 @@ class MethodParserTest {
 		assertNotEquals(0, method_parser.getCYCLO_method());
 	}
 	
-	@Test
-	void methodParserAsWhileStmtExceptionTest() { //FALTA FAZER ??
-	}
 	
 	@Test
 	void methodParserAsForStmtTest() {
@@ -55,12 +52,6 @@ class MethodParserTest {
 		
 		method_parser.loop(stmt_list);
 		assertNotEquals(0, method_parser.getCYCLO_method());
-	}
-	
-	
-	@Test
-	void methodParserAsForStmtExceptionTest() { //FALTA FAZER??
-		
 	}
 	
 	@Test
@@ -74,11 +65,6 @@ class MethodParserTest {
 	}
 	
 	@Test
-	void methodParserAsSwitchForTest() { //FALTA FAZER
-		
-	}
-	
-	@Test
 	void methodParserAsIfStmtTest() {
 
 		stmt4.asIfStmt();
@@ -86,11 +72,6 @@ class MethodParserTest {
 
 		method_parser.loop(stmt_list);
 		assertNotEquals(0, method_parser.getCYCLO_method());
-	}
-	
-	@Test
-	void methodParserAsIfStmtExceptionTest() { //FALTA FAZER
-		
 	}
 	
 	@Test

@@ -40,7 +40,7 @@ public class ExcelWrite {
 	}
 
 
-	public void addMetrics (ArrayList<Package> listPackages) {
+	public void addMetrics (ArrayList<Package> listPackages){
 		methodId = 1;
 
 		for(Package p :listPackages) {
@@ -53,7 +53,7 @@ public class ExcelWrite {
 		}
 	}
 
-	public void writeFile(String filePath, ArrayList<Package> listPackages) {
+	public void writeFile(String filePath, ArrayList<Package> listPackages) throws IOException{
 
 		addMetrics(listPackages);
 
@@ -100,17 +100,7 @@ public class ExcelWrite {
 				sheet.autoSizeColumn(i);
 			}
 		}else{
-			int result = JOptionPane.showConfirmDialog(null, "The file you're trying to open already exists. Do you want to open it?",
-					"Atention", JOptionPane.YES_NO_OPTION);
-			if (result == JOptionPane.YES_OPTION) {
-
-				System.out.println("vou alterar");
-
-
-			} else {
-
-				System.exit(0);
-			}
+			throw new IOException();
 		}
 
 		FileOutputStream fileOut;

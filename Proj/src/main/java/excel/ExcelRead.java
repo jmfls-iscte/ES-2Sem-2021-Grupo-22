@@ -39,22 +39,6 @@ public class ExcelRead {
 	private int currentCellInt;
 	private int method_id;
 	
-	
-	
-	// ========================== TO REMOVE =============================================
-	public static void main(String[] args) {
-		String path2 = "C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx";
-		
-		ArrayList<Rule> rules = new ArrayList<Rule>();
-		rules.add(new Rule("is_God_Class", "Class", new ArrayList<RuleObject>()));
-		rules.add(new Rule("is_Long_Method", "Method", new ArrayList<RuleObject>()));
-		
-		ExcelRead er = new ExcelRead(path2, rules);
-		ArrayList<Package> p = er.ReadFile();
-		for(Package pa:p)
-			System.out.println(pa.toString());
-	} // ========================== TO REMOVE =============================================
-
 	public ExcelRead(ArrayList<Rule> rules) {
 		// Scanner vai ser alterado quando GUI enviar path
 		scanner = new Scanner(System.in);
