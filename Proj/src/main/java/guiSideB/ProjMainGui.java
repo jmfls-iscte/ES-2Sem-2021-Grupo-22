@@ -17,6 +17,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
@@ -30,6 +31,9 @@ import metrics.Package;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import CodeSmellDetectionEvaluator.CodeSmellDetectionEvaluator;
+import CodeSmellDetectionEvaluator.PackageEvaluator;
 
 public class ProjMainGui {
 
@@ -51,6 +55,9 @@ public class ProjMainGui {
 	private List<Rule> rules;
 	private String importPath;
 	private List<metrics.Package> importedPackages;
+	private CodeSmellDetectionEvaluator csde;
+	private final String jasmlPath="jasml_0.10_forEval";
+	private final String jasmlCodeSmellPath="Code_Smells_forEval.xlsx";
 
 	/**
 	 * Launch the application.
@@ -72,7 +79,7 @@ public class ProjMainGui {
 	public void open() {
 		display = Display.getDefault();
 		createContents();
-		shell.pack();
+		//shell.pack();
 		shell.open();
 		shell.layout();
 		shell.addListener(SWT.Close, new Listener() {
@@ -94,14 +101,23 @@ public class ProjMainGui {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
-		shell = new Shell(SWT.SHELL_TRIM & (~SWT.RESIZE) & (~SWT.MAX));
-		shell.setSize(930, 473);
-		shell.setImage(SWTResourceManager.getImage("C:\\Users\\ASUS\\git\\ES-2Sem-2021-Grupo-22\\Proj\\Images\\codeSmell.png"));
+		shell = new Shell();
+		shell.setMinimumSize(300, 400);
+		shell.setSize(1280, 720);
+		
+		shell.setImage(SWTResourceManager.getImage("Images\\codeSmell.png"));
 		shell.setText("Code Quality Assessor");
 		
-		shell.setLayout(new RowLayout(SWT.HORIZONTAL));
+		GridLayout layout=new GridLayout();
+		layout.numColumns = 2;
+		shell.setLayout(layout);
+		
 		menuBar = new MenuBar(shell, SWT.NONE, this);
-		menuBar.setLayoutData(new RowData(205, 305));
+		GridData gridData = new GridData();
+		gridData.grabExcessVerticalSpace = true;		
+		gridData.verticalAlignment = GridData.FILL;
+		gridData.widthHint=205;
+		menuBar.setLayoutData(gridData);
 		
 		welcomePage = new WelcomePage(shell, SWT.NONE, this);
 		
@@ -114,7 +130,7 @@ public class ProjMainGui {
 		
 		welcomePage = new WelcomePage(shell, SWT.NONE, this);
 		shell.layout();
-		shell.pack();
+		
 	}
 	
 	protected void Button1() {
@@ -122,10 +138,10 @@ public class ProjMainGui {
 		this.disposeAll();
 
 		metricas = new GuiExtracaoMetricas(shell, SWT.NONE, this);
-		//metricas.setLayoutData(defaultLayout());
+		metricas.setLayoutData(defaultLayout());
 		metricas.firstFill(projPath, packages);
 		shell.layout();
-		shell.pack();
+		
 
 	}
 
@@ -134,9 +150,9 @@ public class ProjMainGui {
 		this.disposeAll();
 
 		editor = new GuiEditorRegras(shell, SWT.NONE, this);
-		//editor.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		editor.setLayoutData(defaultLayout());
 		shell.layout();
-		shell.pack();
+		
 
 	}
 
@@ -145,9 +161,9 @@ public class ProjMainGui {
 		this.disposeAll();
 
 		qualidade = new GuiQualidadeRegras(shell, SWT.NONE, this);
-		//qualidade.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		qualidade.setLayoutData(defaultLayout());
 		shell.layout();
-		shell.pack();
+		
 
 	}
 
@@ -156,10 +172,10 @@ public class ProjMainGui {
 		this.disposeAll();
 
 		importados = new GuiDadosImportados(shell, SWT.NONE, this);
-		//importados.setLayoutData(defaultLayout());
+		importados.setLayoutData(defaultLayout());
 		importados.firstFill(importPath, importedPackages);
 		shell.layout();
-		shell.pack();
+		
 
 	}
 
@@ -168,9 +184,9 @@ public class ProjMainGui {
 		this.disposeAll();
 
 		exportar = new GuiExportarDados(shell, SWT.NONE, this);
-		//exportar.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		exportar.setLayoutData(defaultLayout());
 		shell.layout();
-		shell.pack();
+		
 
 	}
 
@@ -214,12 +230,23 @@ public class ProjMainGui {
 	protected void runMetrics() {
 		if (projPath != null) {
 			// TODO erros apra cada throw do directorygetter
-			DirectoryGetter dirget = new DirectoryGetter();
-			dirget.SetDir(projPath);
-			dirget.FindSrc();
-			dirget.FindPackages();
-			packages = dirget.getPackages();
-			RuleEvaluator.runCodeSmells(getRules(),packages);
+			try {
+				DirectoryGetter dirget = new DirectoryGetter();
+				dirget.SetDir(projPath);
+				dirget.FindSrc();
+				dirget.FindPackages();
+				packages = dirget.getPackages();
+				RuleEvaluator.runCodeSmells(getRules(),packages);
+				
+			}catch (IllegalStateException e) {
+				MessageBox messageBox = new MessageBox(this.getShell(), SWT.ICON_ERROR| SWT.OK);
+		    	messageBox.setText("Importação de Projeto");
+		        messageBox.setMessage("O ficheiro selecionado não é um projeto Java \n(Não contem diretoria src)");
+		        messageBox.open();
+			}catch (IllegalArgumentException e) {
+				//unreachable;
+				e.printStackTrace();
+			}
 		} else {
 			// TODO error pop-up (no project selected)
 		}
@@ -229,6 +256,21 @@ public class ProjMainGui {
 		if (importPath != null) {
 			ExcelRead excel = new ExcelRead(importPath, (ArrayList<Rule>) getRules());
 			importedPackages = excel.ReadFile();
+		}
+	}
+	
+	protected void runCodeSmellAutoEval() {
+		if(getCsde()==null) {
+			ExcelRead excelRead = new ExcelRead(jasmlCodeSmellPath,(ArrayList<Rule>) rules);
+			List<Package> packagesExcel = excelRead.ReadFile();
+
+			metrics.DirectoryGetter dirget = new DirectoryGetter();
+			dirget.SetDir(jasmlPath);
+			dirget.FindSrc();
+			dirget.FindPackages();
+			List<Package> packagesimport = dirget.getPackageList();
+			RuleEvaluator.runCodeSmells(rules, packagesimport);
+			csde = new CodeSmellDetectionEvaluator(packagesimport, packagesExcel);			
 		}
 	}
 
@@ -252,8 +294,8 @@ public class ProjMainGui {
 		boolean godclass=false;
 		boolean longmethod=false;
 		for(Rule rule: getRules()) {
-			if(rule.getName().equals("Is_God_Class")) {godclass=true;}
-			if(rule.getName().equals("Is_Long_Method")) {longmethod=true;}
+			if(rule.getName().equals("is_God_Class")) {godclass=true;}
+			if(rule.getName().equals("is_Long_Method")) {longmethod=true;}
 		}
 		return godclass && longmethod;
 	}
@@ -264,5 +306,9 @@ public class ProjMainGui {
 
 	protected void setRules(List<Rule> rules) {
 		this.rules = rules;
+	}
+
+	protected CodeSmellDetectionEvaluator getCsde() {
+		return csde;
 	}
 }
