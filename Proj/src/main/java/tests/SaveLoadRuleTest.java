@@ -20,17 +20,32 @@ class SaveLoadRuleTest {
 	static ArrayList<Rule> array_rules = new ArrayList<Rule>();
 	static ArrayList<RuleObject> array_ruleobject = new ArrayList<RuleObject>();
 	static Rule r1 = new Rule("test", "test", array_ruleobject);
+	
+	static RuleObject ro1;
+	static RuleObject ro2;
+	static RuleObject ro3;
+
+	
+	static String path = "/Users/anantunes0/rule_test.txt";
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception{
 		svl1 = new SaveLoadRule();
 		array_rules.add(r1);
 		
+		ro1 = new RuleObject("NOM_CLASS","CLASSMETRIC");
+		ro2 = new RuleObject("EQUALS","COMPARISON_OPERATOR");
+		ro3 = new RuleObject("1","THRESHOLD");	
+		
+		array_ruleobject.add(ro1);
+		array_ruleobject.add(ro2);
+		array_ruleobject.add(ro3);
 	}
 	
 	@Test
 	void testSaveRules() {
-		svl1.SaveRules(array_rules, "test");
+		svl1.SaveRules(array_rules, path);
+		assertNotNull(svl1);
 	}
 	
 	@Test
@@ -45,7 +60,7 @@ class SaveLoadRuleTest {
 	
 	@Test
 	void testLoadRules() {
-		assertNotNull(svl1.LoadRules("test"));
+		assertEquals(1, svl1.LoadRules(path).size());
 	}
 
 	@Test
@@ -57,10 +72,5 @@ class SaveLoadRuleTest {
 	void testLoadRulesException2() {
 		assertThrows(IllegalArgumentException.class, () -> svl1.LoadRules(null));	
 	}
-	/*
-	@Test
-	void testLoadRulesException3() {
-		assertThrows(FileNotFoundException.class, () -> svl1.LoadRules(".."));	
-	}
-*/
+
 }
