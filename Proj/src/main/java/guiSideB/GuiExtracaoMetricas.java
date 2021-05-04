@@ -155,20 +155,25 @@ public class GuiExtracaoMetricas extends Composite {
 		            String path = fileSave.getFilterPath();
 		            String name= fileSave.getFileName();
 		            String absolutePath=path+"\\"+name;
-		            System.out.println(absolutePath);
+		            //System.out.println(absolutePath);
 		            File file= new File(absolutePath);
 		            if(file.exists()) {
-		            	System.out.println("file");
+		            	//System.out.println("file");
 		            	MessageBox messageBox = new MessageBox(mainWindow.getShell(), SWT.ICON_WARNING | SWT.NO | SWT.YES);
 		            	messageBox.setText("Confirmar Exportar");
 		                messageBox.setMessage(name+" já existe.\nDeseja substituí-lo?");
 		                int fileChoice=messageBox.open();
 		                if(fileChoice==SWT.YES) {
-		                	//TODO apagar ficheiro?
-		                	//excelExport(absolutePath);
+		                	if(file.delete()) {
+		                		excelExport(absolutePath);
+		                		successMessage();
+		                	}else {
+		                		//can't delete;
+		                	}
 		                }
 		            }else {
 		            	excelExport(absolutePath);
+		            	successMessage();
 		            }
 					
 				}else {
@@ -277,5 +282,13 @@ public class GuiExtracaoMetricas extends Composite {
 	@Override
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
+	}
+	
+	private void successMessage() {
+		MessageBox messageBox = new MessageBox(mainWindow.getShell(), SWT.ICON_INFORMATION| SWT.OK);
+    	messageBox.setText("Exportação");
+        messageBox.setMessage("Exportação concluida com sucesso");
+        messageBox.open();
+		
 	}
 }

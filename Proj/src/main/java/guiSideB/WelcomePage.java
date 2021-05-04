@@ -61,7 +61,7 @@ public class WelcomePage extends Composite{
 		gd_lblCodesmell.widthHint = 319;
 		gd_lblCodesmell.heightHint = 90;
 		lblCodesmell.setLayoutData(gd_lblCodesmell);
-		lblCodesmell.setImage(SWTResourceManager.getImage("C:\\Users\\ASUS\\git\\ES-2Sem-2021-Grupo-22\\Proj\\Images\\icons8_edit_property_32px_1.png"));
+		lblCodesmell.setImage(SWTResourceManager.getImage("Images\\icons8_edit_property_32px_1.png"));
 		
 	}
 
