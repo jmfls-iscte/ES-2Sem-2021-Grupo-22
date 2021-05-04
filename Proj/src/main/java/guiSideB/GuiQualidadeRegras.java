@@ -137,15 +137,15 @@ public class GuiQualidadeRegras extends Composite {
 		composite_2.setLayoutData(gridDatacomposite2);
 		
 		Composite composite_3 = new Composite(composite_2, SWT.NONE);
+		composite_3.setLayout(new GridLayout(4, false));
 		GridData gridDatacomposite3 = new GridData();
 		gridDatacomposite3.grabExcessHorizontalSpace = true;
 		gridDatacomposite3.horizontalAlignment = GridData.FILL;
-		gridDatacomposite3.grabExcessVerticalSpace = true;
-		gridDatacomposite3.verticalAlignment = GridData.FILL;	
 		composite_3.setLayoutData(gridDatacomposite3);
 		
 		Label lblNewLabel = new Label(composite_3, SWT.NONE);
 		lblNewLabel.setText("New Label");
+		new Label(composite_3, SWT.NONE);
 		
 		Label lblNewLabel_3 = new Label(composite_3, SWT.NONE);
 		lblNewLabel_3.setText("New Label");
@@ -153,14 +153,15 @@ public class GuiQualidadeRegras extends Composite {
 		Label lblNewLabel_4 = new Label(composite_3, SWT.NONE);
 		lblNewLabel_4.setText("New Label");
 		
-		Combo combo_1 = new Combo(composite_3, SWT.NONE);
-		combo_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		
 		Combo combo = new Combo(composite_3, SWT.NONE);
 		combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		new Label(composite_3, SWT.NONE);
 		
 		Combo combo_2 = new Combo(composite_3, SWT.NONE);
 		combo_2.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		Combo combo_1 = new Combo(composite_3, SWT.NONE);
+		combo_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Composite composite_4 = new Composite(composite_2, SWT.NONE);
 		composite_4.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false, 1, 1));

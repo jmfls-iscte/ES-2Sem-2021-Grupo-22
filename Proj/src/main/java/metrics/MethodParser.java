@@ -44,10 +44,7 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 		method.setCYCLO_method(CYCLO_method);
 		method.setBegin(md.getBegin().get().line);
 		method.setEnd(md.getEnd().get().line);
-		System.out.println("");
-		System.out.println(method.getName_method());
-		System.out.println("LOC_method " + method.getLOC_method());
-		System.out.println("CYCLO_method " + method.getCYCLO_method());
+
 		methods.add(method);
 	}
 

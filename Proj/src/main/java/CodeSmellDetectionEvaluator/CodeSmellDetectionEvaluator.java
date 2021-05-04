@@ -13,7 +13,6 @@ import ana_rules.RuleEvaluator;
 import ana_rules.RuleObject;
 import ana_rules.SaveLoadRule;
 import excel.ExcelRead;
-import gui.MainGui;
 import metrics.*;
 import metrics.Class;
 import metrics.Package;
@@ -93,7 +92,7 @@ public class CodeSmellDetectionEvaluator {
 		int packagesSize = packagesExcellst.size();
 		for (int packagesindex = 0; packagesindex < packagesSize; packagesindex++) {
 
-			System.out.println("Package atual = " + packagesindex);
+			//System.out.println("Package atual = " + packagesindex);
 			Package currentPackage = packagesExcellst.get(packagesindex);
 			Package packageDet = Utils.getPackagebyName(currentPackage.getName_Package(), packagesDetectionlst);
 
@@ -103,7 +102,7 @@ public class CodeSmellDetectionEvaluator {
 			List<ClassEvaluator> classlst = DetectionClasses(classDet, classExcel);
 
 			PackageEvaluator packageEvaluator = new PackageEvaluator(currentPackage.getName_Package(), classlst);
-			packagesEvaluatorlst.add(packageEvaluator);
+			getPackagesEvaluatorlst().add(packageEvaluator);
 
 		}
 
@@ -116,8 +115,6 @@ public class CodeSmellDetectionEvaluator {
 		Map<EvaluatorType, Integer> map5 = getClassificationClassRule("com.jasml.compiler", "Scanner", "is_God_Class");//Apenas de uma classe de um determinado package e regra especifica
 		Map<EvaluatorType, Integer> map6 = getClassificationClassRule("com.jasml.compiler", "Scanner", "is_Long_Method");//Apenas de uma classe de um determinado package e regra especifica
 
-		System.out.println("Só para ver");
-
 	}
 
 	private List<ClassEvaluator> DetectionClasses(List<Class> classDetectionlst, List<Class> classExcellst) {
@@ -128,7 +125,7 @@ public class CodeSmellDetectionEvaluator {
 
 			try {
 				Class currentClass = classExcellst.get(classindex);
-				System.out.println("Classe atual = " + currentClass.getName_Class());
+				//System.out.println("Classe atual = " + currentClass.getName_Class());
 				Class classDet = Utils.getClassbyName(currentClass.getName_Class(), classDetectionlst);
 
 				Map<String, Boolean> rulesClassDetection = currentClass.getCode_Smells();
@@ -217,7 +214,7 @@ public class CodeSmellDetectionEvaluator {
 		mapa.put(EvaluatorType.TN, 0);
 		mapa.put(EvaluatorType.FP, 0);
 		mapa.put(EvaluatorType.FN, 0);
-		return Utils.getClassificationTotal(mapa, packagesEvaluatorlst);
+		return Utils.getClassificationTotal(mapa, getPackagesEvaluatorlst());
 	}
 	
 	
@@ -228,7 +225,7 @@ public class CodeSmellDetectionEvaluator {
 		mapa.put(EvaluatorType.TN, 0);
 		mapa.put(EvaluatorType.FP, 0);
 		mapa.put(EvaluatorType.FN, 0);
-		return Utils.getClassificationPackage(mapa, packagesEvaluatorlst, packageName);
+		return Utils.getClassificationPackage(mapa, getPackagesEvaluatorlst(), packageName);
 	}
 
 	public Map<EvaluatorType, Integer> getClassificationClass(String packageName, String className) {
@@ -237,7 +234,7 @@ public class CodeSmellDetectionEvaluator {
 		mapa.put(EvaluatorType.TN, 0);
 		mapa.put(EvaluatorType.FP, 0);
 		mapa.put(EvaluatorType.FN, 0);
-		for (PackageEvaluator p : packagesEvaluatorlst) {
+		for (PackageEvaluator p : getPackagesEvaluatorlst()) {
 			if (p.getName().equals(packageName)) {
 				for (ClassEvaluator c : p.getClasslst()) {
 					if (c.getClasseval().getName_Class().equals(className)) {
@@ -256,7 +253,7 @@ public class CodeSmellDetectionEvaluator {
 		mapa.put(EvaluatorType.FP, 0);
 		mapa.put(EvaluatorType.FN, 0);
 
-		for (PackageEvaluator p : packagesEvaluatorlst)
+		for (PackageEvaluator p : getPackagesEvaluatorlst())
 			mapa = Utils.getClassificationRule(mapa, p, ruleName);
 
 		return mapa;
@@ -269,7 +266,7 @@ public class CodeSmellDetectionEvaluator {
 		mapa.put(EvaluatorType.TN, 0);
 		mapa.put(EvaluatorType.FP, 0);
 		mapa.put(EvaluatorType.FN, 0);
-		for (PackageEvaluator p : packagesEvaluatorlst) {
+		for (PackageEvaluator p : getPackagesEvaluatorlst()) {
 			if (p.getName().equals(packageName)) {
 				mapa = Utils.getClassificationRule(mapa, p, ruleName);
 			}
@@ -284,7 +281,7 @@ public class CodeSmellDetectionEvaluator {
 		mapa.put(EvaluatorType.TN, 0);
 		mapa.put(EvaluatorType.FP, 0);
 		mapa.put(EvaluatorType.FN, 0);
-		for (PackageEvaluator p : packagesEvaluatorlst) {
+		for (PackageEvaluator p : getPackagesEvaluatorlst()) {
 			if (p.getName().equals(packageName)) {
 				for (ClassEvaluator c : p.getClasslst())
 					if(c.getClasseval().getName_Class().equals(className))
@@ -293,6 +290,10 @@ public class CodeSmellDetectionEvaluator {
 			}
 		}
 		return mapa;
+	}
+
+	public List<PackageEvaluator> getPackagesEvaluatorlst() {
+		return packagesEvaluatorlst;
 	}
 
 }
