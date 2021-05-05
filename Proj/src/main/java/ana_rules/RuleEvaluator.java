@@ -66,8 +66,7 @@ public class RuleEvaluator {
 		List<metrics.Class> classlst= allClass(pacotes);
 		List<metrics.Method> methodlst=allMethod(classlst);
 		CsClass(classrule, classlst);
-		CsMethod(methodrule, methodlst);
-		
+		CsMethod(methodrule, methodlst);	
 	}
 
 	private static List<List<Rule>> splitRules(List<Rule> allrules) {

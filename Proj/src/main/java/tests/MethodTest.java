@@ -76,4 +76,9 @@ class MethodTest {
 		assertEquals(1, m1.getMethod_id());
 	}
 	
+	@Test
+	public void getCsByNameTest() {
+		assertNull(m1.getCsByName("test"));
+	}
+	
 }

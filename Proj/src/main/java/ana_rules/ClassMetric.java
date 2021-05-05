@@ -16,8 +16,8 @@ public enum ClassMetric {
 			return classe.getLOC_class();
 		}else if (metric.equals(ClassMetric.WMC_CLASS)) {
 			return classe.getWMC_class();
-		}else {
-			return 0;
+		}else { 
+			return 0; //unreachable code
 		}
 	}
 	

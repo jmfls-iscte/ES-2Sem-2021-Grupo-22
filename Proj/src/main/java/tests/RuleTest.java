@@ -45,7 +45,6 @@ class RuleTest {
 	
 	//rulobjects r5
 	static RuleObject metric_5_fail;
-
 		
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception{
@@ -95,8 +94,7 @@ class RuleTest {
 		//set r5
 		metric_5_fail = new RuleObject("NOM_CLASS", "CLASSMETRIC"); //0
 		rule_info_5.add(metric_5_fail);
-		
-		
+				
 	}
 	
 	@Test
@@ -174,7 +172,6 @@ class RuleTest {
 		r1.editThreshold(metric, threshold1);
 		assertEquals(metric.getInfo(), r1.getInfo().get(0).getInfo());	
 	}
-	
 }
 	
 	

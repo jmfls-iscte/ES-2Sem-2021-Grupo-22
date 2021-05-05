@@ -22,7 +22,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ana_rules.*;
-import gui.MainGui;
+
 
 public class ExcelRead {
 
@@ -39,22 +39,6 @@ public class ExcelRead {
 	private int currentCellInt;
 	private int method_id;
 	
-	
-	
-	// ========================== TO REMOVE =============================================
-	public static void main(String[] args) {
-		String path2 = "C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx";
-		
-		ArrayList<Rule> rules = new ArrayList<Rule>();
-		rules.add(new Rule("is_God_Class", "Class", new ArrayList<RuleObject>()));
-		rules.add(new Rule("is_Long_Method", "Method", new ArrayList<RuleObject>()));
-		
-		ExcelRead er = new ExcelRead(path2, rules);
-		ArrayList<Package> p = er.ReadFile();
-		for(Package pa:p)
-			System.out.println(pa.toString());
-	} // ========================== TO REMOVE =============================================
-
 	public ExcelRead(ArrayList<Rule> rules) {
 		// Scanner vai ser alterado quando GUI enviar path
 		scanner = new Scanner(System.in);
@@ -109,7 +93,6 @@ public class ExcelRead {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return packages;
 	}
 	
@@ -201,6 +184,27 @@ public class ExcelRead {
 			// criar ou verificar se existe metodo com o nome atual da célula
 
 			String method_name = currentCell.getStringCellValue();
+			if(method_name.contains(".")) {
+				String args[] = method_name.split("\\,");
+				method_name="";
+				int count=0;
+				for(String arg:args)
+				{
+					if(arg.contains(".")) {
+						String[] names = arg.split("\\.");
+						if(count==0)
+							method_name+=names[1];
+						else
+							method_name+=","+names[1]; 
+					}else {
+						if(count==0)
+							method_name+=arg;
+						else
+							method_name+=","+arg;
+					}
+					count++;
+				}
+			}
 			currentMethod = currentClass.get_MethodByName(method_name);
 			if (currentMethod == null) {
 				currentMethod = new Method(method_name);

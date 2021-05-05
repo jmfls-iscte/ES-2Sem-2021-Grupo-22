@@ -10,6 +10,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
+import ana_rules.Rule;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -51,8 +54,8 @@ public class GuiDadosImportados extends Composite {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				FileDialog directoryDialog = new FileDialog(mainWindow.getShell());
-		        
-		        directoryDialog.setFilterPath(dirProj_txt.getText());
+				directoryDialog.setFilterExtensions(new String[] {"*.xlsx"});
+		        directoryDialog.setFilterPath("c:\\");
 		        String dir = directoryDialog.open();
 			
 				if (dir != null) {
@@ -111,6 +114,14 @@ public class GuiDadosImportados extends Composite {
 		TreeColumn trclmn5 = new TreeColumn(tree, SWT.NONE);
 		trclmn5.setWidth(100);
 		trclmn5.setText("CYCLO_Method");
+		
+		for(String rule: getColunas(mainWindow.getRules())) {
+			TreeColumn coluna = new TreeColumn(tree, SWT.NONE);
+			coluna.setWidth(100);
+			coluna.setText(rule);
+			
+		}
+		
 		tree.setHeaderVisible(true);
 		tree.pack();
 		
@@ -128,11 +139,28 @@ public class GuiDadosImportados extends Composite {
 					ti2.setText(1,""+packages.get(i).getClass_list().get(j).getLOC_class());
 					ti2.setText(2,""+packages.get(i).getClass_list().get(j).getNOM_class());
 					ti2.setText(3,""+packages.get(i).getClass_list().get(j).getWMC_class());
+					for(String rule:packages.get(i).getClass_list().get(j).get_name_code_Smells()) {
+						int colindex=getColIndex(getColunas(mainWindow.getRules()), rule);
+						if(colindex!=-1) {
+							ti2.setText(colindex,packages.get(i).getClass_list().get(j).getCsByName(rule).toString());
+						}
+					}
 					for(int k=0;k<packages.get(i).getClass_list().get(j).getMethod_list().size();k++) {
 						TreeItem ti3 = new TreeItem(ti2, SWT.NONE);
 						ti3.setText(0,packages.get(i).getClass_list().get(j).getMethod_list().get(k).getName_method());
 						ti3.setText(4,""+packages.get(i).getClass_list().get(j).getMethod_list().get(k).getLOC_method());	
 						ti3.setText(5,""+packages.get(i).getClass_list().get(j).getMethod_list().get(k).getCYCLO_method());	
+						for(String rule:packages.get(i).getClass_list().get(j).getMethod_list().get(k).get_name_code_Smells()) {
+							int colindex=getColIndex(getColunas(mainWindow.getRules()), rule);
+							if(colindex!=-1) {
+								try {
+									
+									ti3.setText(colindex,packages.get(i).getClass_list().get(j).getMethod_list().get(k).getCsByName(rule).toString());
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
+							}
+						}
 					}
 				}
 			}	
@@ -152,6 +180,24 @@ public class GuiDadosImportados extends Composite {
 	@Override
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
+	}
+	
+	private static List<String> getColunas(List<Rule> rules) {
+		List<String> result= new ArrayList<String>();
+		
+		for(Rule rule: rules) {
+			result.add(rule.getName());
+		}
+		return result;
+	}
+	
+	private static int getColIndex(List<String> colunas,String title) {
+		for(int i=0;i <colunas.size();i++) {
+			if(colunas.get(i).equals(title)) {
+				return i+6;
+			}
+		}
+		return -1;
 	}
 
 }

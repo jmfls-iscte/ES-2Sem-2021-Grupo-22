@@ -1,6 +1,8 @@
 package excel;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+
 import metrics.*;
 
 import metrics.Class;
@@ -21,7 +23,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-//
+// APAGAR FICHEIRO NO COMPUTADORRRRRRRRRRR!!!!!!!!!!
+
 public class ExcelWrite {
 
 	private  String[] columns = {"MethodID","Package","Class","Method","NOM_class","LOC_class","WMC_class","is_God_Class","LOC_method","CYCLO_method","is_Long_Method"};
@@ -37,7 +40,7 @@ public class ExcelWrite {
 	}
 
 
-	public void addMetrics (ArrayList<Package> listPackages) {
+	public void addMetrics (ArrayList<Package> listPackages){
 		methodId = 1;
 
 		for(Package p :listPackages) {
@@ -50,7 +53,7 @@ public class ExcelWrite {
 		}
 	}
 
-	public void writeFile(String filePath, ArrayList<Package> listPackages) throws IOException {
+	public void writeFile(String filePath, ArrayList<Package> listPackages) throws IOException{
 
 		addMetrics(listPackages);
 
@@ -97,22 +100,27 @@ public class ExcelWrite {
 				sheet.autoSizeColumn(i);
 			}
 		}else{
-			int result = JOptionPane.showConfirmDialog(null, "The file you're trying to open already exists. Do you want to open it?",
-					"Atention", JOptionPane.YES_NO_OPTION);
-			if (result == JOptionPane.YES_OPTION) {
-
-				System.out.println("vou alterar");
-
-
-			} else {
-
-				System.exit(0);
-			}
+			throw new IOException();
 		}
 
-		FileOutputStream fileOut = new FileOutputStream(filePath);
-		workbook.write(fileOut);
-		fileOut.close();
+		FileOutputStream fileOut;
+		try {
+			fileOut = new FileOutputStream(filePath);
+			workbook.write(fileOut);
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	public ArrayList<Metrics> getMetrics() {
+		return metrics;
 	}
 
 

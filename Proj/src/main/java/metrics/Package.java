@@ -53,7 +53,7 @@ public class Package {
 	{
 		for(Class c:arrayClasses)
 		{
-			if(c.getName_Class()==Classname)
+			if(c.getName_Class().equals(Classname))
 				return c;
 		}
 		
@@ -73,8 +73,7 @@ public class Package {
 	
 	private boolean verifyExistsClass(Class classToVerify)
 	{
-		//TO DO
-		return false;
+		return arrayClasses.contains(classToVerify);
 	}
 
 }
