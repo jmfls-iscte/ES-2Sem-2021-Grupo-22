@@ -15,7 +15,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 
 public class MenuBar extends Composite {
-
+//	
 	ProjMainGui mainWindow;
 	Button btnNewButton;
 	Button btnNewButton_1;
