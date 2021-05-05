@@ -8,21 +8,35 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 
+import ana_rules.ClassMetric;
+import ana_rules.Comparator_Operator;
+import ana_rules.MethodMetric;
 import ana_rules.RuleObject;
 
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 
 	private Composite shell= this;
 	Gui_editorRegras2 mainWindow;
 	private Text limite_txt;
+	private Combo metrica_cmb;
+	private Combo RegraType_cmb;
+//	private String[] teste;
 	
 
 
@@ -41,49 +55,65 @@ public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 		Label comparador_lbl = new Label(this, SWT.NONE);
 		comparador_lbl.setText("Comparador :");
 		comparador_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		comparador_lbl.setBounds(10, 136, 110, 25);
+		comparador_lbl.setBounds(13, 195, 110, 25);
 		
 		Label limite_lbl = new Label(this, SWT.NONE);
 		limite_lbl.setText("Limite :");
 		limite_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		limite_lbl.setBounds(64, 191, 56, 25);
+		limite_lbl.setBounds(67, 239, 56, 25);
 		
 		limite_txt = new Text(this, SWT.BORDER);
 		limite_txt.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		limite_txt.setBounds(126, 188, 245, 31);
+		limite_txt.setBounds(126, 236, 245, 31);
 		
 		Combo comparador_cmb = new Combo(this, SWT.NONE);
 		comparador_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		comparador_cmb.setBounds(126, 133, 245, 33);
-		comparador_cmb.add("LESS");
-		comparador_cmb.add("GREATER");
-		comparador_cmb.add("GREATEREQUAL");
-		comparador_cmb.add("LESSEQUAL");
+		comparador_cmb.setBounds(126, 192, 245, 33);
+		for (Comparator_Operator operator : Comparator_Operator.values()) {
+			comparador_cmb.add(operator.getString());
+		}
 
-		Combo metrica_cmb = new Combo(this, SWT.NONE);
+		metrica_cmb = new Combo(this, SWT.NONE);
 		metrica_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		metrica_cmb.setBounds(126, 65, 245, 33);
-		metrica_cmb.add("LOC_METHOD");
-		metrica_cmb.add("CYCLO_METHOD");
-		metrica_cmb.add("NOM_CLASS");
-		metrica_cmb.add("LOC_CLASS");
-		metrica_cmb.add("WMC_CLASS");
+		metrica_cmb.setBounds(126, 150, 245, 33);
+		metrica_cmb.setEnabled(false);
+		
 		
 		Label metrica_lbl = new Label(this, SWT.NONE);
 		metrica_lbl.setText("Métrica :");
 		metrica_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		metrica_lbl.setBounds(53, 68, 67, 25);
+		metrica_lbl.setBounds(56, 153, 67, 25);
 		
 		Label RegraType_lbl = new Label(this, SWT.NONE);
 		RegraType_lbl.setVisible(true);
 		RegraType_lbl.setText("Tipo Regra :");
 		RegraType_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		RegraType_lbl.setBounds(13, 245, 107, 25);
+		RegraType_lbl.setBounds(16, 114, 107, 25);
 		
-		Combo RegraType_cmb = new Combo(this, SWT.NONE);
+		RegraType_cmb = new Combo(this, SWT.NONE);
+		RegraType_cmb.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				metrica_cmb.setEnabled(true);
+				List<String> values = new ArrayList<String>();
+				if (RegraType_cmb.getText().equals("class")) {
+					for(ClassMetric metric : ClassMetric.values() ) {
+						values.add(metric.toString());
+					}
+				}
+				else {
+					for(MethodMetric metric : MethodMetric.values()) {
+						values.add(metric.toString());
+					}
+				}
+				String[] r = new String[values.size()];
+				metrica_cmb.setItems(values.toArray(r));
+
+			}
+		});
 		RegraType_cmb.setVisible(true);
 		RegraType_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		RegraType_cmb.setBounds(126, 242, 245, 33);
+		RegraType_cmb.setBounds(126, 111, 245, 33);
 		RegraType_cmb.add("class");
 		RegraType_cmb.add("method");
 		
@@ -91,10 +121,11 @@ public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 		Confirm_btn.setText("Criar");
 		Confirm_btn.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		Confirm_btn.setBounds(126, 299, 90, 30);
+		if(Gui_editorRegras2.getRegratype() != null) {
+			Confirm_btn.setEnabled(false);
+		}
 		
 		
-
-
 		Confirm_btn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -114,7 +145,7 @@ public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 						Gui_editorRegras2.AddToRuleObjects(ruleObject);
 					}
 
-					RuleObject ruleObject1 = new RuleObject(comparador_cmb.getText(), "COMPARISON_OPERATOR");
+					RuleObject ruleObject1 = new RuleObject(Comparator_Operator.valueOfLabel(comparador_cmb.getText()).toString(), "COMPARISON_OPERATOR");
 					Gui_editorRegras2.AddToRuleObjects(ruleObject1);
 
 					RuleObject ruleObject2 = new RuleObject(limite_txt.getText(), "THRESHOLD");
@@ -123,6 +154,8 @@ public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 					Gui_editorRegras2.setRegraType(RegraType_cmb.getText());
 
 					Gui_editorRegras2.setAviso("Métrica Criada");
+					
+					Confirm_btn.setEnabled(false);
 				}
 
 			}

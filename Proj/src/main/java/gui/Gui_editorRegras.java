@@ -95,7 +95,7 @@ public class Gui_editorRegras {
 		Button AdicionarMetricas_btn = new Button(shell, SWT.NONE);
 		AdicionarMetricas_btn.setText("Adicionar Metricas");
 		AdicionarMetricas_btn.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		AdicionarMetricas_btn.setVisible(false);
+		AdicionarMetricas_btn.setVisible(true);
 		
 		// Criação do label Metricas e combo box associada
 		
@@ -123,12 +123,12 @@ public class Gui_editorRegras {
 		optLogico.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		optLogico.setText("Operadores Lógicos :");
 		optLogico.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		optLogico.setVisible(false);
+		optLogico.setVisible(true);
 		
 		Combo optL_cmb = new Combo(shell, SWT.NONE);
 		optL_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		optL_cmb.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		optL_cmb.setVisible(false);
+		optL_cmb.setVisible(true);
 		
 		optL_cmb.add("AND");
 		optL_cmb.add("OR");
@@ -212,13 +212,13 @@ public class Gui_editorRegras {
 		regraName_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		regraName_lbl.setText("Nome Regra :");
 		regraName_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		regraName_lbl.setVisible(false);
+		regraName_lbl.setVisible(true);
 		new Label(shell, SWT.NONE);
 		
 		regraName_txt = new Text(shell, SWT.BORDER);
 		regraName_txt.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		regraName_txt.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		regraName_txt.setVisible(false);
+		regraName_txt.setVisible(true);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
@@ -234,13 +234,13 @@ public class Gui_editorRegras {
 		metricaType_lbl.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		metricaType_lbl.setText("Tipo Metrica :");
 		metricaType_lbl.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		metricaType_lbl.setVisible(false);
+		metricaType_lbl.setVisible(true);
 		new Label(shell, SWT.NONE);
 		
 		Combo RegraType_cmb = new Combo(shell, SWT.NONE);
 		RegraType_cmb.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
 		RegraType_cmb.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		RegraType_cmb.setVisible(false);
+		RegraType_cmb.setVisible(true);
 		
 		RegraType_cmb.add("class");
 		RegraType_cmb.add("method");

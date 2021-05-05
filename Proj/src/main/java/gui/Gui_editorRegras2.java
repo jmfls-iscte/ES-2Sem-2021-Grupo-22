@@ -33,12 +33,12 @@ public class Gui_editorRegras2 {
 	private Gui_editorRegras_popUp_MetricaCriada metrica_criada;
 	private Gui_editorRegras_popUp_MetricaAdd metrica_add;
 	private Gui_editorRegras_popUp_RegraCriada regra_criada;
+	private Gui_editorRegras_VerRegras ver_regra;
 	private Gui_editorRegras2 shellEditor;
 	public static ArrayList<RuleObject> ruleObjects = new ArrayList<RuleObject>();
 	public static ArrayList<Rule> rules = new ArrayList<Rule>();
 	public static String regraType;
 	public static String aviso;
-	public static Label teste;
 	public static MessageBox box;
 
 	/**
@@ -131,6 +131,8 @@ public class Gui_editorRegras2 {
 				disposeSafe(metrica_criada);
 				disposeSafe(metrica_add);
 				disposeSafe(regra_criada);
+				disposeSafe(ver_regra);
+
 			}
 			
 		});
@@ -148,6 +150,8 @@ public class Gui_editorRegras2 {
 				disposeSafe(metrica_criada);
 				disposeSafe(metrica_add);
 				disposeSafe(regra_criada);
+				disposeSafe(ver_regra);
+
 			}
 		});
 		
@@ -164,6 +168,7 @@ public class Gui_editorRegras2 {
 				disposeSafe(metrica_criada);
 				disposeSafe(metrica_add);
 				disposeSafe(regra_criada);
+				disposeSafe(ver_regra);
 			}
 		});
 		
@@ -171,21 +176,23 @@ public class Gui_editorRegras2 {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				this.disposeAll();
-				for ( Rule rule : rules) {
-					rule.getName();
-					rule.getType();
-					System.out.println(rule.getName());
-					System.out.println(rule.getType());
-					System.out.println(rule.getInfo());
-					ArrayList<RuleObject> ListRuleObjects = rule.getInfo();
-					for(RuleObject ruleobject : ListRuleObjects) {
-						System.out.println("memes");
-						ruleobject.getLabel();
-						ruleobject.getInfo();
-						System.out.println(ruleobject.getInfo());
-						System.out.println(ruleobject.getLabel().toString());
-					}
-				}
+				ver_regra = new Gui_editorRegras_VerRegras(composite_Panel,SWT.NONE,shellEditor);
+//				String ruleinfo = "";
+//				Label label1 = new Label(composite_Panel,SWT.NONE);
+//				Label label2 = new Label(composite_Panel,SWT.NONE);
+//				for ( Rule rule : rules) {
+//					label1.setText("Regra: " + rule.getName() + " Type: " + rule.getType());
+//					ArrayList<RuleObject> ListRuleObjects = rule.getInfo();
+//					for(RuleObject ruleobject : ListRuleObjects) {
+//						ruleinfo = ruleinfo + " " + ruleobject.getInfo() + " " + ruleobject.getLabel().toString();
+//						ruleobject.getLabel();
+//						ruleobject.getInfo();
+//						System.out.println(ruleobject.getInfo());
+//						System.out.println(ruleobject.getLabel().toString());
+//						label2.setText(ruleinfo);
+//					}
+//				}
+				composite_Panel.layout();
 				
 			}
 			
@@ -193,14 +200,11 @@ public class Gui_editorRegras2 {
 				disposeSafe(metrica_criada);
 				disposeSafe(metrica_add);
 				disposeSafe(regra_criada);
+				disposeSafe(ver_regra);
 			}
 		});
 
 	}
-	
-//	public static getRuleObjectsFromRule(Rule rule) {
-//		
-//	}
 	
 	private static void disposeSafe(Composite composite) {
 		if (composite != null) {
@@ -234,6 +238,7 @@ public class Gui_editorRegras2 {
 	
 	public static void ClearRuleObjects() {
 		ruleObjects.clear();
+		regraType = null;
 	}
 	
 	public static void setAviso(String string) {

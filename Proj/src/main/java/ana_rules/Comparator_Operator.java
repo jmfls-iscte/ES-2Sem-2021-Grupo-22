@@ -42,5 +42,15 @@ public enum Comparator_Operator {
 			return false;
 		}
 	}
+	
+	public static Comparator_Operator valueOfLabel(String label) {
+	    for (Comparator_Operator e : values()) {
+	        if (e.Operator.equals(label)) {
+	            return e;
+	        }
+	    }
+	    return null;
+	}
+
 
 }
