@@ -12,7 +12,9 @@ public enum Comparator_Operator {
 	private Comparator_Operator(String Operator) {
 		this.Operator=Operator;
 	}
-	
+	public String getString() {
+		return this.Operator;
+	}
 	public static boolean compare(int metric,Comparator_Operator operator, int threshhold) {
 		switch(operator) {
 			case EQUALS:
