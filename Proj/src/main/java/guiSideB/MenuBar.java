@@ -55,7 +55,7 @@ public class MenuBar extends Composite {
 				btnNewButton.setForeground(SWTResourceManager.getColor(255, 255, 255));
 				btnNewButton.setBackground(SWTResourceManager.getColor(85,65,118));
 
-				btnNewButton.setImage(SWTResourceManager.getImage("Images\\icons8_laptop_metrics_32px_4.png"));
+				btnNewButton.setImage(SWTResourceManager.getImage("Images\\icons8_laptop_metrics_32px.png"));
 				btnNewButton.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 				btnNewButton.addMouseListener(new MouseAdapter() {
 					@Override
@@ -79,7 +79,7 @@ public class MenuBar extends Composite {
 				btnNewButton_1.setForeground(SWTResourceManager.getColor(255, 255, 255));
 				btnNewButton_1.setBackground(SWTResourceManager.getColor(85,65,118));
 
-				btnNewButton_1.setImage(SWTResourceManager.getImage("Images\\icons8_edit_property_32px_1.png"));
+				btnNewButton_1.setImage(SWTResourceManager.getImage("Images\\icons8_edit_property_32px.png"));
 
 				btnNewButton_1.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 				btnNewButton_1.addMouseListener(new MouseAdapter() {
@@ -97,7 +97,7 @@ public class MenuBar extends Composite {
 				btnNewButton_2.setForeground(SWTResourceManager.getColor(255, 255, 255));
 				btnNewButton_2.setBackground(SWTResourceManager.getColor(85,65,118));
 
-				btnNewButton_2.setImage(SWTResourceManager.getImage("Images\\icons8_data_quality_32px_2.png"));
+				btnNewButton_2.setImage(SWTResourceManager.getImage("Images\\icons8_data_quality_32px.png"));
  
 				btnNewButton_2.setCursor(SWTResourceManager.getCursor(SWT.CURSOR_HAND));
 				btnNewButton_2.addSelectionListener(new SelectionAdapter() {
