@@ -69,7 +69,7 @@ class CodeSmellDetectionEvaluatorTest {
 		csde_3 = new CodeSmellDetectionEvaluator(packagesDetectionlst_3, packagesExcellst_3);	
 		assertNotNull(csde_3);
 	}
-	
+	/*
 	@Test
 	void testGetPackagebyNameFail() {
 		assertNull(csde_3.getPackagebyName("error", packagesDetectionlst_3));
@@ -96,7 +96,7 @@ class CodeSmellDetectionEvaluatorTest {
 	void testGetMethodbyNameFail() {	
 		 assertNull(csde_3.getMethodbyName("error", methodlst));	 
 	}
-	
+	*/
 // FALTAM OS PRIVATES
 	
 	
