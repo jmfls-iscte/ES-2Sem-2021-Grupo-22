@@ -1,6 +1,7 @@
 package ana_rules;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Rule {
 
@@ -93,6 +94,29 @@ public class Rule {
 	public String getType() {
 		return type;
 
+	}
+	
+	public String toString() {
+		String rule = "";
+		for (RuleObject r : rule_info) {
+			if (r.getLabel().equals(RuleObjectType.COMPARISON_OPERATOR)) {
+				rule += Comparator_Operator.valueOf(r.getInfo()).getString() + " ";
+			} else {
+
+				rule += r.getInfo().toString() + " ";
+			}
+			
+		}
+		return rule;
+	}
+	
+	public static Rule getRuleFromList(List<Rule> rulelst,String name) {
+		for(Rule rule: rulelst) {
+			if(rule.getName().equals(name)) {
+				return rule;
+			}
+		}
+		return null;
 	}
 	
 
