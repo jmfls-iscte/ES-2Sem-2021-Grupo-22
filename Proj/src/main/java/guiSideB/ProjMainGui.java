@@ -56,8 +56,8 @@ public class ProjMainGui {
 	private String importPath;
 	private List<metrics.Package> importedPackages;
 	private CodeSmellDetectionEvaluator csde;
-	private final String jasmlPath="jasml_0.10_forEval";
-	private final String jasmlCodeSmellPath="Code_Smells_forEval.xlsx";
+	private final String jasmlPath = "jasml_0.10_forEval";
+	private final String jasmlCodeSmellPath = "Code_Smells_forEval.xlsx";
 
 	/**
 	 * Launch the application.
@@ -79,7 +79,7 @@ public class ProjMainGui {
 	public void open() {
 		display = Display.getDefault();
 		createContents();
-		//shell.pack();
+		// shell.pack();
 		shell.open();
 		shell.layout();
 		shell.addListener(SWT.Close, new Listener() {
@@ -87,7 +87,7 @@ public class ProjMainGui {
 
 				File myObj = new File(ruleFile);
 				SaveLoadRule.SaveRules((ArrayList<Rule>) getRules(), ruleFile);
-				//System.out.println(myObj.getAbsolutePath());
+				// System.out.println(myObj.getAbsolutePath());
 			}
 		});
 		while (!shell.isDisposed()) {
@@ -104,35 +104,37 @@ public class ProjMainGui {
 		shell = new Shell();
 		shell.setMinimumSize(300, 400);
 		shell.setSize(1280, 720);
-		
+
 		shell.setImage(SWTResourceManager.getImage("Images\\codeSmell.png"));
 		shell.setText("Code Quality Assessor");
-		
-		GridLayout layout=new GridLayout();
+
+		GridLayout layout = new GridLayout();
 		layout.numColumns = 2;
 		shell.setLayout(layout);
-		
+
 		menuBar = new MenuBar(shell, SWT.NONE, this);
 		GridData gridData = new GridData();
-		gridData.grabExcessVerticalSpace = true;		
+		gridData.grabExcessVerticalSpace = true;
 		gridData.verticalAlignment = GridData.FILL;
-		gridData.widthHint=205;
+		gridData.widthHint = 205;
 		menuBar.setLayoutData(gridData);
-		
+
 		welcomePage = new WelcomePage(shell, SWT.NONE, this);
-		
+
 		setRules(SaveLoadRule.LoadRules(ruleFile));
-		if(!assertBaseRules()) {setRules(RuleEvaluator.BASERULES());}
+		if (!assertBaseRules()) {
+			setRules(RuleEvaluator.BASERULES());
+		}
 	}
 
 	protected void MainButton() {
 		this.disposeAll();
-		
+
 		welcomePage = new WelcomePage(shell, SWT.NONE, this);
 		shell.layout();
-		
+
 	}
-	
+
 	protected void Button1() {
 		// System.out.println("Button1");
 		this.disposeAll();
@@ -141,7 +143,6 @@ public class ProjMainGui {
 		metricas.setLayoutData(defaultLayout());
 		metricas.firstFill(projPath, packages);
 		shell.layout();
-		
 
 	}
 
@@ -152,7 +153,6 @@ public class ProjMainGui {
 		editor = new GuiEditorRegras(shell, SWT.NONE, this);
 		editor.setLayoutData(defaultLayout());
 		shell.layout();
-		
 
 	}
 
@@ -164,7 +164,6 @@ public class ProjMainGui {
 		qualidade.setLayoutData(defaultLayout());
 		qualidade.firstFill(csde);
 		shell.layout();
-		
 
 	}
 
@@ -176,7 +175,6 @@ public class ProjMainGui {
 		importados.setLayoutData(defaultLayout());
 		importados.firstFill(importPath, importedPackages);
 		shell.layout();
-		
 
 	}
 
@@ -187,7 +185,6 @@ public class ProjMainGui {
 		exportar = new GuiExportarDados(shell, SWT.NONE, this);
 		exportar.setLayoutData(defaultLayout());
 		shell.layout();
-		
 
 	}
 
@@ -210,7 +207,7 @@ public class ProjMainGui {
 		return shell;
 	}
 
-	protected GridData defaultLayout() {
+	protected static GridData defaultLayout() {
 		GridData gridData = new GridData();
 		gridData.grabExcessHorizontalSpace = true;
 		gridData.grabExcessVerticalSpace = true;
@@ -237,15 +234,15 @@ public class ProjMainGui {
 				dirget.FindSrc();
 				dirget.FindPackages();
 				packages = dirget.getPackages();
-				RuleEvaluator.runCodeSmells(getRules(),packages);
-				
-			}catch (IllegalStateException e) {
-				MessageBox messageBox = new MessageBox(this.getShell(), SWT.ICON_ERROR| SWT.OK);
-		    	messageBox.setText("Importação de Projeto");
-		        messageBox.setMessage("O ficheiro selecionado não é um projeto Java \n(Não contem diretoria src)");
-		        messageBox.open();
-			}catch (IllegalArgumentException e) {
-				//unreachable;
+				RuleEvaluator.runCodeSmells(getRules(), packages);
+
+			} catch (IllegalStateException e) {
+				MessageBox messageBox = new MessageBox(this.getShell(), SWT.ICON_ERROR | SWT.OK);
+				messageBox.setText("Importação de Projeto");
+				messageBox.setMessage("O ficheiro selecionado não é um projeto Java \n(Não contem diretoria src)");
+				messageBox.open();
+			} catch (IllegalArgumentException e) {
+				// unreachable;
 				e.printStackTrace();
 			}
 		} else {
@@ -259,20 +256,20 @@ public class ProjMainGui {
 			importedPackages = excel.ReadFile();
 		}
 	}
-	
-	protected void runCodeSmellAutoEval() {
-		if(getCsde()==null) {
-			ExcelRead excelRead = new ExcelRead(jasmlCodeSmellPath,(ArrayList<Rule>) rules);
-			List<Package> packagesExcel = excelRead.ReadFile();
 
-			metrics.DirectoryGetter dirget = new DirectoryGetter();
-			dirget.SetDir(jasmlPath);
-			dirget.FindSrc();
-			dirget.FindPackages();
-			List<Package> packagesimport = dirget.getPackageList();
-			RuleEvaluator.runCodeSmells(rules, packagesimport);
-			csde = new CodeSmellDetectionEvaluator(packagesimport, packagesExcel);			
-		}
+	protected void runCodeSmellAutoEval() {
+
+		ExcelRead excelRead = new ExcelRead(jasmlCodeSmellPath, (ArrayList<Rule>) rules);
+		List<Package> packagesExcel = excelRead.ReadFile();
+
+		metrics.DirectoryGetter dirget = new DirectoryGetter();
+		dirget.SetDir(jasmlPath);
+		dirget.FindSrc();
+		dirget.FindPackages();
+		List<Package> packagesimport = dirget.getPackageList();
+		RuleEvaluator.runCodeSmells(rules, packagesimport);
+		csde = new CodeSmellDetectionEvaluator(packagesimport, packagesExcel);
+
 	}
 
 	protected List<metrics.Package> getPackages() {
@@ -290,13 +287,17 @@ public class ProjMainGui {
 	protected void setImportPath(String importPath) {
 		this.importPath = importPath;
 	}
-	
+
 	private boolean assertBaseRules() {
-		boolean godclass=false;
-		boolean longmethod=false;
-		for(Rule rule: getRules()) {
-			if(rule.getName().equals("is_God_Class")) {godclass=true;}
-			if(rule.getName().equals("is_Long_Method")) {longmethod=true;}
+		boolean godclass = false;
+		boolean longmethod = false;
+		for (Rule rule : getRules()) {
+			if (rule.getName().equals("is_God_Class")) {
+				godclass = true;
+			}
+			if (rule.getName().equals("is_Long_Method")) {
+				longmethod = true;
+			}
 		}
 		return godclass && longmethod;
 	}

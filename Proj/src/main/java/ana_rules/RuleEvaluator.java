@@ -162,8 +162,8 @@ public class RuleEvaluator {
 		ruleinfo2.add(obj27);
 		
 		try {
-			Rule longmethod = new Rule("Is_Long_Method", "method", ruleinfo, true);
-			Rule Is_God_Class= new Rule("Is_God_Class" ,"class",ruleinfo2,true);
+			Rule longmethod = new Rule("is_Long_Method", "method", ruleinfo, true);
+			Rule Is_God_Class= new Rule("is_God_Class" ,"class",ruleinfo2,true);
 			r.add(Is_God_Class);
 			r.add(longmethod);
 		} catch (Exception e) {

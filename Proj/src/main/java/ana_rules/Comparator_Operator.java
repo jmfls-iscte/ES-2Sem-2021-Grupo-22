@@ -13,6 +13,10 @@ public enum Comparator_Operator {
 		this.Operator=Operator;
 	}
 	
+	public String getString() {
+		return this.Operator;
+	}
+	
 	public static boolean compare(int metric,Comparator_Operator operator, int threshhold) {
 		switch(operator) {
 			case EQUALS:
@@ -39,6 +43,15 @@ public enum Comparator_Operator {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public static Comparator_Operator valueOfLabel(String label) {
+	    for (Comparator_Operator e : values()) {
+	        if (e.Operator.equals(label)) {
+	            return e;
+	        }
+	    }
+	    return null;
 	}
 
 }
