@@ -36,12 +36,6 @@ public class CodeSmellDetectionEvaluator {
 
 	private List<PackageEvaluator> packagesEvaluatorlst;
 
-	/**
-	 * Initializes CodeSmellDetectionEvaluatorS
-	 * 
-	 * @param packagesDetectionlst packages detection list
-	 * @param packagesExcellst excel packages list
-	 */
 	public CodeSmellDetectionEvaluator(List<Package> packagesDetectionlst, List<Package> packagesExcellst) {
 		this.packagesDetectionlst = packagesDetectionlst;
 		this.packagesExcellst = packagesExcellst;
@@ -49,12 +43,6 @@ public class CodeSmellDetectionEvaluator {
 		evaluateCodeSmellsDetection();
 	}
 
-	/**
-	 * Verifies if the packages detection list and the excel packages list have the
-	 * same size
-	 * 
-	 * @return true if the packages detection list and the excel packages list have the same size
-	 */
 	private boolean verifyPackages() {
 		if (packagesDetectionlst.size() != packagesExcellst.size()) {
 			return false;
@@ -62,14 +50,11 @@ public class CodeSmellDetectionEvaluator {
 		return true;
 	}
 
-	/**
-	 * Evaluates the code smells of the project
-	 */
 	private void evaluateCodeSmellsDetection() {
 		/*
 		 * Percorre todos os packages, e verifica as regras da classes e dos metodos,
-		 * tanto da deteÃ§Ã£o como do excel e compara os resultados para verificar qual
-		 * dos 4 tipos Ã© TP, TN, FP, FN.
+		 * tanto da deteção como do excel e compara os resultados para verificar qual
+		 * dos 4 tipos é TP, TN, FP, FN.
 		 * 
 		 */
 		if (!verifyPackages())
@@ -124,13 +109,7 @@ public class CodeSmellDetectionEvaluator {
 				"is_Long_Method");// Apenas de uma classe de um determinado package e regra especifica
 
 	}
-	
-	/**
-	 * Detects classes 
-	 * @param classDetectionlst class detection list
-	 * @param classExcellst excel class list
-	 * @return list of classes
-	 */
+
 	private List<ClassEvaluator> DetectionClasses(List<Class> classDetectionlst, List<Class> classExcellst) {
 
 		List<ClassEvaluator> classEvaluatorlst = new ArrayList<ClassEvaluator>();
@@ -165,12 +144,6 @@ public class CodeSmellDetectionEvaluator {
 		return classEvaluatorlst;
 	}
 
-	/**
-	 * Detects methods 
-	 * @param methodDetectionlst method detection list
-	 * @param methodExcellst excel method list
-	 * @return list of methods
-	 */
 	private List<MethodEvaluator> DetectionMethod(List<Method> methodDetectionlst, List<Method> methodExcellst) {
 
 		List<MethodEvaluator> methodEvallst = new ArrayList<MethodEvaluator>();
@@ -197,12 +170,6 @@ public class CodeSmellDetectionEvaluator {
 		return methodEvallst;
 	}
 
-	/**
-	 * Detects rules 
-	 * @param rulesDetection rules detection list
-	 * @param rulesExcel excel rules list
-	 * @return list of rules
-	 */
 	private Map<String, EvaluatorType> DetectionRule(Map<String, Boolean> rulesDetection,
 			Map<String, Boolean> rulesExcel) {
 		Map<String, EvaluatorType> detection = new HashMap<String, EvaluatorType>();
@@ -232,10 +199,6 @@ public class CodeSmellDetectionEvaluator {
 
 	}
 
-	/**
-	 * Gets the classification the project
-	 * @return the classification of a package
-	 */
 	public Map<EvaluatorType, Integer> getClassificationTotal() {
 
 		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
@@ -246,11 +209,6 @@ public class CodeSmellDetectionEvaluator {
 		return Utils.getClassificationTotal(mapa, getPackagesEvaluatorlst());
 	}
 
-	/**
-	 * Gets the classification of a package
-	 * @param packageName package name
-	 * @return the classification of a package
-	 */
 	public Map<EvaluatorType, Integer> getClassificationPackage(String packageName) {
 
 		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
@@ -261,12 +219,6 @@ public class CodeSmellDetectionEvaluator {
 		return Utils.getClassificationPackage(mapa, getPackagesEvaluatorlst(), packageName);
 	}
 
-	/**
-	 * Gets the classification of a class
-	 * @param packageName  name of the package
-	 * @param className name of the class
-	 * @return the classification of a class
-	 */
 	public Map<EvaluatorType, Integer> getClassificationClass(String packageName, String className) {
 		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
 		mapa.put(EvaluatorType.TP, 0);
@@ -285,11 +237,6 @@ public class CodeSmellDetectionEvaluator {
 		return null;
 	}
 
-	/**
-	 * Gets the classification of a rule
-	 * @param ruleName rule name
-	 * @return the classification of a rule
-	 */
 	public Map<EvaluatorType, Integer> getClassificationRule(String ruleName) {
 		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
 		mapa.put(EvaluatorType.TP, 0);
@@ -304,13 +251,6 @@ public class CodeSmellDetectionEvaluator {
 
 	}
 
-	
-	/**
-	 * Gets the classification of a package rule
-	 * @param packageName package name
-	 * @param ruleName rule name
-	 * @return the classification of a package rule
-	 */
 	public Map<EvaluatorType, Integer> getClassificationPackageRule(String packageName, String ruleName) {
 		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
 		mapa.put(EvaluatorType.TP, 0);
@@ -324,14 +264,7 @@ public class CodeSmellDetectionEvaluator {
 		}
 		return mapa;
 	}
-	
-	/**
-	 * Gets the classification of a class
-	 * @param packageName package name
-	 * @param className class name
-	 * @param ruleName rule name
-	 * @return a map with 
-	 */
+
 	public Map<EvaluatorType, Integer> getClassificationClassRule(String packageName, String className,
 			String ruleName) {
 		Map<EvaluatorType, Integer> mapa = new HashMap<EvaluatorType, Integer>();
@@ -350,18 +283,10 @@ public class CodeSmellDetectionEvaluator {
 		return mapa;
 	}
 
-	/**
-	 * Gets a list of packages to evaluate
-	 * @return a list of packages to evaluate
-	 */
 	public List<PackageEvaluator> getPackagesEvaluatorlst() {
 		return packagesEvaluatorlst;
 	}
 
-	/**
-	 * Gets a list of the packages names
-	 * @return a list of the packages names
-	 */
 	public List<String> getPackagesName() {
 		List<String> result = new ArrayList<String>();
 		for (PackageEvaluator pacote : packagesEvaluatorlst) {
@@ -370,11 +295,6 @@ public class CodeSmellDetectionEvaluator {
 		return result;
 	}
 
-	/**
-	 * Gets a list of the classes names
-	 * @param pacote package name
-	 * @return a list of the classes names
-	 */
 	public List<String> getClassesName(String pacote) {
 		List<String> result = new ArrayList<String>();
 		for (PackageEvaluator pacotei : packagesEvaluatorlst) {
@@ -387,16 +307,12 @@ public class CodeSmellDetectionEvaluator {
 		return result;
 	}
 
-	/**
-	 * Gets a list the rules names
-	 * @return a list the rules names
-	 */
 	public List<String> getRulesName() {
 		Set<String> result = new HashSet<String>();
 		for (PackageEvaluator pacotei : packagesEvaluatorlst) {
 			for (ClassEvaluator classe : pacotei.getClasslst()) {
 				result.addAll(classe.getCodesmelssEvaluator().keySet());
-				for (MethodEvaluator metodo : classe.getMethodslst()) {
+				for(MethodEvaluator metodo:classe.getMethodslst()) {
 					result.addAll(metodo.getCodesmelssEvaluator().keySet());
 				}
 			}

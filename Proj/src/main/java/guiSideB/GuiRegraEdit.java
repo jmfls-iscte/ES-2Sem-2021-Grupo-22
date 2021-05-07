@@ -15,27 +15,18 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
-/**
- * 
- * This class is responsible for the gui to edit rules
- *
- */
 public class GuiRegraEdit extends Composite {
+
+	/**
+	 * Create the composite.
+	 * @param parent
+	 * @param style
+	 */
 	
 	private GuiEditorRegras mainWindow;
 	private Rule rule;
 	private List<RuleObjectEdit> editlist= new ArrayList<RuleObjectEdit>();
 	
-
-
-	/**
-	 * Creates the composite
-	 * 
-	 * @param parent     the composite
-	 * @param style      number
-	 * @param mainWindow the main gui window
-	 * @param rule
-	 */
 	public GuiRegraEdit(Composite parent, int style,GuiEditorRegras mainWindow,Rule rule) {
 		super(parent, style);
 		this.mainWindow=mainWindow;

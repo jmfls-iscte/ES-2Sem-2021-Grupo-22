@@ -24,25 +24,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
-/**
- * 
- * This class is responsible for the gui to generate a pop up when a metric is
- * added
- *
- */
 public class Gui_editorRegras_popUp_MetricaAdd extends Composite {
 
 	private Composite shell = this;
 	GuiEditorRegras mainWindow;
 	private Text limite_txt;
 
-	/**
-	 * Creates the composite
-	 * 
-	 * @param parent     the composite
-	 * @param style      number
-	 * @param mainWindow the main gui window
-	 */
 	public Gui_editorRegras_popUp_MetricaAdd(Composite parent, int style, GuiEditorRegras mainWindow) {
 		super(parent, style);
 		this.mainWindow = mainWindow;
@@ -142,9 +129,7 @@ public class Gui_editorRegras_popUp_MetricaAdd extends Composite {
 						mainWindow.AddToRuleObjects(ruleObject1);
 					}
 
-					RuleObject ruleObject2 = new RuleObject(
-							Comparator_Operator.valueOfLabel(comparador_cmb.getText()).toString(),
-							"COMPARISON_OPERATOR");
+					RuleObject ruleObject2 = new RuleObject(Comparator_Operator.valueOfLabel(comparador_cmb.getText()).toString(), "COMPARISON_OPERATOR");
 					mainWindow.AddToRuleObjects(ruleObject2);
 
 					RuleObject ruleObject3 = new RuleObject(limite_txt.getText(), "THRESHOLD");

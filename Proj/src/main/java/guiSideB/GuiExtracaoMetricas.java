@@ -30,15 +30,10 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
-/**
- * 
- * This class is responsible for the gui to extract the metrics
- *
- */
 public class GuiExtracaoMetricas extends Composite {
-
+	
 	ProjMainGui mainWindow;
-	private Composite shell = this;
+	private Composite shell= this;
 	private Text dirProj_txt;
 	private Tree tree;
 	private Text text;
@@ -46,11 +41,9 @@ public class GuiExtracaoMetricas extends Composite {
 	Button exportButton;
 
 	/**
-	 * Creates the composite
-	 * 
-	 * @param parent     the composite
-	 * @param style      number
-	 * @param mainWindow the main gui window
+	 * Create the composite.
+	 * @param parent
+	 * @param style
 	 */
 	public GuiExtracaoMetricas(Composite parent, int style,ProjMainGui mainWindow) {
 		super(parent, style);
@@ -94,7 +87,7 @@ public class GuiExtracaoMetricas extends Composite {
 		GridData gd_extrairMetricas_btn = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_extrairMetricas_btn.widthHint = 108;
 		extrairMetricas_btn.setLayoutData(gd_extrairMetricas_btn);
-		extrairMetricas_btn.setText("Extrair MÃ©tricas");
+		extrairMetricas_btn.setText("Extrair Métricas");
 		extrairMetricas_btn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
@@ -168,7 +161,7 @@ public class GuiExtracaoMetricas extends Composite {
 		            	//System.out.println("file");
 		            	MessageBox messageBox = new MessageBox(mainWindow.getShell(), SWT.ICON_WARNING | SWT.NO | SWT.YES);
 		            	messageBox.setText("Confirmar Exportar");
-		                messageBox.setMessage(name+" jÃ¡ existe.\nDeseja substituÃ­-lo?");
+		                messageBox.setMessage(name+" já existe.\nDeseja substituí-lo?");
 		                int fileChoice=messageBox.open();
 		                if(fileChoice==SWT.YES) {
 		                	if(file.delete()) {
@@ -193,130 +186,94 @@ public class GuiExtracaoMetricas extends Composite {
 		
 		exportPath = new Text(composite_1, SWT.BORDER);
 		exportPath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		
+		
+		
 	}
-
-	/**
-	 * Updates the tree in the gui
-	 * 
-	 * @param packages list of packages
-	 */
+	
 	private void updateTree(List<metrics.Package> packages) {
 		tree.removeAll();
-		if (packages != null) {
+		if(packages!= null) {
 			exportSetVisible();
 			for (int i = 0; i < packages.size(); i++) {
 				TreeItem ti = new TreeItem(tree, SWT.NONE);
-				ti.setText(0, packages.get(i).getName_Package());
-				for (int j = 0; j < packages.get(i).getClass_list().size(); j++) {
+				ti.setText(0,packages.get(i).getName_Package());
+				for(int j=0;j<packages.get(i).getClass_list().size();j++) {
 					TreeItem ti2 = new TreeItem(ti, SWT.NONE);
-					ti2.setText(0, packages.get(i).getClass_list().get(j).getName_Class());
-					ti2.setText(1, "" + packages.get(i).getClass_list().get(j).getLOC_class());
-					ti2.setText(2, "" + packages.get(i).getClass_list().get(j).getNOM_class());
-					ti2.setText(3, "" + packages.get(i).getClass_list().get(j).getWMC_class());
-					for (String rule : packages.get(i).getClass_list().get(j).get_name_code_Smells()) {
-						int colindex = getColIndex(getColunas(mainWindow.getRules()), rule);
-						if (colindex != -1) {
-							ti2.setText(colindex, packages.get(i).getClass_list().get(j).getCsByName(rule).toString());
+					ti2.setText(0,packages.get(i).getClass_list().get(j).getName_Class());
+					ti2.setText(1,""+packages.get(i).getClass_list().get(j).getLOC_class());
+					ti2.setText(2,""+packages.get(i).getClass_list().get(j).getNOM_class());
+					ti2.setText(3,""+packages.get(i).getClass_list().get(j).getWMC_class());
+					for(String rule:packages.get(i).getClass_list().get(j).get_name_code_Smells()) {
+						int colindex=getColIndex(getColunas(mainWindow.getRules()), rule);
+						if(colindex!=-1) {
+							ti2.setText(colindex,packages.get(i).getClass_list().get(j).getCsByName(rule).toString());
 						}
 					}
-					for (int k = 0; k < packages.get(i).getClass_list().get(j).getMethod_list().size(); k++) {
+					for(int k=0;k<packages.get(i).getClass_list().get(j).getMethod_list().size();k++) {
 						TreeItem ti3 = new TreeItem(ti2, SWT.NONE);
-						ti3.setText(0, packages.get(i).getClass_list().get(j).getMethod_list().get(k).getName_method());
-						ti3.setText(4,
-								"" + packages.get(i).getClass_list().get(j).getMethod_list().get(k).getLOC_method());
-						ti3.setText(5,
-								"" + packages.get(i).getClass_list().get(j).getMethod_list().get(k).getCYCLO_method());
-						for (String rule : packages.get(i).getClass_list().get(j).getMethod_list().get(k)
-								.get_name_code_Smells()) {
-							int colindex = getColIndex(getColunas(mainWindow.getRules()), rule);
-							if (colindex != -1) {
-								ti3.setText(colindex, packages.get(i).getClass_list().get(j).getMethod_list().get(k)
-										.getCsByName(rule).toString());
+						ti3.setText(0,packages.get(i).getClass_list().get(j).getMethod_list().get(k).getName_method());
+						ti3.setText(4,""+packages.get(i).getClass_list().get(j).getMethod_list().get(k).getLOC_method());	
+						ti3.setText(5,""+packages.get(i).getClass_list().get(j).getMethod_list().get(k).getCYCLO_method());	
+						for(String rule:packages.get(i).getClass_list().get(j).getMethod_list().get(k).get_name_code_Smells()) {
+							int colindex=getColIndex(getColunas(mainWindow.getRules()), rule);
+							if(colindex!=-1) {
+								ti3.setText(colindex,packages.get(i).getClass_list().get(j).getMethod_list().get(k).getCsByName(rule).toString());
 							}
 						}
 					}
 				}
-			}
-		} else {
-			// TODO error pop-up (project empty)
+			}	
+		}
+		else {
+			//TODO error pop-up (project empty)
 		}
 	}
-
-	/**
-	 * Calls updateTree with the path of the project and the package list
-	 * 
-	 * @param projPath path of the project
-	 * @param packages list of packages
-	 */
-	protected void firstFill(String projPath, List<metrics.Package> packages) {
-		if (projPath != null) {
+	
+	protected void firstFill(String projPath,List<metrics.Package> packages) {
+		if(projPath!=null) {
 			dirProj_txt.setText(projPath);
-		}
-		if (packages != null) {
+		}if(packages!=null) {
 			updateTree(packages);
 			exportSetVisible();
-		} else {
+		}else {
 			exportSetInvisible();
 		}
 	}
-
-	/**
-	 * Sets import buttons visible
-	 */
+	
 	protected void exportSetVisible() {
 		exportButton.setEnabled(true);
 		exportPath.setEnabled(true);
 	}
-
-	/**
-	 * Sets import buttons visible
-	 */
 	protected void exportSetInvisible() {
 		exportButton.setEnabled(false);
 		exportPath.setEnabled(false);
 	}
-
-	/**
-	 * calls excelWrite
-	 * 
-	 * @param filePath path of the file
-	 */
+	
 	protected void excelExport(String filePath) {
-		ExcelWrite excelWrite = new ExcelWrite();
+		ExcelWrite excelWrite= new ExcelWrite();
 		try {
-			excelWrite.writeFile(filePath, (ArrayList<metrics.Package>) mainWindow.getPackages());
+			excelWrite.writeFile(filePath, (ArrayList<metrics.Package>)mainWindow.getPackages());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	/**
-	 * Gets a list of rules
-	 * 
-	 * @param rules list of rules
-	 * @return list of rules
-	 */
+	
 	private static List<String> getColunas(List<Rule> rules) {
-		List<String> result = new ArrayList<String>();
-
-		for (Rule rule : rules) {
+		List<String> result= new ArrayList<String>();
+		
+		for(Rule rule: rules) {
 			result.add(rule.getName());
 		}
 		return result;
 	}
-
-	/**
-	 * Gets the index of the column
-	 * 
-	 * @param colunas list of columns names
-	 * @param title.
-	 * @return the index of the column
-	 */
-	private static int getColIndex(List<String> colunas, String title) {
-		for (int i = 0; i < colunas.size(); i++) {
-			if (colunas.get(i).equals(title)) {
-				return i + 6;
+	
+	private static int getColIndex(List<String> colunas,String title) {
+		for(int i=0;i <colunas.size();i++) {
+			if(colunas.get(i).equals(title)) {
+				return i+6;
 			}
 		}
 		return -1;
@@ -326,15 +283,12 @@ public class GuiExtracaoMetricas extends Composite {
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
-
-	/**
-	 * Opens a success message
-	 */
+	
 	private void successMessage() {
-		MessageBox messageBox = new MessageBox(mainWindow.getShell(), SWT.ICON_INFORMATION | SWT.OK);
-		messageBox.setText("ExportaÃ§Ã£o");
-		messageBox.setMessage("ExportaÃ§Ã£o concluida com sucesso");
-		messageBox.open();
-
+		MessageBox messageBox = new MessageBox(mainWindow.getShell(), SWT.ICON_INFORMATION| SWT.OK);
+    	messageBox.setText("Exportação");
+        messageBox.setMessage("Exportação concluida com sucesso");
+        messageBox.open();
+		
 	}
 }
