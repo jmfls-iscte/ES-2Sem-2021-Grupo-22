@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import metrics.Class;
 import metrics.ClassParser;
 
-class ClassParserTest { //falta o If do classmethod e do classconstructor
+class ClassParserTest { 
 	
 	static ClassParser class_parser = new ClassParser();
 	

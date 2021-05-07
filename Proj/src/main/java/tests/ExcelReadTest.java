@@ -1,35 +1,16 @@
 package tests;
 
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Scanner;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.Before;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import ana_rules.Rule;
 import ana_rules.RuleObject;
 import excel.ExcelRead;
-import excel.ExcelWrite;
-import metrics.Class;
-import metrics.Method;
-import metrics.Metrics;
-import metrics.Package;
 
 class ExcelReadTest {
 	
