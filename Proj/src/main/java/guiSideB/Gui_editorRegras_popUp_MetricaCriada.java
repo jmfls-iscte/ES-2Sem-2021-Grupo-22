@@ -17,10 +17,10 @@ import java.util.stream.Stream;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import ana_rules.ClassMetric;
-import ana_rules.Comparator_Operator;
-import ana_rules.MethodMetric;
-import ana_rules.RuleObject;
+import rules.ClassMetric;
+import rules.Comparator_Operator;
+import rules.MethodMetric;
+import rules.RuleObject;
 
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Button;

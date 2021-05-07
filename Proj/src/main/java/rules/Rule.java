@@ -1,4 +1,4 @@
-package ana_rules;
+package rules;
 
 import java.util.ArrayList;
 import java.util.List;

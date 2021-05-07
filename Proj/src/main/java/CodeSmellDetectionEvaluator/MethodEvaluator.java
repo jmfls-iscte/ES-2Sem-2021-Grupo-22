@@ -3,8 +3,8 @@ package CodeSmellDetectionEvaluator;
 import java.util.HashMap;
 import java.util.Map;
 
-import ana_rules.Rule;
 import metrics.Method;
+import rules.Rule;
 
 public class MethodEvaluator {
 

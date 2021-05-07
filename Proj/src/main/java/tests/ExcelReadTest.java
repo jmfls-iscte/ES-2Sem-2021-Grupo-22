@@ -8,9 +8,9 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import ana_rules.Rule;
-import ana_rules.RuleObject;
 import excel.ExcelRead;
+import rules.Rule;
+import rules.RuleObject;
 
 class ExcelReadTest {
 	

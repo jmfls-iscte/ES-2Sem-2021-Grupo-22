@@ -22,7 +22,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import CodeSmellDetectionEvaluator.CodeSmellDetectionEvaluator;
 import CodeSmellDetectionEvaluator.EvaluatorType;
 import CodeSmellDetectionEvaluator.PackageEvaluator;
-import ana_rules.Rule;
+import rules.Rule;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;

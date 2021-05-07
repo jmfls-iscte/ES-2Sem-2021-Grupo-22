@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import metrics.Class;
-
-import ana_rules.Rule;
+import rules.Rule;
 
 public class ClassEvaluator {
 	

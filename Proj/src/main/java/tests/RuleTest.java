@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import ana_rules.*;
+import rules.*;
 class RuleTest {
 	
 	static Rule r1;

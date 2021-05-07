@@ -13,8 +13,8 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import ana_rules.Rule;
-import ana_rules.RuleObject;
+import rules.Rule;
+import rules.RuleObject;
 
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;

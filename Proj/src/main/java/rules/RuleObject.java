@@ -1,4 +1,4 @@
-package ana_rules;
+package rules;
 
 import org.apache.commons.collections4.EnumerationUtils;
 

@@ -15,6 +15,12 @@ public class Class {
 	private Map<String, Boolean> code_Smells= new HashMap<String, Boolean>();
 	private int begin;
 	private int end;
+	
+	/**
+	 * uma coisa qualquer
+	 * 
+	 *  
+	 */
 
 	public Class() {
 		arrayMethods = new ArrayList<Method>();

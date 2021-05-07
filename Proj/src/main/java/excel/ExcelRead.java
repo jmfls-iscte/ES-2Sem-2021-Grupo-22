@@ -6,6 +6,7 @@ import metrics.*;
 import metrics.Class;
 import metrics.Method;
 import metrics.Package;
+import rules.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,7 +22,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import ana_rules.*;
 
 
 public class ExcelRead {
@@ -185,25 +185,7 @@ public class ExcelRead {
 
 			String method_name = currentCell.getStringCellValue();
 			if(method_name.contains(".")) {
-				String args[] = method_name.split("\\,");
-				method_name="";
-				int count=0;
-				for(String arg:args)
-				{
-					if(arg.contains(".")) {
-						String[] names = arg.split("\\.");
-						if(count==0)
-							method_name+=names[1];
-						else
-							method_name+=","+names[1]; 
-					}else {
-						if(count==0)
-							method_name+=arg;
-						else
-							method_name+=","+arg;
-					}
-					count++;
-				}
+				method_name = method_name(method_name);
 			}
 			currentMethod = currentClass.get_MethodByName(method_name);
 			if (currentMethod == null) {
@@ -237,6 +219,28 @@ public class ExcelRead {
 		}catch (Exception e) {
 			//Apanha a excessão das células vazias
 		}
+	}
+
+	private String method_name(String method_name) {
+		String args[] = method_name.split("\\,");
+		method_name = "";
+		int count = 0;
+		for (String arg : args) {
+			if (arg.contains(".")) {
+				String[] names = arg.split("\\.");
+				if (count == 0)
+					method_name += names[1];
+				else
+					method_name += "," + names[1];
+			} else {
+				if (count == 0)
+					method_name += arg;
+				else
+					method_name += "," + arg;
+			}
+			count++;
+		}
+		return method_name;
 	}
 	
 	public void ChooseRule(Cell currentCell)

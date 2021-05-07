@@ -13,10 +13,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
-
-import ana_rules.Rule;
-import ana_rules.RuleObject;
 import org.eclipse.wb.swt.SWTResourceManager;
+
+import rules.Rule;
+import rules.RuleObject;
+
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;

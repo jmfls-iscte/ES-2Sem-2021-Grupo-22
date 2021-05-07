@@ -1,4 +1,4 @@
-package ana_rules;
+package rules;
 
 public enum RuleObjectType {
 	THRESHOLD,

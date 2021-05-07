@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import ana_rules.Rule;
-import ana_rules.RuleObject;
-import ana_rules.SaveLoadRule;
+import rules.Rule;
+import rules.RuleObject;
+import rules.SaveLoadRule;
 
 class SaveLoadRuleTest {
 	
