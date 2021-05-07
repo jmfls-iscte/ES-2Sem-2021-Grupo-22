@@ -50,7 +50,7 @@ public class ProjMainGui {
 
 	private String ruleFile = "ruleFile";
 
-	private String projPath;
+	private String projPath = "C:\\Users\\jose1\\eclipse-workspace\\guard";
 	private List<metrics.Package> packages;
 	private List<Rule> rules;
 	private String importPath;
@@ -60,9 +60,9 @@ public class ProjMainGui {
 	private final String jasmlCodeSmellPath = "Code_Smells_forEval.xlsx";
 
 	/**
-	 * Launches the application
+	 * Launch the application.
 	 * 
-	 * @param args arguments
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		try {
@@ -74,7 +74,7 @@ public class ProjMainGui {
 	}
 
 	/**
-	 * Opens the window
+	 * Open the window.
 	 */
 	public void open() {
 		display = Display.getDefault();
@@ -98,7 +98,7 @@ public class ProjMainGui {
 	}
 
 	/**
-	 * Creates the contents of the window
+	 * Create contents of the window.
 	 */
 	protected void createContents() {
 		shell = new Shell();
@@ -127,9 +127,6 @@ public class ProjMainGui {
 		}
 	}
 
-	/**
-	 * Creates the button to the welcome page
-	 */
 	protected void MainButton() {
 		this.disposeAll();
 
@@ -138,9 +135,6 @@ public class ProjMainGui {
 
 	}
 
-	/**
-	 * Creates the button to GuiExtracaoMetricas
-	 */
 	protected void Button1() {
 		// System.out.println("Button1");
 		this.disposeAll();
@@ -152,9 +146,6 @@ public class ProjMainGui {
 
 	}
 
-	/**
-	 * Creates the button to GuiEditorRegras
-	 */
 	protected void Button2() {
 		// System.out.println("Button2");
 		this.disposeAll();
@@ -165,9 +156,6 @@ public class ProjMainGui {
 
 	}
 
-	/**
-	 * Creates the button to GuiQualidadeRegras
-	 */
 	protected void Button3() {
 		// System.out.println("Button3");
 		this.disposeAll();
@@ -179,9 +167,6 @@ public class ProjMainGui {
 
 	}
 
-	/**
-	 * Creates the button to GuiDadosImportados
-	 */
 	protected void Button4() {
 		// System.out.println("Button4");
 		this.disposeAll();
@@ -193,9 +178,6 @@ public class ProjMainGui {
 
 	}
 
-	/**
-	 * Creates the button to GuiExportarDados
-	 */
 	protected void Button5() {
 		// System.out.println("Button5");
 		this.disposeAll();
@@ -206,9 +188,6 @@ public class ProjMainGui {
 
 	}
 
-	/**
-	 * Disposes all guis
-	 */
 	private void disposeAll() {
 		disposeSafe(welcomePage);
 		disposeSafe(metricas);
@@ -218,28 +197,16 @@ public class ProjMainGui {
 		disposeSafe(exportar);
 	}
 
-	/**
-	 * Disposes the composite
-	 * @param composite to dispose
-	 */
 	private static void disposeSafe(Composite composite) {
 		if (composite != null) {
 			composite.dispose();
 		}
 	}
 
-	/**
-	 * Gets the shell
-	 * @return the shell
-	 */
 	protected Shell getShell() {
 		return shell;
 	}
 
-	/**
-	 * Sets the default layout
-	 * @return the default layout
-	 */
 	protected static GridData defaultLayout() {
 		GridData gridData = new GridData();
 		gridData.grabExcessHorizontalSpace = true;
@@ -250,25 +217,14 @@ public class ProjMainGui {
 
 	}
 
-	/**
-	 * Gets the path of the projects
-	 * @return the path of the projects
-	 */
 	protected String getProjPath() {
 		return projPath;
 	}
 
-	/**
-	 * Sets the path of the projects
-	 * @param projPath the path of the projects
-	 */
 	protected void setProjPath(String projPath) {
 		this.projPath = projPath;
 	}
 
-	/**
-	 * Runs the metrics of the project
-	 */
 	protected void runMetrics() {
 		if (projPath != null) {
 			// TODO erros apra cada throw do directorygetter
@@ -293,20 +249,14 @@ public class ProjMainGui {
 			// TODO error pop-up (no project selected)
 		}
 	}
-	
-	/**
-	 * Runs the excel imported packages
-	 */
+
 	protected void runImport() {
 		if (importPath != null) {
 			ExcelRead excel = new ExcelRead(importPath, (ArrayList<Rule>) getRules());
 			importedPackages = excel.ReadFile();
 		}
 	}
-	
-	/**
-	 * Runs the code smells auto evaluator
-	 */
+
 	protected void runCodeSmellAutoEval() {
 
 		ExcelRead excelRead = new ExcelRead(jasmlCodeSmellPath, (ArrayList<Rule>) rules);
@@ -322,43 +272,22 @@ public class ProjMainGui {
 
 	}
 
-	/**
-	 * Gets the packages
-	 * @return the packages
-	 */
 	protected List<metrics.Package> getPackages() {
 		return packages;
 	}
 
-	/**
-	 * Gets the imported packages
-	 * @return the imported packages
-	 */
 	protected List<metrics.Package> getImportedPackages() {
 		return importedPackages;
 	}
 
-	/**
-	 * Gets the path from which to import the packages
-	 * @return the path from which to import the packages
-	 */
 	protected String getImportPath() {
 		return importPath;
 	}
 
-
-	/**
-	 * Sets the path from which to import the packages
-	 * @param importPath the path from which to import the packages
-	 */
 	protected void setImportPath(String importPath) {
 		this.importPath = importPath;
 	}
-	
-	/**
-	 * Asserts the base rules
-	 * @return the booleans of the godClass and longMethod
-	 */
+
 	private boolean assertBaseRules() {
 		boolean godclass = false;
 		boolean longmethod = false;
@@ -373,27 +302,14 @@ public class ProjMainGui {
 		return godclass && longmethod;
 	}
 
-	/**
-	 * Gets a list of rules
-	 * @return a list of rules
-	 */
 	protected List<Rule> getRules() {
 		return rules;
 	}
 
-
-	/**
-	 * Sets the list of rules
-	 * @param the list of rules
-	 */
 	protected void setRules(List<Rule> rules) {
 		this.rules = rules;
 	}
 
-	/**
-	 * Gets the code smell detection evaluator
-	 * @return the code smell detection evaluator
-	 */
 	protected CodeSmellDetectionEvaluator getCsde() {
 		return csde;
 	}

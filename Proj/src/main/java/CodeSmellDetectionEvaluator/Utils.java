@@ -13,12 +13,6 @@ import metrics.Package;
 
 public class Utils {
 
-	/**
-	 * Gets a package given its name
-	 * @param name
-	 * @param packagelst package list
-	 * @return a package given its name
-	 */
 	public static Package getPackagebyName(String name, List<Package> packagelst) {
 		for (Package p : packagelst) {
 			if (p.getName_Package().equals(name))
@@ -27,12 +21,6 @@ public class Utils {
 		return null;
 	}
 
-	/**
-	 * Gets a class given its name
-	 * @param name
-	 * @param classlst class list
-	 * @return a class given its name
-	 */
 	public static Class getClassbyName(String name, List<Class> classlst) {
 		for (Class c : classlst) {
 			if (c.getName_Class().equals(name))
@@ -41,12 +29,6 @@ public class Utils {
 		return null;
 	}
 
-	/**
-	 * Gets a method given its name
-	 * @param name
-	 * @param methodlst method list
-	 * @return a method given its name
-	 */
 	public static Method getMethodbyName(String name, List<Method> methodlst) {
 		for (Method m : methodlst) {
 			if (m.getName_method().equals(name))
@@ -55,12 +37,7 @@ public class Utils {
 		return null;
 	}
 	
-	/**
-	 * Gets a map with the classification of the project
-	 * @param mapa map
-	 * @param packagelst list of packages
-	 * @return a map with the classification of the project
-	 */
+	
 	public static Map<EvaluatorType, Integer> getClassificationTotal(Map<EvaluatorType, Integer> mapa,
 			List<PackageEvaluator> packagelst) {
 
@@ -75,13 +52,7 @@ public class Utils {
 		return mapa;
 	}
 	
-	/**
-	 * Gets a map with the classification of the package
-	 * @param mapa  map
-	 * @param packagelst list of packages to evaluate
-	 * @param packageName name of the package
-	 * @return a map with the classification of the package
-	 */
+
 	public static Map<EvaluatorType, Integer> getClassificationPackage(Map<EvaluatorType, Integer> mapa,
 			List<PackageEvaluator> packagelst, String packageName) {
 
@@ -97,12 +68,6 @@ public class Utils {
 		return mapa;
 	}
 
-	/**
-	 * Gets a map with the classification of the class
-	 * @param map
-	 * @param classeval class to evaluate
-	 * @return a map with the classification of the class
-	 */
 	public static Map<EvaluatorType, Integer> getClassificationClass(Map<EvaluatorType, Integer> map,
 			ClassEvaluator classeval) {
 
@@ -121,13 +86,6 @@ public class Utils {
 		return map;
 	}
 
-	/**
-	 * Gets a map with the classification of the class rule
-	 * @param mapa map
-	 * @param classeval class to evaluate
-	 * @param ruleName rule name
-	 * @return a map with the classification of the class rule
-	 */
 	public static Map<EvaluatorType, Integer> getClassificationClassRule(Map<EvaluatorType, Integer> mapa,
 			ClassEvaluator classeval, String ruleName) {
 
@@ -145,13 +103,6 @@ public class Utils {
 		return mapa;
 	}
 
-	/**
-	 * Gets a map with the classification of the rule
-	 * @param mapa map
-	 * @param packageval package to evaluate
-	 * @param ruleName rule name
-	 * @return a map with the classification of the rule
-	 */
 	public static Map<EvaluatorType, Integer> getClassificationRule(Map<EvaluatorType, Integer> mapa,
 			PackageEvaluator packageval, String ruleName) {
 
@@ -174,12 +125,6 @@ public class Utils {
 
 	}
 
-	/**
-	 * Increments the given map 
-	 * @param map
-	 * @param evaltype evaluator type 
-	 * @return the incremented map
-	 */
 	private static Map<EvaluatorType, Integer> mapIncrement(Map<EvaluatorType, Integer> map, EvaluatorType evaltype) {
 		map.replace(evaltype, map.get(evaltype) + 1);
 		return map;

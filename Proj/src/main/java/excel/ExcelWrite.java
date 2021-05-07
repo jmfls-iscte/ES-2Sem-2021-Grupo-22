@@ -23,11 +23,8 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/**
- * 
- * Writes in an excel  file
- *
- */
+// APAGAR FICHEIRO NO COMPUTADORRRRRRRRRRR!!!!!!!!!!
+
 public class ExcelWrite {
 
 	private  String[] columns = {"MethodID","Package","Class","Method","NOM_class","LOC_class","WMC_class","is_God_Class","LOC_method","CYCLO_method","is_Long_Method"};
@@ -37,18 +34,12 @@ public class ExcelWrite {
 	public XSSFWorkbook workbook;
 
 
-	/**
-	 * Creates ExcelWrite and initializes the array metrics
-	 */
+
 	public ExcelWrite(){
 		metrics = new ArrayList<Metrics>();
 	}
 
 
-	/**
-	 * Adds the metrics to every method in the package list
-	 * @param listPackages list of packages
-	 */
 	public void addMetrics (ArrayList<Package> listPackages){
 		methodId = 1;
 
@@ -62,12 +53,6 @@ public class ExcelWrite {
 		}
 	}
 
-	/**
-	 * Writes in the file 
-	 * @param filePath path of the file
-	 * @param listPackages list of packages
-	 * @throws IOException
-	 */
 	public void writeFile(String filePath, ArrayList<Package> listPackages) throws IOException{
 
 		addMetrics(listPackages);
@@ -133,10 +118,7 @@ public class ExcelWrite {
 		
 	}
 
-	/**
-	 * Gets the arrayList of metrics
-	 * @return the arrayList of metrics
-	 */
+
 	public ArrayList<Metrics> getMetrics() {
 		return metrics;
 	}
