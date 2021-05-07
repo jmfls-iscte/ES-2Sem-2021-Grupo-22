@@ -10,14 +10,14 @@ import java.util.Set;
 
 import org.apache.poi.hpsf.Util;
 
-import ana_rules.Rule;
-import ana_rules.RuleEvaluator;
-import ana_rules.RuleObject;
-import ana_rules.SaveLoadRule;
 import excel.ExcelRead;
 import metrics.*;
 import metrics.Class;
 import metrics.Package;
+import rules.Rule;
+import rules.RuleEvaluator;
+import rules.RuleObject;
+import rules.SaveLoadRule;
 
 public class CodeSmellDetectionEvaluator {
 
@@ -65,49 +65,20 @@ public class CodeSmellDetectionEvaluator {
 		int packagesSize = packagesExcellst.size();
 		for (int packagesindex = 0; packagesindex < packagesSize; packagesindex++) {
 
-			// System.out.println("Package atual = " + packagesindex);
-			Package currentPackage = packagesExcellst.get(packagesindex);
-			Package packageDet = Utils.getPackagebyName(currentPackage.getName_Package(), packagesDetectionlst);
-
-			List<Class> classExcel = currentPackage.getClass_list();
-			List<Class> classDet = packageDet.getClass_list();
-
-			List<ClassEvaluator> classlst = DetectionClasses(classDet, classExcel);
-
-			PackageEvaluator packageEvaluator = new PackageEvaluator(currentPackage.getName_Package(), classlst);
+			PackageEvaluator packageEvaluator = packageEvaluator(packagesindex);
 			getPackagesEvaluatorlst().add(packageEvaluator);
 
 		}
+	}
 
-		// So para fazer testes
-		Map<EvaluatorType, Integer> map = getClassificationTotal(); // Todos os codeSmelss
-		Map<EvaluatorType, Integer> map1 = getClassificationPackage("com.jasml.compiler"); // Apenas de um package
-		Map<EvaluatorType, Integer> map2 = getClassificationClass("com.jasml.compiler", "Scanner"); // Apenas de uma
-																									// classe de um
-																									// determinado
-																									// package
-		Map<EvaluatorType, Integer> map3 = getClassificationRule("is_God_Class"); // Projeto todo mas de uma regra
-																					// especifica
-		Map<EvaluatorType, Integer> map4 = getClassificationPackageRule("com.jasml.compiler", "is_God_Class"); // Apenas
-																												// de um
-																												// package
-																												// e
-																												// regra
-																												// especifica
-		Map<EvaluatorType, Integer> map5 = getClassificationClassRule("com.jasml.compiler", "Scanner", "is_God_Class");// Apenas
-																														// de
-																														// uma
-																														// classe
-																														// de
-																														// um
-																														// determinado
-																														// package
-																														// e
-																														// regra
-																														// especifica
-		Map<EvaluatorType, Integer> map6 = getClassificationClassRule("com.jasml.compiler", "Scanner",
-				"is_Long_Method");// Apenas de uma classe de um determinado package e regra especifica
-
+	private PackageEvaluator packageEvaluator(int packagesindex) {
+		Package currentPackage = packagesExcellst.get(packagesindex);
+		Package packageDet = Utils.getPackagebyName(currentPackage.getName_Package(), packagesDetectionlst);
+		List<Class> classExcel = currentPackage.getClass_list();
+		List<Class> classDet = packageDet.getClass_list();
+		List<ClassEvaluator> classlst = DetectionClasses(classDet, classExcel);
+		PackageEvaluator packageEvaluator = new PackageEvaluator(currentPackage.getName_Package(), classlst);
+		return packageEvaluator;
 	}
 
 	private List<ClassEvaluator> DetectionClasses(List<Class> classDetectionlst, List<Class> classExcellst) {
@@ -117,22 +88,7 @@ public class CodeSmellDetectionEvaluator {
 		for (int classindex = 0; classindex < classSize; classindex++) {
 
 			try {
-				Class currentClass = classExcellst.get(classindex);
-				// System.out.println("Classe atual = " + currentClass.getName_Class());
-				Class classDet = Utils.getClassbyName(currentClass.getName_Class(), classDetectionlst);
-
-				Map<String, Boolean> rulesClassDetection = currentClass.getCode_Smells();
-				Map<String, Boolean> rulesClassExcel = classDet.getCode_Smells();
-				Map<String, EvaluatorType> detectionRules = DetectionRule(rulesClassDetection, rulesClassExcel);
-
-				List<Method> methodExcel = currentClass.getMethod_list();
-				List<Method> methodDet = classDet.getMethod_list();
-
-				List<MethodEvaluator> detectionMethods = DetectionMethod(methodDet, methodExcel);
-
-				ClassEvaluator classEval = new ClassEvaluator(currentClass);
-				classEval.setMethodList(detectionMethods);
-				classEval.setCodesmelssEvaluator(detectionRules);
+				ClassEvaluator classEval = classEval(classDetectionlst, classExcellst, classindex);
 				classEvaluatorlst.add(classEval);
 				totalClasses++;
 			} catch (Exception e) {
@@ -142,6 +98,21 @@ public class CodeSmellDetectionEvaluator {
 		}
 
 		return classEvaluatorlst;
+	}
+
+	private ClassEvaluator classEval(List<Class> classDetectionlst, List<Class> classExcellst, int classindex) {
+		Class currentClass = classExcellst.get(classindex);
+		Class classDet = Utils.getClassbyName(currentClass.getName_Class(), classDetectionlst);
+		Map<String, Boolean> rulesClassDetection = currentClass.getCode_Smells();
+		Map<String, Boolean> rulesClassExcel = classDet.getCode_Smells();
+		Map<String, EvaluatorType> detectionRules = DetectionRule(rulesClassDetection, rulesClassExcel);
+		List<Method> methodExcel = currentClass.getMethod_list();
+		List<Method> methodDet = classDet.getMethod_list();
+		List<MethodEvaluator> detectionMethods = DetectionMethod(methodDet, methodExcel);
+		ClassEvaluator classEval = new ClassEvaluator(currentClass);
+		classEval.setMethodList(detectionMethods);
+		classEval.setCodesmelssEvaluator(detectionRules);
+		return classEval;
 	}
 
 	private List<MethodEvaluator> DetectionMethod(List<Method> methodDetectionlst, List<Method> methodExcellst) {
@@ -154,13 +125,7 @@ public class CodeSmellDetectionEvaluator {
 			Method methodDet = Utils.getMethodbyName(currentMethod.getName_method(), methodDetectionlst);
 
 			if (currentMethod != null && methodDet != null) {
-				Map<String, Boolean> rulesMethodDetection = currentMethod.getCode_Smells();
-				Map<String, Boolean> rulesMethodExcel = methodDet.getCode_Smells();
-
-				Map<String, EvaluatorType> detection = DetectionRule(rulesMethodDetection, rulesMethodExcel);
-
-				MethodEvaluator methodEvaluator = new MethodEvaluator(currentMethod);
-				methodEvaluator.setCodesmelssEvaluator(detection);
+				MethodEvaluator methodEvaluator = methodEvaluator(currentMethod, methodDet);
 				methodEvallst.add(methodEvaluator);
 				totalMethods++;
 			}
@@ -168,6 +133,15 @@ public class CodeSmellDetectionEvaluator {
 		}
 
 		return methodEvallst;
+	}
+
+	private MethodEvaluator methodEvaluator(Method currentMethod, Method methodDet) {
+		Map<String, Boolean> rulesMethodDetection = currentMethod.getCode_Smells();
+		Map<String, Boolean> rulesMethodExcel = methodDet.getCode_Smells();
+		Map<String, EvaluatorType> detection = DetectionRule(rulesMethodDetection, rulesMethodExcel);
+		MethodEvaluator methodEvaluator = new MethodEvaluator(currentMethod);
+		methodEvaluator.setCodesmelssEvaluator(detection);
+		return methodEvaluator;
 	}
 
 	private Map<String, EvaluatorType> DetectionRule(Map<String, Boolean> rulesDetection,

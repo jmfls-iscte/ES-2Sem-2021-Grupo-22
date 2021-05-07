@@ -22,12 +22,13 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.TreeItem;
 
-import ana_rules.Rule;
-import ana_rules.RuleEvaluator;
-import ana_rules.SaveLoadRule;
 import excel.ExcelRead;
 import metrics.DirectoryGetter;
 import metrics.Package;
+import rules.Rule;
+import rules.RuleEvaluator;
+import rules.SaveLoadRule;
+
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.wb.swt.SWTResourceManager;
@@ -50,7 +51,7 @@ public class ProjMainGui {
 
 	private String ruleFile = "ruleFile";
 
-	private String projPath = "C:\\Users\\jose1\\eclipse-workspace\\guard";
+	private String projPath;
 	private List<metrics.Package> packages;
 	private List<Rule> rules;
 	private String importPath;

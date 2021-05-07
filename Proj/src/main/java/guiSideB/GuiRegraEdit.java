@@ -4,7 +4,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 
-import ana_rules.Rule;
+import rules.Rule;
 
 import java.util.ArrayList;
 import java.util.List;

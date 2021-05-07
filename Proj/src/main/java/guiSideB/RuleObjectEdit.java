@@ -1,13 +1,14 @@
 package guiSideB;
 
 import org.eclipse.swt.widgets.Composite;
-
-import ana_rules.Comparator_Operator;
-import ana_rules.RuleObject;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Spinner;
+
+import rules.Comparator_Operator;
+import rules.RuleObject;
+
 import org.eclipse.swt.layout.GridData;
 
 public class RuleObjectEdit extends Composite {

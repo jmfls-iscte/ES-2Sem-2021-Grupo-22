@@ -13,9 +13,9 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import ana_rules.Rule;
 import excel.ExcelWrite;
 import metrics.DirectoryGetter;
+import rules.Rule;
 
 import java.io.File;
 import java.io.IOException;

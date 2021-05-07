@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
-import ana_rules.Rule;
+import rules.Rule;
 
 import java.util.ArrayList;
 import java.util.List;

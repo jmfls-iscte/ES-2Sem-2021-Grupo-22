@@ -18,23 +18,7 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 	@Override
 	public void visit(MethodDeclaration md, Void arg) {
 		super.visit(md, arg);
-		String s = md.getName().toString();
-		if (md.getParameters().size() == 0)
-			s += "()";
-		else {
-			s += "(";
-			int size = md.getParameters().size();
-			for (int h = 0; h < size; h++) {
-				
-				String aux = md.getParameter(h).toString();
-				String[] auxsplit = aux.split(" ");
-				s += auxsplit[0];
-				if (h == (size - 1))
-					s += ")";
-				else
-					s += ",";
-			}
-		}
+		String s = getNameString(md);
 		Method method = new Method(s);
 		CYCLO_method = 0;
 		BlockStmt test = md.getBody().get();
@@ -46,6 +30,26 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 		method.setEnd(md.getEnd().get().line);
 
 		methods.add(method);
+	}
+
+	private String getNameString(MethodDeclaration md) {
+		String s = md.getName().toString();
+		if (md.getParameters().size() == 0)
+			s += "()";
+		else {
+			s += "(";
+			int size = md.getParameters().size();
+			for (int h = 0; h < size; h++) {
+				String aux = md.getParameter(h).toString();
+				String[] auxsplit = aux.split(" ");
+				s += auxsplit[0];
+				if (h == (size - 1))
+					s += ")";
+				else
+					s += ",";
+			}
+		}
+		return s;
 	}
 
 	public void loop(List<Statement> stmt){

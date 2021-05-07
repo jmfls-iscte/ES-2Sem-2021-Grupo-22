@@ -8,10 +8,10 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import ana_rules.Rule;
-import ana_rules.RuleEvaluator;
-import ana_rules.RuleObject;
 import metrics.Package;
+import rules.Rule;
+import rules.RuleEvaluator;
+import rules.RuleObject;
 import metrics.Class;
 import metrics.Method;
 

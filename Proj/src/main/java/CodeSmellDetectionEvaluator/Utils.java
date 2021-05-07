@@ -6,10 +6,10 @@ import java.util.Map;
 
 import org.apache.commons.collections4.functors.SwitchClosure;
 
-import ana_rules.ClassMetric;
 import metrics.Class;
 import metrics.Method;
 import metrics.Package;
+import rules.ClassMetric;
 
 public class Utils {
 

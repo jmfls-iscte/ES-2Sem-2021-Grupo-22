@@ -7,8 +7,8 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import ana_rules.Rule;
-import ana_rules.RuleObject;
+import rules.Rule;
+import rules.RuleObject;
 
 import java.util.ArrayList;
 import java.util.List;

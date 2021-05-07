@@ -1,4 +1,4 @@
-package ana_rules;
+package rules;
 
 
 import java.io.File;
