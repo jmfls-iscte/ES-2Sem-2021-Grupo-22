@@ -1,5 +1,9 @@
 package ana_rules;
 
+/**
+ * Types of rule objects
+ *
+ */
 public enum RuleObjectType {
 	THRESHOLD,
 	COMPARISON_OPERATOR,

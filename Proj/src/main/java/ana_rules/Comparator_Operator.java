@@ -1,5 +1,10 @@
 package ana_rules;
 
+/**
+ * 
+ * Represents  the comparator in the rule
+ *
+ */
 public enum Comparator_Operator {
 	EQUALS("=="),
 	NOTEQUALS("!="),
@@ -9,33 +14,57 @@ public enum Comparator_Operator {
 	LESSEQUAL("<=");
 	
 	String Operator;
+	
+	/**
+	 * Initiates the Comparator_Oparator
+	 * 
+	 * @param operator
+	 */
 	private Comparator_Operator(String Operator) {
 		this.Operator=Operator;
 	}
 	
+	/**
+	 * Gets the operator string
+	 * @return the operator string
+	 */
 	public String getString() {
 		return this.Operator;
 	}
 	
-	public static boolean compare(int metric,Comparator_Operator operator, int threshhold) {
+	/**
+	 * Compares the metric with threshold through the comparator
+	 * 
+	 * @param metric
+	 * @param operator
+	 * @param threshold
+	 * @return value of the comparison
+	 */
+	public static boolean compare(int metric,Comparator_Operator operator, int threshold) {
 		switch(operator) {
 			case EQUALS:
-				return metric==threshhold;
+				return metric==threshold;
 			case NOTEQUALS:
-				return metric!=threshhold;
+				return metric!=threshold;
 			case GREATER:
-				return metric>threshhold;
+				return metric>threshold;
 			case LESS:
-				return metric<threshhold;
+				return metric<threshold;
 			case GREATEREQUAL:
-				return metric>=threshhold;
+				return metric>=threshold;
 			case LESSEQUAL:
-				return metric<=threshhold;
+				return metric<=threshold;
 			default:
 				return false;  //unreachable code
 		}
 	}
 	
+	/**
+	 * Verifies if input type is valid
+	 * 
+	 * @param input
+	 * @return true if if input type is valid
+	 */
 	public static boolean IsValid(String input) {
 		try {
 			Comparator_Operator.valueOf(input);
@@ -45,6 +74,11 @@ public enum Comparator_Operator {
 		}
 	}
 	
+	/**
+	 * Gets the value of a given label
+	 * @param label
+	 * @return the value of a given label
+	 */
 	public static Comparator_Operator valueOfLabel(String label) {
 	    for (Comparator_Operator e : values()) {
 	        if (e.Operator.equals(label)) {
