@@ -24,7 +24,6 @@ class MethodEvaluatorTest {
 		m1 = new Method();
 	}
 	
-	
 	@Test
 	void testMethodEvaluator() {
 		me1 = new MethodEvaluator(m1);

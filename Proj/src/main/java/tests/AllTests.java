@@ -23,7 +23,8 @@ import org.junit.platform.suite.api.SelectClasses;
 	RuleEvaluatorTest.class, 
 	RuleObjectTest.class, 
 	RuleTest.class,
-	SaveLoadRuleTest.class})
+	SaveLoadRuleTest.class,
+	UtilsTest.class})
 	  	
 	
 public class AllTests {

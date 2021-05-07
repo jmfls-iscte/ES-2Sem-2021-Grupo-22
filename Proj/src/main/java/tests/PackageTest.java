@@ -49,13 +49,13 @@ class PackageTest {
 	}
 	
 	@Test
-	public void getName_PackageTest() { //esta
+	public void getName_PackageTest() { 
 		assertEquals("test_package_2", pg2.getName_Package());
 	}
 	
 	@Test
-	public void getClass_listTest(){ //esta
-		assertNotNull(pg1.getClass_list()); //tavez mudar para assertEquals
+	public void getClass_listTest(){ 
+		assertNotNull(pg1.getClass_list()); 
 	}
 	
 	@Test
@@ -80,7 +80,6 @@ class PackageTest {
 	}
 	@Test
 	public void addClassFailTest() {
-		//dá erro porque o VerifyExistsClass ainda nao está implementado 
 		pg2.addClass(c1);
 		assertEquals(2, pg2.getClass_list().size()); 
 	}

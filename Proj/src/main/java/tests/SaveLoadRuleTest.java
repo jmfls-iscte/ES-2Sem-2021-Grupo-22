@@ -24,9 +24,8 @@ class SaveLoadRuleTest {
 	static RuleObject ro1;
 	static RuleObject ro2;
 	static RuleObject ro3;
-
 	
-	static String path = "/Users/anantunes0/rule_test.txt";
+	static String path = "/Users/anantunes0/rule_test.txt"; //mudar o path para o ficheiro certo 
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception{

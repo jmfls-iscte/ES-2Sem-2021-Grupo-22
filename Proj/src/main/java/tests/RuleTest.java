@@ -1,9 +1,11 @@
 package tests;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,6 +48,8 @@ class RuleTest {
 	//rulobjects r5
 	static RuleObject metric_5_fail;
 		
+	static ArrayList<Rule> arrayrl = new ArrayList<>();
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception{
 		//set r1
@@ -54,7 +58,6 @@ class RuleTest {
 		metric = new RuleObject("LOC_METHOD", "METHODMETRIC");
 		threshold1 = new RuleObject("10", "THRESHOLD");
 		threshold_test = new RuleObject("20", "THRESHOLD");
-
 		
 		rule_info_1.add(metric);
 		rule_info_1.add(threshold1);
@@ -172,6 +175,26 @@ class RuleTest {
 		r1.editThreshold(metric, threshold1);
 		assertEquals(metric.getInfo(), r1.getInfo().get(0).getInfo());	
 	}
+	@Test
+	 void testtoString() {
+		assertNotNull(r1.toString());		
+		assertNotNull(r2.toString());
+	}
+	
+	@Test
+	 void testgetRuleFromList() {
+		arrayrl.add(r2);
+		assertEquals(r2, Rule.getRuleFromList(arrayrl,"name_test"));
+		assertNull(Rule.getRuleFromList(arrayrl,"error"));
+	}
+	
+	@Test
+	 void testvalueOfLabel() {
+		assertEquals(Comparator_Operator.GREATER, Comparator_Operator.valueOfLabel(">"));
+		assertNull(Comparator_Operator.valueOfLabel("error"));
+
+	}
+	 
 }
 	
 	

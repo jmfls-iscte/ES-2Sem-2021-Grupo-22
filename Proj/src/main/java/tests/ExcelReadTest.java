@@ -33,60 +33,55 @@ import metrics.Package;
 
 class ExcelReadTest {
 	
-	private static String path_2;
-	private static ArrayList<Rule> rules_2 = new ArrayList<Rule>();
-	private static ArrayList<RuleObject> rulesObj_2 = new ArrayList<RuleObject>();
-	static ExcelRead er_2;
+	private static String path;
+	private static ArrayList<Rule> rules = new ArrayList<Rule>();
+	private static ArrayList<RuleObject> rulesObj = new ArrayList<RuleObject>();
+	static ExcelRead er;
 	 
-	static ExcelRead er_3;
-	static Rule rule = new Rule("NOM_class", "class", rulesObj_2);
+	static ExcelRead er_2;
+	static Rule rule = new Rule("NOM_class", "class", rulesObj);
 
 	static Cell currentCell;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		path_2 = "/Users/anantunes0/Code_Smells.xlsx"; //É NECESSÁRIO POR UM PATH CORRECTO
-		er_2 = new ExcelRead(path_2, rules_2);					
+		path = "/Users/anantunes0/Code_Smells.xlsx"; //Colocar o path do file Code_Smells_xlsx
+		er = new ExcelRead(path, rules);					
 	}
 	
 	@Test
 	void testExcelRead() {
-		er_2 = new excel.ExcelRead(rules_2);
-		assertNotNull(er_2);
+		er = new excel.ExcelRead(rules);
+		assertNotNull(er);
 	}
 
 	@Test
 	void testExcelRead2() {
-		er_2 = new excel.ExcelRead(path_2, rules_2);
-		assertNotNull(er_2);
+		er = new excel.ExcelRead(path, rules);
+		assertNotNull(er);
 	}
 	
 	@Test
 	void testReadFile() {
-		 assertNotNull(er_2.ReadFile());
+		 assertNotNull(er.ReadFile());
 	}
 	
 	@Test
 	void testVerifyExistsCodeSmellFail() {
-		assertNull(er_2.VerifyExistsCodeSmell("rule"));
+		assertNull(er.VerifyExistsCodeSmell("rule"));
 	}
 	
 	@Test
 	void testVerifyExistsCodeSmell() {
-		rules_2.add(rule);
-		er_3 = new excel.ExcelRead(path_2, rules_2);
-		assertNotNull(er_3.VerifyExistsCodeSmell("NOM_class"));
+		rules.add(rule);
+		er_2 = new excel.ExcelRead(path, rules);
+		assertNotNull(er_2.VerifyExistsCodeSmell("NOM_class"));
 	}
 	
 	@Test
 	void testVerifyExistsCodeSmellFailOnIf() {
-		assertNull(er_3.VerifyExistsCodeSmell("test"));
-		rules_2.remove(rule);
+		assertNull(er_2.VerifyExistsCodeSmell("test"));
+		rules.remove(rule);
 	}
-	
-	@Test
-	void testChooseRule() {
-		
-	}
-	 
+		 
 }
