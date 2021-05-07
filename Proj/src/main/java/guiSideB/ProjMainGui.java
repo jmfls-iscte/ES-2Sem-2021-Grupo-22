@@ -50,7 +50,7 @@ public class ProjMainGui {
 
 	private String ruleFile = "ruleFile";
 
-	private String projPath = "C:\\Users\\jose1\\eclipse-workspace\\guard";
+	private String projPath;
 	private List<metrics.Package> packages;
 	private List<Rule> rules;
 	private String importPath;
