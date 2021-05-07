@@ -35,14 +35,14 @@ class MethodTest {
 	}
 	
 	@Test
-	public void getLOC_methodTest() {   //testa o get e o set
+	public void getLOC_methodTest() {   
 		m1.setLOC_method(1);
 		assertEquals(1, m1.getLOC_method());
 		
 	}
 	
 	@Test
-	public void getCYCLO_methodTest() {   //testa o get e o set
+	public void getCYCLO_methodTest() {   
 		m1.setCYCLO_method(1);
 		assertEquals(1, m1.getCYCLO_method());
 	}

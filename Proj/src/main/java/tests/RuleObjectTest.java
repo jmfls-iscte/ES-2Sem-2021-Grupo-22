@@ -49,7 +49,7 @@ class RuleObjectTest {
 	}
 	
 	@Test
-	final void ruleObjectTest() { //não lança excepcao
+	final void ruleObjectTest() { 
 		Assertions.assertNotNull(metric_1);
 		assertEquals("LOC_METHOD", metric_1.getInfo());
 	}
@@ -61,7 +61,6 @@ class RuleObjectTest {
 		assertThrows(IllegalArgumentException.class, () -> new RuleObject("teste", "CLASSMETRIC"));
 		assertThrows(IllegalArgumentException.class, () -> new RuleObject("teste", "COMPARISON_OPERATOR"));
 		assertThrows(IllegalArgumentException.class, () -> new RuleObject("teste", "METHODMETRIC"));
-
 	}
 	
 	@Test
@@ -81,8 +80,6 @@ class RuleObjectTest {
 		methodmetric = MethodMetric.CYCLO_METHOD;
 		assertEquals(1, MethodMetric.getMetric(methodmetric, method)); 
 		
-		//ANA: FALTA TESTAR O RETURN ZERO
-		//assertEquals(0, MethodMetric.getMetric(methodmetric_fail, method)); 
 	}
 	
 	@Test
@@ -111,25 +108,19 @@ class RuleObjectTest {
 		comparator_operator = Comparator_Operator.LESSEQUAL;
 		Assert.assertFalse(Comparator_Operator.compare(1, comparator_operator, 0)); 
 		Assert.assertTrue(Comparator_Operator.compare(0, comparator_operator, 1)); 
-		
-		//ANA: FALTA TESTAR O RETURN ZERO
 	}
 	
 	@Test
 	final void logicOperationTest() {
-		
 		Assert.assertTrue(Logical_Operator.logicOperation(true, logical_operator, true)); 
 		Assert.assertFalse(Logical_Operator.logicOperation(false, logical_operator, false)); 
 		Assert.assertFalse(Logical_Operator.logicOperation(true, logical_operator, false)); 
-
 
 		logical_operator = Logical_Operator.OR;
 		Assert.assertTrue(Logical_Operator.logicOperation(true, logical_operator, true)); 
 		Assert.assertTrue(Logical_Operator.logicOperation(true, logical_operator, false)); 
 		Assert.assertTrue(Logical_Operator.logicOperation(false, logical_operator, true)); 
 		Assert.assertFalse(Logical_Operator.logicOperation(false, logical_operator, false)); 
-
-		//ANA: FALTA TESTAR O RETURN ZERO
 	}
 	
 	@Test
@@ -145,8 +136,6 @@ class RuleObjectTest {
 		class_metric = ClassMetric.WMC_CLASS;
 		assertEquals(0, ClassMetric.getMetric(class_metric, c_1)); 
 	}
-
-	//ANA: FALTA TESTAR O RETURN ZERO
 }
 	
 	

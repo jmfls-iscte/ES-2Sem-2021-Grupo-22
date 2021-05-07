@@ -61,18 +61,6 @@ class DirectoryGetterTest {
 		assertEquals(working_directory_file, dg2.getBaseFile());
 	}
 	
-	/*
-	@Test //NAO CONSIGO TESTAR ESTAS DUAS FUNÇÕES
-	final void getBaseFileTestFail() {
-		Assertions.assertNull(dg1.getBaseFile()); //PROBLEMAAASSS ????????
-	}
-	
-	@Test
-	final void getsrcTestFail() {
-		assertNull(dg1.getsrc()); //PROBLEMAAASSS ????????
-		
-	}*/
-	
 	@Test
 	final void getPackageNumberTest() {
 		assertEquals(0, dg2.getPackageNumber());

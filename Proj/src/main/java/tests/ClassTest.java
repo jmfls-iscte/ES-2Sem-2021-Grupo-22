@@ -17,9 +17,7 @@ class ClassTest {
 		static Class c2;
 		static Method m1;
 		static Method m2;
-		
-		static ArrayList<Method> array_test;
-		
+				
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception{
 			c1 = new Class();
@@ -28,8 +26,6 @@ class ClassTest {
 			m2 = new Method("method_test_fail");
 			
 			c1.addMethod(m1);
-			
-			array_test = new ArrayList<Method>();
 		}
 		
 		@Test
@@ -57,42 +53,41 @@ class ClassTest {
 			assertNotNull(c1.getMethod_list());
 		}
 		
-		//falta uma branch do methodbyname
 		@Test
-		public void get_MethodByNameTest() { //teste para quando retorna o metodo
+		public void get_MethodByNameTest() { 
 			assertEquals(m1, c1.get_MethodByName("method_test"));
 		}
 		
 		@Test
-		public void get_MethodByNameTestFail() { //teste para quando retorna null (nome errado)
+		public void get_MethodByNameTestFail() { 
 			assertNotEquals(m1, c1.get_MethodByName("method_test_fail"));
 		}
 		
 		@Test
-		public void get_MethodByNameTestFail_2() { //teste para quando retorna null (nome errado)
+		public void get_MethodByNameTestFail_2() { 
 			assertEquals(null, c1.get_MethodByName("method_test_fail"));
 		}
 		
 		@Test
-		public void getNOM_classTest() {  //get e set
+		public void getNOM_classTest() {  
 			c1.setNOM_class(0);
 			assertEquals(0, c1.getNOM_class());
 		}	
 		
 		@Test
-		public void getLOC_classTest() {  //get e set
+		public void getLOC_classTest() {  
 			c1.setLOC_class(0);
 			assertEquals(0, c1.getLOC_class());
 		}	
 		
 		@Test
-		public void getWMC_classTest() {  //get e set
+		public void getWMC_classTest() {  
 			c1.setWMC_class(0);
 			assertEquals(0, c1.getWMC_class());
 		}
 		
 		@Test
-		public void set_NameTest() {  //get e set
+		public void set_NameTest() {  
 			c1.set_Name("test_new");
 			assertEquals("test_new", c1.getName_Class());
 		}

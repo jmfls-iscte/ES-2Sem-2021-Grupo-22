@@ -36,35 +36,6 @@ public class CodeSmellDetectionEvaluator {
 
 	private List<PackageEvaluator> packagesEvaluatorlst;
 
-	// ============================ MAIN TO BE REMOVED
-	// =====================================
-	public static void main(String[] args) {
-
-		ArrayList<Rule> rules;
-		try {
-			rules = (ArrayList<Rule>) SaveLoadRule.LoadRules("rules.txt");
-		} catch (Exception e) {
-			rules = (ArrayList<Rule>) RuleEvaluator.BASERULES();
-		}
-
-		ExcelRead excelRead = new ExcelRead("C:\\Users\\Tiago\\Desktop\\Code_Smells.xlsx", rules);
-		List<Package> packagesExcel = excelRead.ReadFile();
-
-		metrics.DirectoryGetter dirget = new DirectoryGetter();
-		dirget.SetDir("C:\\Users\\Tiago\\eclipse-workspace2\\jasml_0.10.zip_expanded");
-		dirget.FindSrc();
-		dirget.FindPackages();
-		List<Package> packages = dirget.getPackageList();
-		RuleEvaluator.runCodeSmells(rules, packages);
-
-		packages.get(0);
-
-		CodeSmellDetectionEvaluator csde = new CodeSmellDetectionEvaluator(packages, packagesExcel);
-
-	}
-	// ============================ MAIN TO BE REMOVED
-	// =====================================
-
 	public CodeSmellDetectionEvaluator(List<Package> packagesDetectionlst, List<Package> packagesExcellst) {
 		this.packagesDetectionlst = packagesDetectionlst;
 		this.packagesExcellst = packagesExcellst;
