@@ -5,7 +5,6 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -95,7 +94,7 @@ class RuleTest {
 		r3 = new Rule("name_test", "class", rule_info_3, true);
 		
 		//set r5
-		metric_5_fail = new RuleObject("NOM_CLASS", "CLASSMETRIC"); //0
+		metric_5_fail = new RuleObject("NOM_CLASS", "CLASSMETRIC"); 
 		rule_info_5.add(metric_5_fail);
 				
 	}

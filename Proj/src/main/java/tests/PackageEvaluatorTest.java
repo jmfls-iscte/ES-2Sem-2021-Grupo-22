@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import CodeSmellDetectionEvaluator.ClassEvaluator;
 import CodeSmellDetectionEvaluator.PackageEvaluator;
-import metrics.Package;
 
 class PackageEvaluatorTest {
 	
