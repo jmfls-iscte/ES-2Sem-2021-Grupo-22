@@ -21,6 +21,11 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 
+/**
+ * 
+ * This class is responsible for the gui of the imported data
+ *
+ */
 public class GuiDadosImportados extends Composite {
 	
 	ProjMainGui mainWindow;
@@ -29,9 +34,10 @@ public class GuiDadosImportados extends Composite {
 	private Tree tree;
 
 	/**
-	 * Create the composite.
-	 * @param parent
-	 * @param style
+	 * Creates the composite
+	 * @param parent the composite
+	 * @param style number
+	 * @param mainWindow the main gui window
 	 */
 	public GuiDadosImportados(Composite parent, int style,ProjMainGui mainWindow) {
 		super(parent, style);
@@ -127,6 +133,10 @@ public class GuiDadosImportados extends Composite {
 		
 	}
 	
+	/**
+	 * Updates the tree in the gui
+	 * @param packages list of packages
+	 */
 	private void updateTree(List<metrics.Package> packages) {
 		tree.removeAll();
 		if(packages!= null) {
@@ -170,6 +180,11 @@ public class GuiDadosImportados extends Composite {
 		}
 	}
 	
+	/**
+	 * Calls updateTree with the path of the project and the package list
+	 * @param projPath path of the project
+	 * @param packages list of packages
+	 */
 	protected void firstFill(String projPath,List<metrics.Package> packages) {
 		if(projPath!=null) {
 			dirProj_txt.setText(projPath);
@@ -182,6 +197,11 @@ public class GuiDadosImportados extends Composite {
 		// Disable the check that prevents subclassing of SWT components
 	}
 	
+	/**
+	 * Gets a list of rules
+	 * @param rules list of rules
+	 * @return list of rules
+	 */
 	private static List<String> getColunas(List<Rule> rules) {
 		List<String> result= new ArrayList<String>();
 		
@@ -191,6 +211,12 @@ public class GuiDadosImportados extends Composite {
 		return result;
 	}
 	
+	/**
+	 * Gets the index of the column
+	 * @param colunas list of columns names
+	 * @param title
+	 * @return the index of the column
+	 */
 	private static int getColIndex(List<String> colunas,String title) {
 		for(int i=0;i <colunas.size();i++) {
 			if(colunas.get(i).equals(title)) {

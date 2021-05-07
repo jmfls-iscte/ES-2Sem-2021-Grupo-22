@@ -21,6 +21,11 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 
+/**
+ * 
+ * This class is responsible for the gui to edit the rules
+ *
+ */
 public class GuiEditorRegras extends Composite {
 
 	ProjMainGui mainWindow;
@@ -36,10 +41,13 @@ public class GuiEditorRegras extends Composite {
 	public static String aviso;
 	public static MessageBox box;
 	Composite composite_Panel;
+	
 	/**
-	 * Create the composite.
-	 * @param parent
-	 * @param style
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
 	 */
 	public GuiEditorRegras(Composite parent, int style,ProjMainGui mainWindow) {
 		super(parent, style);
@@ -150,6 +158,10 @@ public class GuiEditorRegras extends Composite {
 			
 		});
 	}
+	
+	/**
+	 * Disposes all guis
+	 */
 	private void disposeAll() {
 		disposeSafe(metrica_criada);
 		disposeSafe(metrica_add);
@@ -157,41 +169,77 @@ public class GuiEditorRegras extends Composite {
 		disposeSafe(ver_regra);
 		disposeSafe(editar_regra);
 	}
+	
+	/**
+	 * Disposes the composite
+	 * @param composite to dispose
+	 */
 	private static void disposeSafe(Composite composite) {
 		if (composite != null) {
 			composite.dispose();
 		}
 	}
 	
+	/**
+	 * Gets the list of rule objects
+	 * @return the list of rule objects
+	 */
 	public List<RuleObject> getRuleObjects() {
 		return ruleObjects;
 	}
 	
+	
+	/**
+	 * Gets the list of rules
+	 * @return the list of rules
+	 */
 	public List<Rule> getRule() {
 		return mainWindow.getRules();
 	}
 	
+	/**
+	 * Adds a rule to the list of rule objects
+	 * @param ruleObject rule object to add
+	 */
 	public void AddToRuleObjects(RuleObject ruleObject) {
 		ruleObjects.add(ruleObject);
 	}
 	
+	/**
+	 * Sets the type of the rule
+	 * @param string rule type
+	 */
 	public void setRegraType(String string) {
 		regraType = string;
 	}
 	
+	/**
+	 * Gets the type of the rule
+	 */
 	public String getRegratype() {
 		return regraType;
 	}
 	
+	/**
+	 * Adds a rule to the list of rules
+	 * @param rule to add
+	 */
 	public void AddToRule(Rule rule) {
 		mainWindow.getRules().add(rule);
 	}
 	
+	/**
+	 * Clears rule objects
+	 */
 	public void ClearRuleObjects() {
 		ruleObjects.clear();
 		regraType = null;
 	}
 	
+	/**
+	 * Sets a waring with the given string
+	 * @param string with warning
+	 */
 	public void setAviso(String string) {
 		aviso = string;
 		box.setMessage(aviso);
@@ -203,12 +251,19 @@ public class GuiEditorRegras extends Composite {
 		// Disable the check that prevents subclassing of SWT components
 	}
 	
+	/**
+	 * Edits the rule
+	 * @param rule to edit
+	 */
 	protected void editRule(Rule rule) {
 		disposeAll();
 		editar_regra=new GuiRegraEdit(composite_Panel, SWT.None, this, rule);
 		composite_Panel.layout();
 	}
 	
+	/**
+	 * Shows the user the rules created
+	 */
 	protected void verRegras() {
 		self.disposeAll();
 		ver_regra = new Gui_editorRegras_VerRegras(composite_Panel,SWT.NONE,self);

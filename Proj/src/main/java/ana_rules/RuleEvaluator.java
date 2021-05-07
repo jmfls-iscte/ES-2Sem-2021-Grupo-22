@@ -7,8 +7,20 @@ import metrics.*;
 import metrics.Class;
 import metrics.Package;
 
+/**
+ * 
+ * Represents a rule to evaluate
+ *
+ */
 public class RuleEvaluator {
 
+	/**
+	 * Verifies if the rule is of the type class and calls auxClass
+	 * @param rule
+	 * @param classe
+	 * @return boolean based on auxClass
+	 * @throws IllegalStateException
+	 */
 	private static boolean EvalClass(Rule rule, metrics.Class classe) throws IllegalStateException {
 		if (rule.getType().equals("class")) {
 			return auxClass(rule.getInfo(), classe);
@@ -18,6 +30,12 @@ public class RuleEvaluator {
 
 	}
 
+	/**
+	 * Creates the metrics of the given class
+	 * @param rules list of rules
+	 * @param classe class
+	 * @return true if the rule is valid
+	 */
 	private static boolean auxClass(List<RuleObject> rules, metrics.Class classe) {
 		if (rules.size() == 3) {
 			int metric = ClassMetric.getMetric(ClassMetric.valueOf(rules.get(0).getInfo()), classe);
@@ -35,6 +53,13 @@ public class RuleEvaluator {
 		}
 	}
 
+	/**
+	 * Verifies if the rule is of the type method and calls auxMethod
+	 * @param rule
+	 * @param method
+	 * @return boolean based on auxMethod
+	 * @throws IllegalStateException
+	 */
 	private static boolean EvalMethod(Rule rule, metrics.Method method) {
 		if (rule.getType().equals("method")) {
 			return auxMethod(rule.getInfo(), method);
@@ -43,6 +68,12 @@ public class RuleEvaluator {
 		}
 	}
 
+	/**
+	 * Creates the metrics of the given method
+	 * @param rules list of rules
+	 * @param method
+	 * @return true if the rule is valid
+	 */
 	private static boolean auxMethod(List<RuleObject> rules, Method method) {
 		if (rules.size() == 3) {
 			int metric = MethodMetric.getMetric(MethodMetric.valueOf(rules.get(rules.size() - 3).getInfo()), method);
@@ -60,6 +91,11 @@ public class RuleEvaluator {
 		}
 	}
 
+	/**
+	 * Adds code smells to every class and method off the package list
+	 * @param allrules all rules
+	 * @param pacotes list of packages
+	 */
 	public static void runCodeSmells(List<Rule> allrules, List<Package> pacotes) {
 		List<Rule> classrule = splitRules(allrules).get(0);
 		List<Rule> methodrule =splitRules(allrules).get(1);
@@ -69,6 +105,11 @@ public class RuleEvaluator {
 		CsMethod(methodrule, methodlst);	
 	}
 
+	/**
+	 * Organizes all rules into class rules and then method rules
+	 * @param allrules all rules
+	 * @return organized list of all rules
+	 */
 	private static List<List<Rule>> splitRules(List<Rule> allrules) {
 		List<Rule> classrules = new ArrayList<Rule>();
 		List<Rule> methodrules = new ArrayList<Rule>();
@@ -85,6 +126,11 @@ public class RuleEvaluator {
 		return r;
 	}
 
+	/**
+	 * Adds a code smell to a class and a boolean if representing if the code smell is present
+	 * @param classrule class rule
+	 * @param classlst class list
+	 */
 	private static void CsClass(List<Rule> classrule, List<metrics.Class> classlst) {
 		for (metrics.Class x : classlst) {
 			for (Rule y : classrule) {
@@ -98,6 +144,11 @@ public class RuleEvaluator {
 		}
 	}
 
+	/**
+	 * Adds a code smell to a method and a boolean if representing if the code smell is present
+	 * @param methodRule method rule
+	 * @param methodlst method list
+	 */
 	private static void CsMethod(List<Rule> methodRule, List<metrics.Method> methodlst) {
 		for (metrics.Method x : methodlst) {
 			for (Rule y : methodRule) {
@@ -111,6 +162,12 @@ public class RuleEvaluator {
 		}
 	}
 
+	
+	/**
+	 * Gets all classes in a list of packages
+	 * @param pacotes list of packages
+	 * @return all classes in a list of packages
+	 */
 	private static List<metrics.Class> allClass(List<Package> pacotes){
 		List<metrics.Class> r= new ArrayList<metrics.Class>();
 		for( Package x: pacotes) {
@@ -119,6 +176,11 @@ public class RuleEvaluator {
 		return r;
 	}
 	
+	/**
+	 * Gets all methods in a list of classes
+	 * @param classes list of classes
+	 * @return all methods in a list of classes
+	 */
 	private static List<metrics.Method> allMethod(List<metrics.Class> classes){
 		List<metrics.Method> r= new ArrayList<Method>();
 		for(metrics.Class x: classes) {
@@ -127,6 +189,10 @@ public class RuleEvaluator {
 		return r;
 	}
 
+	/**
+	 * Creates the base rules
+	 * @return list of the base rules
+	 */
 	public static List<Rule> BASERULES() {
 		List<Rule> r = new ArrayList<Rule>();
 		RuleObject obj1 = new RuleObject("LOC_METHOD", "METHODMETRIC");
