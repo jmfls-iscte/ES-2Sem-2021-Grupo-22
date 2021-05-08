@@ -25,7 +25,7 @@ public class Class {
 	public Class() {
 		arrayMethods = new ArrayList<Method>();
 		code_Smells = new HashMap<String, Boolean>();
-		getCode_Smells().put("is_God_Class", null);
+		//getCode_Smells().put("is_God_Class", null);
 
 	}
 
@@ -33,7 +33,7 @@ public class Class {
 		this.name = name;
 		arrayMethods = new ArrayList<Method>();
 		code_Smells = new HashMap<String, Boolean>();
-		getCode_Smells().put("is_God_Class", null);
+		//getCode_Smells().put("is_God_Class", null);
 
 	}
 

@@ -31,12 +31,12 @@ class ClassTest {
 			
 			Assertions.assertNotNull(c1);
 			assertEquals(1, c1.getMethod_list().size());
-			assertEquals(1, c1.get_name_code_Smells().size());
+			assertEquals(0, c1.get_name_code_Smells().size());
 			
 			Assertions.assertNotNull(c2);
 			assertEquals("test", c2.getName_Class());
 			assertEquals(0, c2.getMethod_list().size());
-			assertEquals(1, c2.get_name_code_Smells().size());
+			assertEquals(0, c2.get_name_code_Smells().size());
 			
 		}
 		
@@ -127,7 +127,7 @@ class ClassTest {
 		@Test
 		public void addSmellTest() {
 			c1.addSmell("smell_test", true);
-			assertEquals(2, c1.get_name_code_Smells().size());
+			assertEquals(1, c1.get_name_code_Smells().size());
 		}
 		@Test
 		public void getCsByNameTest() {
