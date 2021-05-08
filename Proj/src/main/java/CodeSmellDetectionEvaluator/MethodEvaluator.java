@@ -32,9 +32,9 @@ public class MethodEvaluator {
 	 * @param methodEval          method to evaluate
 	 * @param codesmellsEvaluator code smell evaluator
 	 */
-	public MethodEvaluator(Method methodEval, Map<String, EvaluatorType> codesmelssEvaluator) {
+	public MethodEvaluator(Method methodEval, Map<String, EvaluatorType> codesmellsEvaluator) {
 		this.methodEval = methodEval;
-		this.setCodesmelssEvaluator(codesmelssEvaluator);
+		this.setCodesmelssEvaluator(codesmellsEvaluator);
 	}
 
 	/**

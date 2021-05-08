@@ -98,8 +98,8 @@ public class ClassEvaluator {
 	 * 
 	 * @param codesmellsEvaluator the code smell Evaluator
 	 */
-	public void setCodesmelssEvaluator(Map<String, EvaluatorType> codesmelssEvaluator) {
-		this.codesmelssEvaluator = codesmelssEvaluator;
+	public void setCodesmelssEvaluator(Map<String, EvaluatorType> codesmellsEvaluator) {
+		this.codesmelssEvaluator = codesmellsEvaluator;
 	}
 
 	/**

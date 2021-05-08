@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"CodeSmellDetectionEvaluator"},{"l":"excel"},{"l":"guiSideB"},{"l":"metrics"},{"l":"rules"}];updateSearchResults();

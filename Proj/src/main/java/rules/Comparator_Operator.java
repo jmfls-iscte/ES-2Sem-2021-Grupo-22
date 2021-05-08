@@ -36,20 +36,20 @@ public enum Comparator_Operator {
 	 * @param threshold
 	 * @return value of the comparison
 	 */
-	public static boolean compare(int metric, Comparator_Operator operator, int threshhold) {
+	public static boolean compare(int metric, Comparator_Operator operator, int threshold) {
 		switch (operator) {
 		case EQUALS:
-			return metric == threshhold;
+			return metric == threshold;
 		case NOTEQUALS:
-			return metric != threshhold;
+			return metric != threshold;
 		case GREATER:
-			return metric > threshhold;
+			return metric > threshold;
 		case LESS:
-			return metric < threshhold;
+			return metric < threshold;
 		case GREATEREQUAL:
-			return metric >= threshhold;
+			return metric >= threshold;
 		case LESSEQUAL:
-			return metric <= threshhold;
+			return metric <= threshold;
 		default:
 			return false; // unreachable code
 		}
