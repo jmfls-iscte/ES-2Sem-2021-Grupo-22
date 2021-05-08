@@ -9,6 +9,7 @@ GRUPO 22
 
 Erro 1: A deteção de métricas e codeSmells não coincide com o Excel fornecido do projeto Jasml (diferença de 10 métodos). 
 Erro 2: A avaliação de CodeSmells falha em alguns métodos (pois estão registados no exel mas nao são detetados devido ao Erro 1)
+Erro 3: Editar regras de CodeSmells tem um limite de threshold de 100. 
 
 Funcionalidade Incompleta 1: A exportação para ficheiro .xlsx não regista code smells criados pelo utilizador, ie. apenas
 			     regista os code smells is_God_Class e is_Long_Method. 
