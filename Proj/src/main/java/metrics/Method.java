@@ -24,7 +24,7 @@ public class Method {
 	 */
 	public Method() {
 		code_Smells = new HashMap<String, Boolean>();
-		getCode_Smells().put("is_Long_Method", null);
+//		getCode_Smells().put("is_Long_Method", null);
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class Method {
 	public Method(String method_name) {
 		this.name = method_name;
 		code_Smells = new HashMap<String, Boolean>();
-		getCode_Smells().put("is_Long_Method", null);
+//		getCode_Smells().put("is_Long_Method", null);
 	}
 
 	/**
