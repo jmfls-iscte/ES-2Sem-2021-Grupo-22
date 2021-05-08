@@ -22,3 +22,6 @@ JavaDocs- Proj/Docs
 Teste Unitários- Proj/src/main/java/tests
 Relatório de cobertura de testes unitários- Grupo22_JUnitTestReport.pdf
 Relatório de CodeSmells- Grupo22_RelatórioCodeSmells.pdf
+Entregável do projeto- Proj/CodeQualityAcessor.zip 
+
+como correr o programa: Fazer downwload de CodeQualityAcessor.zip, extrair para uma pasta, executar CodeQualityAcessor.jar
