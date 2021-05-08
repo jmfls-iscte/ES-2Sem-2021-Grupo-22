@@ -32,6 +32,9 @@ public class GuiDadosImportados extends Composite {
 	private Composite shell= this;
 	private Text dirProj_txt;
 	private Tree tree;
+	private Label PackageCounter;
+	private Label ClassCounter;
+	private Label MethodCounter;
 
 	/**
 	 * Creates the composite
@@ -90,9 +93,31 @@ public class GuiDadosImportados extends Composite {
 			public void mouseDown(MouseEvent e) {
 				mainWindow.runImport();
 				updateTree(mainWindow.getImportedPackages());
+				updateLabel();
 			}
 		});
-		new Label(composite, SWT.NONE);
+		
+		Composite composite_1 = new Composite(composite, SWT.NONE);
+		composite_1.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		composite_1.setLayout(new GridLayout(3, false));
+		
+		PackageCounter = new Label(composite_1, SWT.NONE);
+		GridData gd_PackageCounter = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_PackageCounter.widthHint = 69;
+		PackageCounter.setLayoutData(gd_PackageCounter);
+		PackageCounter.setText("Package: 0");
+		
+		ClassCounter = new Label(composite_1, SWT.NONE);
+		GridData gd_ClassCounter = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_ClassCounter.widthHint = 55;
+		ClassCounter.setLayoutData(gd_ClassCounter);
+		ClassCounter.setText("Class: 0");
+		
+		MethodCounter = new Label(composite_1, SWT.NONE);
+		GridData gd_MethodCounter = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_MethodCounter.widthHint = 70;
+		MethodCounter.setLayoutData(gd_MethodCounter);
+		MethodCounter.setText("Method: 0");
 		
 		tree = new Tree(this, SWT.BORDER);
 		tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -140,6 +165,7 @@ public class GuiDadosImportados extends Composite {
 	 */
 	private void updateTree(List<metrics.Package> packages) {
 		tree.removeAll();
+		
 		if(packages!= null) {
 			for (int i = 0; i < packages.size(); i++) {
 				TreeItem ti = new TreeItem(tree, SWT.NONE);
@@ -225,6 +251,23 @@ public class GuiDadosImportados extends Composite {
 			}
 		}
 		return -1;
+	}
+	/**
+	 * Updates Label Counter for Package, Class and Method
+	 */
+	private void updateLabel() {
+		int pacote= mainWindow.getImportedPackages().size();
+		int classe=0;
+		int metodo=0;
+		for(metrics.Package pkt: mainWindow.getImportedPackages()) {
+			for(metrics.Class cls: pkt.getClass_list()) {
+				classe=classe+1;
+				metodo=metodo+cls.getMethod_list().size();
+			}
+		}
+		PackageCounter.setText("Package: "+pacote);
+		ClassCounter.setText("Class: "+classe);
+		MethodCounter.setText("Method: "+metodo);
 	}
 
 }
