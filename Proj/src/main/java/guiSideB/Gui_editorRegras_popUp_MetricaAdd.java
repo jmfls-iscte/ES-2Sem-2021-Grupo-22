@@ -121,8 +121,8 @@ public class Gui_editorRegras_popUp_MetricaAdd extends Composite {
 			@Override
 			public void mouseDown(MouseEvent e) {
 
-				if (metrica_cmb.getText().isBlank() == true || optL_cmb.getText().isBlank() == true
-						|| comparador_cmb.getText().isBlank() == true || limite_txt.getText().isBlank() == true) {
+				if (metrica_cmb.getText().equals("") == true || optL_cmb.getText().equals("") == true
+						|| comparador_cmb.getText().equals("") == true || limite_txt.getText().equals("") == true) {
 
 					mainWindow.setAviso("Espaços em branco");
 

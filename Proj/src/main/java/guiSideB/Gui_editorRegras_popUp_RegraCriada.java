@@ -69,7 +69,7 @@ public class Gui_editorRegras_popUp_RegraCriada extends Composite {
 				if (mainWindow.getRuleObjects().isEmpty() == true) {
 					mainWindow.setAviso("Métrica ainda não foi criada");
 				}
-				if (regraName_txt.getText().isBlank()) {
+				if (regraName_txt.getText().equals("")) {
 					mainWindow.setAviso("Regra sem nome");
 				}
 				else {
