@@ -26,16 +26,11 @@ class ExcelReadTest {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		path = "/Users/anantunes0/Code_Smells.xlsx"; //Colocar o path do file Code_Smells_xlsx
+		path = "Code_Smells_forEval.xlsx"; //Colocar o path do file Code_Smells_xlsx
 		er = new ExcelRead(path, rules);					
 	}
 	
-	@Test
-	void testExcelRead() {
-		er = new excel.ExcelRead(rules);
-		assertNotNull(er);
-	}
-
+	
 	@Test
 	void testExcelRead2() {
 		er = new excel.ExcelRead(path, rules);

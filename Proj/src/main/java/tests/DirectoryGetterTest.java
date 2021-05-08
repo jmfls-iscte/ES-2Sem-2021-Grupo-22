@@ -24,10 +24,10 @@ class DirectoryGetterTest {
 	static File working_directory_file;
 
 	static List<Package> lst;
-	static String test = "ana_test";
+	static String test = "test";
 	
-	static String working_directory = "/Users/anantunes0/eclipse-workspace_ee/tp3";
-	static String working_directory_2 = "/Users/anantunes0/ES_directory_test_2";
+	static String working_directory = "jasml_0.10_forEval";
+	static String working_directory_2 = "images";
 	
 	private List<Package> packages_test= new ArrayList<Package>();
 
@@ -38,8 +38,8 @@ class DirectoryGetterTest {
 		dg3 = new DirectoryGetter();
 
 
-		file = new File("ana_test");
-		working_directory_file = new File("/Users/anantunes0/eclipse-workspace_ee/tp3");
+		file = new File("test");
+		working_directory_file = new File("jasml_0.10_forEval");
 
 		lst = new ArrayList<Package>();
 		

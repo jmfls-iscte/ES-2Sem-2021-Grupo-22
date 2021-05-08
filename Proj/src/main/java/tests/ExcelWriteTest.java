@@ -22,7 +22,7 @@ class ExcelWriteTest {
 	static Package p1= new Package();
 	static Class c1 = new Class();
 	static Method m1 = new Method();
-	static String path = "/Users/anantunes0/metrics.xlsx";
+	static String path = "metrics.xlsx";
 	
 	static ExcelWrite ew_2;
 
