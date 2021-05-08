@@ -21,11 +21,11 @@ class MethodTest {
 	@Test
 	public void MethodConstructorTest() {
 		Assertions.assertNotNull(m1);
-		assertEquals(1, m1.get_name_code_Smells().size());
+		assertEquals(0, m1.get_name_code_Smells().size());
 		
 		Assertions.assertNotNull(m2);
 		assertEquals("method_test", m2.getName_method());
-		assertEquals(1, m2.get_name_code_Smells().size());
+		assertEquals(0, m2.get_name_code_Smells().size());
 	}
 	
 	@Test
@@ -67,7 +67,7 @@ class MethodTest {
 	@Test
 	public void addSmellTest() {
 		m1.addSmell("smell_test", false);
-		assertEquals(2, m1.get_name_code_Smells().size());
+		assertEquals(1, m1.get_name_code_Smells().size());
 	}
 	
 	@Test

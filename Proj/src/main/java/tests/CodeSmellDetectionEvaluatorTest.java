@@ -4,7 +4,9 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,17 @@ import metrics.Method;
 import metrics.Package;
 
 class CodeSmellDetectionEvaluatorTest {
+	
+	//set package
+	static CodeSmellDetectionEvaluator csde_test;
+	static List<Package> packagesDetectionlst_test = new ArrayList<Package>();
+	static List<Package> packagesExcellst_tes = new ArrayList<Package>();
+	static Package pg_test = new Package("pg_test") ;
+	static Class c1_test = new Class("c1_test");
+	static Method m1_test = new Method("m1_test");
+	static Class c2_test = new Class("c2_test");
+	static Method m2_test = new Method("m2_test");
+
 
 	//set csde1
 	static CodeSmellDetectionEvaluator csde;
@@ -28,65 +41,58 @@ class CodeSmellDetectionEvaluatorTest {
 	static List<Package> packagesExcellst_2 = new ArrayList<Package>();
 	static Package pg1 = new Package("test"); 
 	static Package pg2 = new Package("test"); 
-	
-	//set csde3
-	static CodeSmellDetectionEvaluator csde_3;
-	static List<Package> packagesDetectionlst_3 = new ArrayList<Package>();
-	static List<Package> packagesExcellst_3 = new ArrayList<Package>();
-	static Package pg1_3 = new Package("test"); 
-	static Package pg2_3 = new Package("test"); 
-		
-	List<Class> classlst = new ArrayList<Class>();
-	Class c1 = new Class("test");
-	
-	List<Method> methodlst = new ArrayList<Method>();
-	Method m1 = new Method("test");
 
-	
-	//set csde4
-	static CodeSmellDetectionEvaluator csde_4;
-	static List<Package> packagesDetectionlst_4 = new ArrayList<Package>();
-	static List<Package> packagesExcellst_4 = new ArrayList<Package>();
-		
-	static Package pg1_4 = new Package("pg_4"); 
-	static Package pg2_4 = new Package("pg_4"); 
-		
-	static Class c2 = new Class("c2");
-	static Method m2 = new Method("m2");
-
-	static Class c3 = new Class("c3");
-	static Method m3 = new Method("m3");
-		
-	static Class c4 = new Class("c4");
-	static Class c5 = new Class("c4");
 
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception{
+		c1_test.setLOC_class(10);
+		c1_test.setNOM_class(20);
+		c1_test.setWMC_class(30);
 		
-		m2.addSmell("LOC_METHOD", true);
-		c2.addMethod(m2);
-		c2.addSmell("NOM_CLASS", false);
+		m1_test.setLOC_method(10);
+		m1_test.setCYCLO_method(20);
+		m1_test.setBegin(0);
+		m1_test.setEnd(1);
+		m1_test.addSmell("test_method", true);
+		m1_test.addSmell("test_2_method", true);
 		
-		m3.addSmell("CYCLO_METHOD", true);
-		c3.addMethod(m3);
-		c3.addSmell("LOC_CLASS", true);
+		c1_test.addMethod(m1_test);
 		
-		c4.addSmell("LOC_CLASS", false);
-		c5.addSmell("LOC_CLASS", true);
+		c1_test.addSmell("test_class", false);
+		c1_test.addSmell("test_2_class", true);
+		c1_test.addSmell("test_3_class", true);
+		
+		pg_test.addClass(c1_test);
+		 
+		c2_test.setLOC_class(10);
+		c2_test.setNOM_class(20);
+		c2_test.setWMC_class(30);
+		
+		
+		m2_test.setLOC_method(10);
+		m2_test.setCYCLO_method(20);
+		m2_test.setBegin(0);
+		m2_test.setEnd(1);
+		m2_test.addSmell("test_method", true);
+		m2_test.addSmell("test_2_method", true);
+		
+		c2_test.addMethod(m2_test);
+		
+		c2_test.addSmell("test_class", false);
+		c2_test.addSmell("test_2_class", true);
+		c2_test.addSmell("test_3_class", true);
+		
+		pg_test.addClass(c2_test);
+
+		packagesDetectionlst_test.add(pg_test);
+		packagesExcellst_tes.add(pg_test);
 	
-		pg1_4.addClass(c2);
-		pg1_4.addClass(c3);
-		pg1_4.addClass(c4);
-		pg2_4.addClass(c5);
-
-		c4.addSmell("NOM_CLASS", true);
-		c5.addSmell("NOM_CLASS", false);
-
-		pg2_4.addClass(c2);
-		pg2_4.addClass(c3);
-		pg2_4.addClass(c4);
-		pg2_4.addClass(c5);
+	}
+	
+	@Test
+	void testCodeSmellDetectionEvaluator() {
+		assertNotNull(csde_test = new CodeSmellDetectionEvaluator(packagesDetectionlst_test,packagesExcellst_tes));
 	}
 	
 	@Test
@@ -103,48 +109,52 @@ class CodeSmellDetectionEvaluatorTest {
 	}
 	
 	@Test
-	void testCodeSmellDetectionEvaluator() {
-		packagesDetectionlst_3.add(pg1_3);
-		packagesExcellst_3.add(pg1_3);
-		csde_3 = new CodeSmellDetectionEvaluator(packagesDetectionlst_3, packagesExcellst_3);	
-		assertNotNull(csde_3);
-	}
-	
-	@Test
-	void testCodeSmellDetectionEvaluator_Working() {
-		packagesDetectionlst_4.add(pg1_4);
-		packagesDetectionlst_4.add(pg1_4);
-
-		packagesExcellst_4.add(pg2_4);
-		packagesExcellst_4.add(pg2_4);
-
-		csde_4 = new CodeSmellDetectionEvaluator(packagesDetectionlst_4, packagesExcellst_4);	
-		assertNotNull(csde_4);
-		
-		assertEquals(0, csde_4.getRulesName().size());
-	}
-	
-	@Test
 	void testGetRulesName() {
-		assertEquals(0, csde_4.getRulesName().size());
+		assertEquals(5, csde_test.getRulesName().size());
 	}
+	
 	@Test
 	void testgetClassesName() {
-		assertEquals(0,csde_4.getClassesName("pg_4").size());
+		assertEquals(2,csde_test.getClassesName("pg_test").size());
 	}
 	
 	@Test
 	void testgetgetPackagesName() {
-		assertEquals(2, csde_4.getPackagesName().size());
+		assertEquals(1, csde_test.getPackagesName().size());
 	}
 	
 	@Test
 	void testGetClassificationClassRule() {
-		csde_4.getClassificationClassRule("pg_4","c3", "NOM_CLASS");
+		assertEquals(4, csde_test.getClassificationClassRule("pg_test","c2_test", "test_2_class").size());
 	}
 	
 	@Test
 	void testGetClassificationPackageRule() {
-		assertEquals(4,csde_4.getClassificationPackageRule("pg_4","NOM_CLASS").size());
+		assertEquals(4,csde_test.getClassificationPackageRule("pg_test","test_2_class").size());
 	}	
+	
+	@Test
+	void testgetClassificationRule() {
+		assertEquals(4,csde_test.getClassificationRule("test_2_class").size());
+	}
+	
+	@Test
+	void testgetClassificationClass() {
+		assertEquals(4,csde_test.getClassificationClass("pg_test", "c1_test").size());
+		assertNull(csde_test.getClassificationClass("pg_test", "error"));
+		assertNull(csde_test.getClassificationClass("error", "error"));
+	}
+	
+	@Test
+	void testgetClassificationPackage() {
+		assertEquals(4,csde_test.getClassificationPackage("pg_test").size());
+	}
+	
+	@Test
+	void testgetClassificationTotal() {
+		assertEquals(4,csde_test.getClassificationTotal().size());
+
+	}
+	
+
 }
