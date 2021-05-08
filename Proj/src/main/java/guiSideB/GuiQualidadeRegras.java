@@ -30,6 +30,11 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Combo;
 
+/**
+ * 
+ * Responsible for the gui to extract the metrics
+ *
+ */
 public class GuiQualidadeRegras extends Composite {
 	
 	ProjMainGui mainWindow;
@@ -51,11 +56,13 @@ public class GuiQualidadeRegras extends Composite {
 	private Combo ComboClass;
 	
 	private String defaultChoice=" [ALL] ";
-
+	
 	/**
-	 * Create the composite.
-	 * @param parent
-	 * @param style
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
 	 */
 	public GuiQualidadeRegras(Composite parent, int style,ProjMainGui mainWindow) {
 		super(parent, style);
@@ -398,7 +405,11 @@ public class GuiQualidadeRegras extends Composite {
 		// Disable the check that prevents subclassing of SWT components
 	}
 	
-	
+	/**
+	 * Updates the tree in the gui
+	 * 
+	 * @param packages list of packages
+	 */
 	private void updateTree(List<PackageEvaluator> packages) {
 		tree.removeAll();
 		if(packages!= null) {
@@ -440,6 +451,14 @@ public class GuiQualidadeRegras extends Composite {
 		}
 	}
 	
+	/**
+	 * Updates the matrix
+	 * 
+	 * @param rule
+	 * @param pacote package
+	 * @param classe class
+	 * @param cdse   code smell detection evaluator
+	 */
 	private void updateMatrix(String rule, String pacote,String classe,CodeSmellDetectionEvaluator cdse) {
 		Map<EvaluatorType, Integer> mapa;
 		if(!rule.equals(defaultChoice)&&!pacote.equals(defaultChoice)&&!classe.equals(defaultChoice)) {
@@ -492,7 +511,13 @@ public class GuiQualidadeRegras extends Composite {
 		}
 		
 	}
-	
+
+	/**
+	 * Gets a list of rules
+	 * 
+	 * @param rules list of rules
+	 * @return list of rules
+	 */
 	private static List<String> getColunas(List<Rule> rules) {
 		List<String> result= new ArrayList<String>();
 		
@@ -501,7 +526,14 @@ public class GuiQualidadeRegras extends Composite {
 		}
 		return result;
 	}
-	
+
+	/**
+	 * Gets the index of the column
+	 * 
+	 * @param colunas list of columns names
+	 * @param title
+	 * @return the index of the column
+	 */
 	private static int getColIndex(List<String> colunas,String title) {
 		for(int i=0;i <colunas.size();i++) {
 			if(colunas.get(i).equals(title)) {
@@ -510,7 +542,12 @@ public class GuiQualidadeRegras extends Composite {
 		}
 		return -1;
 	}
-	
+
+	/**
+	 * Sets the default layout
+	 * 
+	 * @return the default layout
+	 */
 	protected GridData defaultLayout() {
 		GridData gridData = new GridData();
 		gridData.grabExcessVerticalSpace = true;
@@ -519,7 +556,12 @@ public class GuiQualidadeRegras extends Composite {
 		return gridData;
 
 	}
-	
+
+	/**
+	 * Calls updateMatrix and fills comboBox
+	 * 
+	 * @param cdse code smell detection evaluator
+	 */
 	protected void firstFill(CodeSmellDetectionEvaluator cdse) {
 		if(cdse!=null) {
 			updateMatrix(defaultChoice, defaultChoice, defaultChoice, cdse);
@@ -531,6 +573,12 @@ public class GuiQualidadeRegras extends Composite {
 		}
 	}
 	
+	/**
+	 * Fills the comboBox
+	 * 
+	 * @param comboBox to fill
+	 * @param options  list of the options
+	 */
 	private void fillCombo(Combo comboBox,List<String> options) {
 		String[] result=new String[options.size()+1];
 		result[0]=defaultChoice;
@@ -541,17 +589,26 @@ public class GuiQualidadeRegras extends Composite {
 		comboBox.select(0);
 	}
 	
+	/***
+	 * Disables comboBox
+	 */
 	private void disableCombo() {
 		ComboClass.setEnabled(false);
 		ComboPackage.setEnabled(false);
 		ComboRule.setEnabled(false);
 	}
-	
+
+	/**
+	 * Enables the ComboBox
+	 */
 	private void enableCombo() {
 		ComboPackage.setEnabled(true);
 		ComboRule.setEnabled(true);
 	}
 	
+	/**
+	 * Calls updateMatrix with the code smell detection evaluator
+	 */
 	private void runFilter() {
 		if(mainWindow.getCsde()!=null) {
 			String rule=ComboRule.getText();

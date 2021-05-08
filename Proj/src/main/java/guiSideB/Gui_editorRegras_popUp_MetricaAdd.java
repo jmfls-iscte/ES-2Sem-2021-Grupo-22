@@ -24,12 +24,25 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
+/**
+ * 
+ * Responsible for the gui to generate a pop up when a metric is
+ * added
+ *
+ */
 public class Gui_editorRegras_popUp_MetricaAdd extends Composite {
 
 	private Composite shell = this;
 	GuiEditorRegras mainWindow;
 	private Text limite_txt;
 
+	/**
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
+	 */
 	public Gui_editorRegras_popUp_MetricaAdd(Composite parent, int style, GuiEditorRegras mainWindow) {
 		super(parent, style);
 		this.mainWindow = mainWindow;

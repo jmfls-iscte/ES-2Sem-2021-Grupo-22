@@ -10,14 +10,21 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Tree;
 
+/**
+ * 
+ * Responsible for the gui to export data
+ *
+ */
 public class GuiExportarDados extends Composite {
 	
 	ProjMainGui mainWindow;
 
 	/**
-	 * Create the composite.
-	 * @param parent
-	 * @param style
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
 	 */
 	public GuiExportarDados(Composite parent, int style,ProjMainGui mainWindow) {
 		super(parent, style);

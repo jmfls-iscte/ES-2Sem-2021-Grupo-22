@@ -29,6 +29,12 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+/**
+ * 
+ * Responsible for the gui to generate a pop up when a metric is
+ * created
+ *
+ */
 public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 
 	private Composite shell= this;
@@ -39,7 +45,13 @@ public class Gui_editorRegras_popUp_MetricaCriada extends Composite {
 //	private String[] teste;
 	
 
-
+	/**
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
+	 */
 	public Gui_editorRegras_popUp_MetricaCriada(Composite parent, int style, GuiEditorRegras mainWindow) {
 		super(parent, style);
 		this.mainWindow = mainWindow;

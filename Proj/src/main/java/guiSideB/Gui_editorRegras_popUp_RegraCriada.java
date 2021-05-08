@@ -22,12 +22,26 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
+
+/**
+ * 
+ * Responsible for the gui to generate a pop up when a rule is
+ * created
+ *
+ */
 public class Gui_editorRegras_popUp_RegraCriada extends Composite {
 	
 	private Composite shell= this;
 	GuiEditorRegras mainWindow;
 	private Text regraName_txt;
 
+	/**
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
+	 */
 	public Gui_editorRegras_popUp_RegraCriada(Composite parent, int style, GuiEditorRegras mainWindow) {
 		super(parent, style);
 		this.mainWindow = mainWindow;
@@ -83,6 +97,12 @@ public class Gui_editorRegras_popUp_RegraCriada extends Composite {
 		// Disable the check that prevents subclassing of SWT components
 	}
 	
+	/**
+	 * Copies a arrayList of rule objects
+	 * 
+	 * @param destino destiny arrayList
+	 * @param origem  arrayList of origin
+	 */
 	private static void copyArray(ArrayList<RuleObject> destino, List<RuleObject> origem ) {
 		for (RuleObject object : origem) {
 			destino.add(object);
