@@ -44,7 +44,10 @@ public class GuiExtracaoMetricas extends Composite {
 	private Tree tree;
 	private Text text;
 	private Text exportPath;
-	Button exportButton;
+	private Button exportButton;
+	private Label PackageCounter;
+	private Label ClassCounter;
+	private Label MethodCounter;
 	
 	/**
 	 * Creates the composite
@@ -101,9 +104,31 @@ public class GuiExtracaoMetricas extends Composite {
 			public void mouseDown(MouseEvent e) {
 				mainWindow.runMetrics();
 				updateTree(mainWindow.getPackages());
+				updateLabel();
 			}
 		});
-		new Label(composite, SWT.NONE);
+		
+		Composite composite_2 = new Composite(composite, SWT.NONE);
+		composite_2.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, false, false, 1, 1));
+		composite_2.setLayout(new GridLayout(3, false));
+		
+		PackageCounter = new Label(composite_2, SWT.NONE);
+		GridData gd_PackageCounter = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_PackageCounter.widthHint = 68;
+		PackageCounter.setLayoutData(gd_PackageCounter);
+		PackageCounter.setText("Package: 0");
+		
+		ClassCounter = new Label(composite_2, SWT.NONE);
+		GridData gd_ClassCounter = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_ClassCounter.widthHint = 61;
+		ClassCounter.setLayoutData(gd_ClassCounter);
+		ClassCounter.setText("Classe: 0");
+		
+		MethodCounter = new Label(composite_2, SWT.NONE);
+		GridData gd_MethodCounter = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_MethodCounter.widthHint = 70;
+		MethodCounter.setLayoutData(gd_MethodCounter);
+		MethodCounter.setText("Method: 0");
 		
 		tree = new Tree(this, SWT.BORDER);
 		tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
@@ -253,6 +278,7 @@ public class GuiExtracaoMetricas extends Composite {
 			dirProj_txt.setText(projPath);
 		}if(packages!=null) {
 			updateTree(packages);
+			updateLabel();
 			exportSetVisible();
 		}else {
 			exportSetInvisible();
@@ -335,5 +361,23 @@ public class GuiExtracaoMetricas extends Composite {
         messageBox.setMessage("Exportação concluida com sucesso");
         messageBox.open();
 		
+	}
+	
+	/**
+	 * Updates Label Counter for Package, Class and Method
+	 */
+	private void updateLabel() {
+		int pacote= mainWindow.getPackages().size();
+		int classe=0;
+		int metodo=0;
+		for(metrics.Package pkt: mainWindow.getPackages()) {
+			for(metrics.Class cls: pkt.getClass_list()) {
+				classe=classe+1;
+				metodo=metodo+cls.getMethod_list().size();
+			}
+		}
+		PackageCounter.setText("Package: "+pacote);
+		ClassCounter.setText("Class: "+classe);
+		MethodCounter.setText("Method: "+metodo);
 	}
 }
