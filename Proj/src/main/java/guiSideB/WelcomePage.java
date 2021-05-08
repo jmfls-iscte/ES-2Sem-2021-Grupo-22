@@ -22,15 +22,22 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.widgets.Link;
 
+/**
+ * 
+ * Responsible for the gui of the welcome page
+ *
+ */
 public class WelcomePage extends Composite{
 
 	ProjMainGui mainWindow;
 	private Composite shell= this;
 
 	/**
-	 * Create the composite.
-	 * @param parent
-	 * @param style
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
 	 */
 	public WelcomePage(Composite parent, int style,ProjMainGui mainWindow) {
 		super(parent, style);

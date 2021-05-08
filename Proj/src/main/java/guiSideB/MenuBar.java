@@ -13,7 +13,11 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-
+/**
+ * 
+ * Responsible for the gui's menu bar
+ *
+ */
 public class MenuBar extends Composite {
 //	
 	ProjMainGui mainWindow;
@@ -24,9 +28,11 @@ public class MenuBar extends Composite {
 	private Label lblNewLabel;
 
 	/**
-	 * Create the composite.
-	 * @param parent
-	 * @param style
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
 	 */
 	public MenuBar(Composite parent, int style,ProjMainGui mainWindow) {
 		super(parent, style);
@@ -141,6 +147,9 @@ public class MenuBar extends Composite {
 		// Disable the check that prevents subclassing of SWT components
 	}
 
+	/**
+	 * Resets the buttons
+	 */
 	private void resetButtons() {
 		btnNewButton.setSelection(false);
 		btnNewButton_1.setSelection(false);

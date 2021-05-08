@@ -9,12 +9,21 @@ import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.stmt.SwitchEntry;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
+/**
+ * Reads a java file to create a {@link Method}
+ */
 public class MethodParser extends VoidVisitorAdapter<Void> {
 
 	private CompilationUnit cu;
 	private int CYCLO_method = 0;
 	private ArrayList<Method> methods = new ArrayList<Method>();
-
+	
+	/**
+	 * This method reads a java file to create a {@link Method}
+	 * 
+	 * @param md  the CompilationUnit
+	 * @param arg arguments
+	 */
 	@Override
 	public void visit(MethodDeclaration md, Void arg) {
 		super.visit(md, arg);
@@ -32,6 +41,11 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 		methods.add(method);
 	}
 
+	/**
+	 * Gets the name of the method with the parameters
+	 * @param md method declaration
+	 * @return the name of the method with the parameters
+	 */
 	private String getNameString(MethodDeclaration md) {
 		String s = md.getName().toString();
 		if (md.getParameters().size() == 0)
@@ -52,6 +66,12 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 		return s;
 	}
 
+	/**
+	 * This method goes through the method in the java file to count the number of
+	 * cycles
+	 * 
+	 * @param stmt a list of statements
+	 */
 	public void loop(List<Statement> stmt){
 		for (int i = 0; i < stmt.size(); i++) {
 			if (stmt.get(i).isWhileStmt()) {
@@ -118,19 +138,39 @@ public class MethodParser extends VoidVisitorAdapter<Void> {
 			}
 		}
 	}
-
+	
+	/**
+	 * Gets an ArrayList of methods in java file
+	 * 
+	 * @return an ArrayList of methods
+	 */
 	public ArrayList<Method> getMethods() {
 		return methods;
 	}
 
+	/**
+	 * Gets the CompilationUnit
+	 * 
+	 * @return the CompilationUnit
+	 */
 	public CompilationUnit getCu() {
 		return cu;
 	}
 
+	/**
+	 * Sets the CompilationUnit
+	 * 
+	 * @param cu the CompilationUnit
+	 */
 	public void setCu(CompilationUnit cu) {
 		this.cu = cu;
 	}
 
+	/**
+	 * Gets the number of cycles in the method
+	 * 
+	 * @return the number of cycles in the method
+	 */
 	public int getCYCLO_method() {
 		return CYCLO_method;
 	}

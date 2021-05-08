@@ -11,12 +11,21 @@ import rules.RuleObject;
 
 import org.eclipse.swt.layout.GridData;
 
+/**
+ * 
+ * Responsible for the gui to edit the rule objects
+ */
 public class RuleObjectEdit extends Composite {
 
 	/**
-	 * Create the composite.
-	 * @param parent
-	 * @param style
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
+	 * @param metric
+	 * @param comparator
+	 * @param threshold
 	 */
 	private RuleObject metric;
 	private RuleObject comparator;
@@ -49,15 +58,30 @@ public class RuleObjectEdit extends Composite {
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
-	
+
+	/**
+	 * Checks if the threshold value was edited
+	 * 
+	 * @return true if the threshold value was edited
+	 */
 	protected Boolean isEdited() {
 		return thresholdlbl.getSelection()!=Integer.parseInt(getThreshold().getInfo());
 	}
-	
+
+	/**
+	 * Gets the new object info
+	 * 
+	 * @return the new object info
+	 */
 	protected RuleObject newObjectInfo() {
 		return new RuleObject(String.valueOf(thresholdlbl.getSelection()),threshold.getLabel().toString());
 	}
 
+	/**
+	 * Gets the threshold
+	 * 
+	 * @return the threshold
+	 */
 	protected RuleObject getThreshold() {
 		return threshold;
 	}

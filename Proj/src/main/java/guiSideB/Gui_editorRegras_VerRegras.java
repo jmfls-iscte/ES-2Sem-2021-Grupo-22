@@ -28,6 +28,11 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
+/**
+ * 
+ * Responsible for the gui to show the user the rules created
+ *
+ */
 public class Gui_editorRegras_VerRegras extends Composite {
 
 	private Composite shell= this;
@@ -37,7 +42,13 @@ public class Gui_editorRegras_VerRegras extends Composite {
 	private Button remove;
 	TableColumn tblclmnRegraName;
 
-
+	/**
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
+	 */
 	public Gui_editorRegras_VerRegras(Composite parent, int style,GuiEditorRegras mainWindow) {
 		super(parent, style);
 		this.mainWindow = mainWindow;
@@ -137,6 +148,12 @@ public class Gui_editorRegras_VerRegras extends Composite {
 		updateTree(mainWindow.getRule());
 		
 	}
+	
+	/**
+	 * Updates the tree in the gui
+	 * 
+	 * @param arrayRules list of rules
+	 */
 	private void updateTree(List<Rule> arrayRules) {
 		table.removeAll();
 		if(arrayRules != null) {
@@ -155,16 +172,27 @@ public class Gui_editorRegras_VerRegras extends Composite {
 		// Disable the check that prevents subclassing of SWT components
 	}
 	
+
+	/**
+	 * Enables buttons to edit and remove rules
+	 */
 	private void enableButtons() {
 		edit.setEnabled(true);
 		remove.setEnabled(true);
 	}
 	
+	/**
+	 * Disables buttons to edit and remove rules
+	 */
 	private void disableButtons() {
 		edit.setEnabled(false);
 		remove.setEnabled(false);
 	}
 	
+
+	/**
+	 * Gets the selected rule
+	 */
 	private String selectedRule() {
 		int index=table.getSelectionIndex();
 		String rulename=table.getItem(index).getText(0);

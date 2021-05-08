@@ -9,12 +9,21 @@ import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.ast.stmt.SwitchEntry;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
+/**
+ * This method reads a java file to create a {@link Method}
+ */
 public class ConstructorParser extends VoidVisitorAdapter<Void> {
 
 	private CompilationUnit cu;
 	private int CYCLO_constructor = 0;
 	private ArrayList<Method> methods = new ArrayList<Method>();
 
+	/**
+	 * This method reads a java file to create a {@link Method}
+	 * 
+	 * @param md  the CompilationUnit
+	 * @param arg arguments
+	 */
 	@Override
 	public void visit(ConstructorDeclaration md, Void arg) {
 		super.visit(md, arg);
@@ -33,6 +42,12 @@ public class ConstructorParser extends VoidVisitorAdapter<Void> {
 		methods.add(method);
 	}
 
+	/**
+	 * This method goes through the method in the java file to count the number of
+	 * cycles
+	 * 
+	 * @param stmt a list of statements
+	 */
 	private String getNameString(ConstructorDeclaration md) {
 		String s = md.getName().toString();
 		if (md.getParameters().size() == 0)
@@ -52,6 +67,12 @@ public class ConstructorParser extends VoidVisitorAdapter<Void> {
 		return s;
 	}
 
+	/**
+	 * Goes through the method in the java file to count the number of
+	 * cycles
+	 * 
+	 * @param stmt a list of statements
+	 */
 	public void loop(List<Statement> stmt) {
 		for (int i = 0; i < stmt.size(); i++) {
 			if (stmt.get(i).isWhileStmt()) {
@@ -119,18 +140,38 @@ public class ConstructorParser extends VoidVisitorAdapter<Void> {
 		}
 	}
 
+	/**
+	 * Gets an ArrayList of methods in java file
+	 * 
+	 * @return an ArrayList of methods
+	 */
 	public ArrayList<Method> getMethods() {
 		return methods;
 	}
 
+	/**
+	 * Gets the CompilationUnit
+	 * 
+	 * @return the CompilationUnit
+	 */
 	public CompilationUnit getCu() {
 		return cu;
 	}
-
+	
+	/**
+	 * Sets the CompilationUnit
+	 * 
+	 * @param cu the CompilationUnit
+	 */
 	public void setCu(CompilationUnit cu) {
 		this.cu = cu;
 	}
 
+	/**
+	 * Gets the number of cycles in the constructor
+	 * 
+	 * @return the number of cycles in the constructor
+	 */
 	public int getCYCLO_constructor() {
 		return CYCLO_constructor;
 	}

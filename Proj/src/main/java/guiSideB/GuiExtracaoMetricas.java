@@ -30,6 +30,12 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+
+/**
+ * 
+ * Responsible for the gui to extract the metrics
+ *
+ */
 public class GuiExtracaoMetricas extends Composite {
 	
 	ProjMainGui mainWindow;
@@ -39,11 +45,13 @@ public class GuiExtracaoMetricas extends Composite {
 	private Text text;
 	private Text exportPath;
 	Button exportButton;
-
+	
 	/**
-	 * Create the composite.
-	 * @param parent
-	 * @param style
+	 * Creates the composite
+	 * 
+	 * @param parent     the composite
+	 * @param style      number
+	 * @param mainWindow the main gui window
 	 */
 	public GuiExtracaoMetricas(Composite parent, int style,ProjMainGui mainWindow) {
 		super(parent, style);
@@ -187,11 +195,13 @@ public class GuiExtracaoMetricas extends Composite {
 		exportPath = new Text(composite_1, SWT.BORDER);
 		exportPath.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
-		
-		
-		
 	}
 	
+	/**
+	 * Updates the tree in the gui
+	 * 
+	 * @param packages list of packages
+	 */
 	private void updateTree(List<metrics.Package> packages) {
 		tree.removeAll();
 		if(packages!= null) {
@@ -231,6 +241,13 @@ public class GuiExtracaoMetricas extends Composite {
 		}
 	}
 	
+
+	/**
+	 * Calls updateTree with the path of the project and the package list
+	 * 
+	 * @param projPath path of the project
+	 * @param packages list of packages
+	 */
 	protected void firstFill(String projPath,List<metrics.Package> packages) {
 		if(projPath!=null) {
 			dirProj_txt.setText(projPath);
@@ -241,16 +258,28 @@ public class GuiExtracaoMetricas extends Composite {
 			exportSetInvisible();
 		}
 	}
-	
+
+	/**
+	 * Sets import buttons visible
+	 */
 	protected void exportSetVisible() {
 		exportButton.setEnabled(true);
 		exportPath.setEnabled(true);
 	}
+
+	/**
+	 * Sets import buttons visible
+	 */
 	protected void exportSetInvisible() {
 		exportButton.setEnabled(false);
 		exportPath.setEnabled(false);
 	}
 	
+	/**
+	 * Calls excelWrite
+	 * 
+	 * @param filePath path of the file
+	 */
 	protected void excelExport(String filePath) {
 		ExcelWrite excelWrite= new ExcelWrite();
 		try {
@@ -260,7 +289,13 @@ public class GuiExtracaoMetricas extends Composite {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Gets a list of rules
+	 * 
+	 * @param rules list of rules
+	 * @return list of rules
+	 */
 	private static List<String> getColunas(List<Rule> rules) {
 		List<String> result= new ArrayList<String>();
 		
@@ -269,7 +304,14 @@ public class GuiExtracaoMetricas extends Composite {
 		}
 		return result;
 	}
-	
+
+	/**
+	 * Gets the index of the column
+	 * 
+	 * @param colunas list of columns names
+	 * @param title.
+	 * @return the index of the column
+	 */
 	private static int getColIndex(List<String> colunas,String title) {
 		for(int i=0;i <colunas.size();i++) {
 			if(colunas.get(i).equals(title)) {
@@ -283,7 +325,10 @@ public class GuiExtracaoMetricas extends Composite {
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
 	}
-	
+
+	/**
+	 * Opens a success message
+	 */
 	private void successMessage() {
 		MessageBox messageBox = new MessageBox(mainWindow.getShell(), SWT.ICON_INFORMATION| SWT.OK);
     	messageBox.setText("Exportação");
